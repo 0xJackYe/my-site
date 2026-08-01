@@ -336,6 +336,9 @@
   body.article-reader .article-list { gap: 0; }
   body.article-reader .article-back-link { display: inline-flex; }
   body.article-reader .article-content { display: block; }
+  body.article-reader .article-content[data-article-lang] { display: none; }
+  html[data-lang="en"] body.article-reader .article-content[data-article-lang="en"],
+  html[data-lang="zh"] body.article-reader .article-content[data-article-lang="zh"] { display: block; }
 
   .article-content h3 {
     margin: 30px 0 12px;
@@ -747,6 +750,56 @@
   <section class="view" id="articles" aria-labelledby="articles-title" hidden>
     <h1 class="page-title" id="articles-title" data-en="Articles" data-zh="文章">Articles</h1>
     <div class="article-list">
+      <article class="article-entry" data-article="what-is-bitcoin">
+        <a class="article-back-link" href="./#articles" data-en="Back to articles" data-zh="返回文章列表">Back to articles</a>
+        <header class="article-header">
+          <h2 data-en="What Is Bitcoin?" data-zh="什么是比特币？">What Is Bitcoin?</h2>
+          <time datetime="2026-08-01">2026.08.01</time>
+        </header>
+        <div class="article-preview">
+          <p data-en="A plain-language explanation of Bitcoin as a distributed ledger, how mining and confirmations work, how miners, developers and users keep one another in check, and why scarcity, self-custody and volatility matter." data-zh="从分布式账本、区块与挖矿，到矿工、开发者和用户之间的权力制衡，解释比特币为何安全、稀缺、难以冻结，以及应如何看待它的价格波动。">A plain-language explanation of Bitcoin as a distributed ledger, how mining and confirmations work, how miners, developers and users keep one another in check, and why scarcity, self-custody and volatility matter.</p>
+          <a class="article-read-link" href="?article=what-is-bitcoin#articles" data-en="Read full article" data-zh="阅读全文">Read full article</a>
+        </div>
+        <div class="article-content" data-article-lang="en" lang="en">
+          <p>Bitcoin can seem mysterious. One bitcoin is already worth tens of thousands of dollars, and it is familiar to many institutions and investors, yet very few people understand how it actually works. Most people are still puzzled by why it costs so much. Some even think it was invented as a scam or a Ponzi scheme. I see it as a utopian company created by a vast number of equal "employees." It offers a one-of-a-kind currency and an entirely new way to save. I believe that even a complete beginner can understand what Bitcoin really is after reading this article.</p>
+
+          <p>Put simply, Bitcoin is a distributed ledger. Traditional bookkeeping is usually handled by one person or a small number of institutions, separate entities such as banks and securities firms. That creates serious trust problems: companies can falsify their accounts, and banks can refuse to honor people's deposits. A few years ago, a township bank in Henan refused to recognize its customers' deposits. Residents who went to demand their money back were even beaten. Bitcoin does not have this problem. Every miner on the network helps maintain the ledger. If one miner's copy differs from everyone else's, the network identifies it as a malicious node and rejects it. This is how the network protects its credibility.</p>
+
+          <p>The Bitcoin network consists of blocks linked together in a chain, which is the blockchain most people have heard of. Each block records transaction data. If A sends B one BTC, for example, that transaction is written into a block. A block can hold roughly 4,000 transactions. As of August 1, 2026, the number of blocks is approaching one million. "Mining" is tied directly to these blocks. Bitcoin miners use their computers to work out the hash, a kind of character string, for the next block. The first miner to get it right earns the right to record that block. The electricity used in mining scales with the number of miners. Tens of thousands of miners now operate around the world, making an attack extremely expensive and helping keep Bitcoin secure. Mining difficulty also adjusts as the number of miners changes, keeping the average time between blocks at about ten minutes. A transfer usually takes around 20 to 30 minutes because most institutions and applications consider a transaction safe only after at least three confirmations. Once a miner includes a transaction in a block, each new block counts as one confirmation. Users choose their own transaction fees, and miners give priority to transactions that pay more.</p>
+
+          <p>Besides miners, the Bitcoin network has two other roles: developers and users. Developers are the core group responsible for maintaining the security of the network. They put forward ideas in the community, and an idea is added to the project only after community members agree on it. Most ideas never make it that far. Bitcoin is a system with a huge number of users. Constant updates would make the network less stable, and both developers and users are bound to disagree. The wishes of one group cannot simply override everyone else's.</p>
+
+          <p>In fact, you can count the major updates in Bitcoin's history on one hand: Segregated Witness around 2015, the Lightning Network in 2016, and the Bitcoin Cash fork, known as BCH, in 2017. Each had a practical purpose. Segregated Witness was designed to save space in each block. A block used to be limited to 1 MB, and the update increased its effective capacity. The Lightning Network makes small payments faster and allows them to settle almost instantly. BCH came out of a disagreement within the community. Some people thought blocks were too small and transactions too slow, so they wanted to fork a new coin with 4 MB blocks. Others believed that larger blocks would reduce decentralization.</p>
+
+          <p>Users are the final participants in the Bitcoin ecosystem. They decide whether to buy and use bitcoin. If the number of miners falls and the network becomes less secure, users can refuse to use it, while developers can look for ways to improve the network. If developers were captured by big capital and changed the rules to favor the powerful, miners could refuse to mine and users could stop buying, causing the price to fall. A falling price would also make hackers less interested in attacking the network. Few people would take on that much work for so little reward. Miners, developers, and users therefore form a subtle separation of powers. Bitcoin will not disappear simply because one of these groups collapses.</p>
+
+          <p>More importantly, Bitcoin's total supply is capped at 21 million by its code. No person or institution has the authority to issue more. That makes it an almost perfect currency. Anyone familiar with the monetary history of different countries can appreciate how precious that is: the Gold Yuan notes issued by the Republic of China government a century ago, the modern Turkish lira, and the Iranian rial, whose exchange rate recently collapsed because of the war between the United States and Iran. I could spend an entire day listing currencies that have suffered similar collapses throughout history.</p>
+
+          <p>As long as you keep your bitcoin secure, no third party or institution can freeze it. This stands in sharp contrast to the heavy-handed behavior of some banks. If a modern bank suspects that an account contains questionable transactions, freezing it is easy. That can protect users, but it can also cause a great deal of inconvenience.</p>
+
+          <p>One last thing is Bitcoin's price volatility. Its trading is not subject to any controls, so the price can move violently. On some days, it swings by more than 10 percent. Anyone who wants to invest in bitcoin needs to control their position size, or it may be bad for the heart. I do not think the volatility matters very much. Stretch out the price chart of almost any asset and you will find that none has escaped major swings. Both the Nasdaq and the S&amp;P 500 have suffered drawdowns of more than 70 percent. Many investors call Bitcoin risky while also betting that supposedly stable assets will never run into trouble. Bitcoin's high volatility is a good thing because it creates a naturally antifragile structure: repeated small losses help prevent a much larger loss in the future. For more on antifragility, I recommend Nassim Nicholas Taleb's <em>Antifragile</em>. It is an important book for any investor.</p>
+        </div>
+        <div class="article-content" data-article-lang="zh" lang="zh-CN">
+          <p>比特币这个东西似乎很神秘。虽然价格已经达到几万美元一颗了，并且很多机构和投资者都知道它，但是了解它原理的人却很少。大部分人对它为什么这么贵还是一头雾水，甚至觉得它被发明出来就是为了诈骗和庞氏骗局。我个人认为它是由众多平等的员工创造出的一个乌托邦公司，提供了一种独一无二的货币，并且是全新的储蓄方式，通过我写的这篇文章，我相信即使是一个新手也能理解比特币到底是个什么东西。</p>
+
+          <p>简单来说比特币是一个分布式账本。传统的记账通常是一个人或者一些机构，这些一般都是独立的个体，比如银行、证券公司等。这就导致了很多信任问题：公司财务造假，银行不兑现居民存款；前几年河南某乡镇银行就出现了不承认用户存款的问题，居民去讨债甚至还遭到殴打了。而比特币就不会有这个问题，它是由网络上所有矿工共同记账的，只要其中一个矿工的账本和其他人不一样那就会被识别成恶意节点而被踢出，这样就能保证整个网络的信用。</p>
+
+          <p>比特币的网络是由区块组成的，由链串在一起，这样就构成了大家熟知的区块链。每个区块都用来记载交易数据，比如A转给B 1个BTC，这个交易数据就会写在区块上，一个区块大概能存4000条交易。截至目前（2026年8月1日）区块数已经快达到100万个了。大家知道的“挖矿”就和区块有关，比特币的所有矿工都在用自己的计算机算出下一个区块的哈希值（一种字符串）是什么，第一个算对的矿工就有了记账权。“挖矿”期间消耗的电力和矿工数量成正比，现在全球有数万个矿工同时挖矿，这就使得黑客攻击的成本极高，保证了比特币的安全。挖矿难度也会随着矿工人数动态调整，使得平均出块时间控制在10分钟左右。而每笔转账的时间大概在20-30分钟，因为大部分机构和应用认为一笔交易至少要经过三次确认才是安全的（矿工打包交易后，每出一个区块视为一次交易确认）。交易手续费由用户自己设定，矿工会优先打包手续费高的交易。</p>
+
+          <p>比特币网络中除了矿工之外，还有另外两个角色：开发者和用户。先说程序员，这个群体是维护整个网络安全的核心角色，他们负责在社区里提出idea，在社区成员一致同意后更新到项目中。当然大部分idea都没有实现，因为比特币是一个用户量很庞大的系统，如果动不动就提交一个更新那网络的稳定性就不能保证了，而且开发者也好用户也好，很容易产生分歧，不能为了一部分用户的想法忽略另一部分。</p>
+
+          <p>其实历史上比较大的更新一只手都数的过来，2015年左右的隔离见证、2016的闪电网络、还有2017的比特现金（Bitcoin Cash，简称BCH）分叉。而且这几个更新都是具有实用性的，隔离见证是为了节省每个区块（Block）的空间，过去一个区块只有1MB，这个更新之后提高了有效容量；闪电网络的用处是提高小额支付的速度，实现即时结算的效果；而BCH是因为社区内意见不合，当时有些人认为区块空间不够，导致交易速度慢，所以想分叉出一个新的币（BCH每个区块空间为4MB），但是另外有些人又觉得这降低了去中心化的程度。</p>
+
+          <p>用户则是比特币生态的终端角色，他们可以选择是否购买和使用比特币。如果因为某些情况使矿工数量减少，导致了比特币网络的安全性减弱，用户有权利拒绝使用它，开发者也可以想办法优化网络；如果开发者被大资本控制，为了利益更新了有利于权贵的一些规则，那么矿工可以拒绝挖矿，用户也可以拒绝购买从而导致比价下跌。并且在这期间，价格下跌了也会打消黑客攻击网络的想法，毕竟没人会做这种吃力不讨好的事情。从这些现象我们可以看到，矿工、开发者、用户这三者构成了一种三权分立的微妙关系，比特币不会因为其中一个群体的崩溃而消亡。</p>
+
+          <p>更关键的是，比特币的总量被限制在了2100万枚，这是由代码规定的，任何人、任何机构都没有权力增发。这也使它成为了一个近乎完美的货币。如果你了解世界上一些国家的货币史，你就会体会到这是何等珍贵的一种货币，远到一百年前中华民国政府发布的金圆券、现代的土耳其里拉、还有近期因为美伊战争汇率崩盘的伊朗里亚尔。如果要我一一列举历史上诸如此类汇率暴跌的货币恐怕一整天也写不完。</p>
+
+          <p>还有，只要你个人保管得当，没有任何第三方人和机构能冻结你的比特币。这就和一些银行的流氓行为形成鲜明对比，现代银行如果怀疑你的账户上有可疑交易，想冻结那是轻而易举的事情，虽然这对用户的安全有好处，但有时候还是会造成很多不便。</p>
+
+          <p>最后，我想提一嘴比特币的价格波动。因为它的交易没有任何管制，这就导致了它的价格起伏非常剧烈，有时候甚至日内波动能达到10%以上，所以想投资比特币的人一定要控制好自己的仓位，否则对自己的心脏不太好。我个人认为它的价格波动不是一件重要的事，你可以试着把所有资产的价格曲线拉长，没有一个是没经历过大波动的。纳指也好，标普500也好，最多也跌出70%以上的跌幅。很多投资者认为比特币风险高，但他们同时也在赌那些稳定性资产不会出问题。比特币的高波动性是一件好事，因为它形成了一个天然的反脆弱结构，通过连续的小损失避免了未来的大损失。关于“反脆弱”这个概念我推荐看纳西姆塔勒布的《反脆弱》，这对投资者来说绝对是一本很重要的书。</p>
+        </div>
+      </article>
+
       <article class="article-entry" data-article="focus-experiment">
         <a class="article-back-link" href="./#articles" data-en="Back to articles" data-zh="返回文章列表">Back to articles</a>
         <header class="article-header">
@@ -1011,13 +1064,6 @@
           </ol>
           <p>备考雅思最重要的是执行力。开始行动，并持续完成每天的学习任务，往往比不断寻找新的资料和技巧更有效。</p>
         </div>
-      </article>
-
-      <article class="article-entry article-title-only">
-        <header class="article-header">
-          <h2>什么是比特币？</h2>
-          <time datetime="2026-07-16">2026.07.16</time>
-        </header>
       </article>
 
       <article class="article-entry article-title-only">
