@@ -33,7 +33,7 @@ The experiment covered routine practice and preparation for the real exam. I use
 | 07.01 | No combination | 0 | 0 | 7.0 | 7.0 |
 | 07.03 (real exam) | Combination | 2 capsules | 2 capsules | 7.5 | 7.5 |
 
-![IELTS reading and listening scores with and without L-theanine and guarana](../assets/focus-experiment-chart.png)
+![IELTS reading and listening scores with and without L-theanine and guarana](../assets/focus-experiment-chart-en.png)
 
 ## 3. Results
 
