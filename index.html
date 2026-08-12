@@ -238,6 +238,103 @@
     font-weight: 700;
   }
 
+  /* Capabilities */
+  .skills-intro {
+    max-width: 800px;
+    margin-bottom: 34px;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.75;
+  }
+
+  .capability-list { border-top: 2px solid var(--fg); }
+
+  .capability-entry {
+    display: grid;
+    grid-template-columns: 64px minmax(0, 1fr);
+    border-bottom: 1px solid var(--fg);
+  }
+
+  .capability-index {
+    padding: 22px 12px 22px 0;
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .capability-body {
+    min-width: 0;
+    padding: 20px 0 22px 20px;
+    border-left: 1px solid var(--fg);
+  }
+
+  .capability-body h2 {
+    margin-bottom: 8px;
+    font-size: clamp(20px, 4vw, 28px);
+    line-height: 1.25;
+  }
+
+  .capability-statement {
+    max-width: 790px;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .capability-detail {
+    max-width: 790px;
+    margin-top: 10px;
+    font-size: 13px;
+    line-height: 1.65;
+  }
+
+  .capability-detail strong {
+    margin-right: 8px;
+    font-size: 11px;
+    text-transform: uppercase;
+  }
+
+  .skills-section { margin-top: 38px; }
+
+  .skills-section-title {
+    padding-bottom: 7px;
+    border-bottom: 2px solid var(--fg);
+    font-size: 18px;
+    line-height: 1.3;
+    text-transform: uppercase;
+  }
+
+  .deliverable-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    list-style-position: inside;
+  }
+
+  .deliverable-list li {
+    padding: 12px 12px 12px 0;
+    border-bottom: 1px solid var(--fg);
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  .toolkit-list { border-bottom: 1px solid var(--fg); }
+
+  .toolkit-row {
+    display: grid;
+    grid-template-columns: 190px minmax(0, 1fr);
+    gap: 20px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--fg);
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  .toolkit-row:last-child { border-bottom: 0; }
+
+  .toolkit-row dt {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
   /* Empty sections */
   .empty-state {
     min-height: 55vh;
@@ -564,11 +661,15 @@
   @media (max-width: 680px) {
     body { padding: 128px 14px 48px; }
     .topbar { flex-direction: column; }
-    .nav-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; }
+    .nav-links { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); width: 100%; }
     .nav-link { width: 100%; text-align: center; }
     .toolbar { align-self: flex-end; }
     .profile { margin-top: 0; }
     .profile-grid { grid-template-columns: 1fr; }
+    .capability-entry { grid-template-columns: 46px minmax(0, 1fr); }
+    .capability-body { padding-left: 14px; }
+    .deliverable-list { grid-template-columns: 1fr; }
+    .toolkit-row { grid-template-columns: 1fr; gap: 4px; }
     .article-header {
       align-items: flex-start;
       flex-direction: column;
@@ -614,8 +715,9 @@
 <header class="topbar">
   <nav class="nav-links" aria-label="Site sections">
     <a class="nav-link" href="#home" data-view="home" data-en="Home" data-zh="主页">Home</a>
+    <a class="nav-link" href="#skills" data-view="skills" data-en="Capabilities" data-zh="技能">Capabilities</a>
     <a class="nav-link" href="#projects" data-view="projects" data-en="My Projects" data-zh="我的项目">My Projects</a>
-    <a class="nav-link" href="#articles" data-view="articles" data-en="Articles" data-zh="文章">Articles</a>
+    <a class="nav-link" href="#articles" data-view="articles" data-en="Blog" data-zh="博客">Blog</a>
     <a class="nav-link" href="#travel" data-view="travel" data-en="Solo Trip" data-zh="个人旅行">Solo Trip</a>
   </nav>
   <div class="toolbar">
@@ -651,8 +753,8 @@
           <span class="profile-value" data-en="Male" data-zh="男">Male</span>
         </div>
         <div class="profile-item">
-          <span class="profile-label" data-en="Location" data-zh="地区">Location</span>
-          <span class="profile-value" data-en="Fujian, China" data-zh="中国福建">Fujian, China</span>
+          <span class="profile-label" data-en="Profession" data-zh="职业">Profession</span>
+          <span class="profile-value" data-en="IT Engineer" data-zh="IT工程师">IT Engineer</span>
         </div>
         <div class="profile-item">
           <span class="profile-label" data-en="Email" data-zh="邮箱">Email</span>
@@ -668,6 +770,60 @@
         </div>
       </div>
     </div>
+  </section>
+
+  <section class="view" id="skills" aria-labelledby="skills-title" hidden>
+    <h1 class="page-title" id="skills-title" data-en="Capabilities" data-zh="技能">Capabilities</h1>
+    <p class="skills-intro" data-en="I analyze real-world problems, turn them into testable AI products, and use data to judge whether a solution actually works." data-zh="我擅长分析现实问题，把问题转化为可验证的 AI 产品，并用数据判断方案是否真正有效。">I analyze real-world problems, turn them into testable AI products, and use data to judge whether a solution actually works.</p>
+
+    <div class="capability-list">
+      <article class="capability-entry">
+        <div class="capability-index">01 / 03</div>
+        <div class="capability-body">
+          <h2 data-en="Work fluently across Chinese and English" data-zh="中英文流利沟通">Work fluently across Chinese and English</h2>
+          <p class="capability-statement" data-en="I can read English industry material and white papers, communicate in day-to-day work, and coordinate requirements, progress, and blockers in English. This reduces information loss in cross-language projects and keeps delivery aligned." data-zh="我能够流畅阅读英文行业资料与白皮书，使用英语进行日常工作沟通，并协调需求、进度与阻塞点。这可以减少跨语言项目中的信息损失，让团队始终围绕交付目标保持一致。">I can read English industry material and white papers, communicate in day-to-day work, and coordinate requirements, progress, and blockers in English. This reduces information loss in cross-language projects and keeps delivery aligned.</p>
+          <p class="capability-detail"><strong data-en="Evidence" data-zh="证明">Evidence</strong><span data-en="IELTS 7.0, with 7.5 in Listening and Reading; CET-6; coordination experience on an English-language Hong Kong project." data-zh="雅思 7.0，听力与阅读均为 7.5；通过 CET-6；参与香港英文项目的全流程协调。">IELTS 7.0, with 7.5 in Listening and Reading; CET-6; coordination experience on an English-language Hong Kong project.</span></p>
+        </div>
+      </article>
+
+      <article class="capability-entry">
+        <div class="capability-index">02 / 03</div>
+        <div class="capability-body">
+          <h2 data-en="Turn real problems into AI products" data-zh="把现实问题转化为 AI 产品">Turn real problems into AI products</h2>
+          <p class="capability-statement" data-en="I can take an everyday pain point, identify its users and constraints, design the data flow and AI workflow, then build and test a working product. This helps a team move from a vague idea to a solution that can be demonstrated, evaluated, and improved." data-zh="我能够从日常痛点出发，识别用户与约束条件，设计数据流和 AI 工作流，再完成产品开发与测试。这能帮助团队把模糊想法变成可演示、可评估、可迭代的解决方案。">I can take an everyday pain point, identify its users and constraints, design the data flow and AI workflow, then build and test a working product. This helps a team move from a vague idea to a solution that can be demonstrated, evaluated, and improved.</p>
+          <p class="capability-detail"><strong data-en="Evidence" data-zh="证明">Evidence</strong><span data-en="Built an AI travel planner with geographic validation and 11 regression tests; led a roommate allocation system from problem research to full-stack delivery; developed an automated bad-case identification workflow during an internship." data-zh="开发具备地理校验与 11 项回归测试的 AI 旅行助手；从需求调研到全栈落地主导智能舍友分配系统；实习期间开发自动化 BadCase 识别流程。">Built an AI travel planner with geographic validation and 11 regression tests; led a roommate allocation system from problem research to full-stack delivery; developed an automated bad-case identification workflow during an internship.</span></p>
+        </div>
+      </article>
+
+      <article class="capability-entry">
+        <div class="capability-index">03 / 03</div>
+        <div class="capability-body">
+          <h2 data-en="Use data to make decisions" data-zh="用数据推动判断">Use data to make decisions</h2>
+          <p class="capability-statement" data-en="I prefer measurable evidence to intuition alone. I structure failure data, define evaluation criteria, compare outcomes, and use the result to improve a system or workflow. This gives a team a clearer basis for prioritization and iteration." data-zh="相比只凭直觉，我更重视可衡量的证据。我会结构化整理失败数据、定义评估标准、比较结果，并据此改进系统或工作流程，为团队的优先级判断与迭代提供更清晰的依据。">I prefer measurable evidence to intuition alone. I structure failure data, define evaluation criteria, compare outcomes, and use the result to improve a system or workflow. This gives a team a clearer basis for prioritization and iteration.</p>
+          <p class="capability-detail"><strong data-en="Evidence" data-zh="证明">Evidence</strong><span data-en="An automation system saved an algorithm team about 63% of its working time; user-vector modeling improved roommate matching accuracy by more than 30%; a Spanish toxicity classifier reached 81% accuracy." data-zh="自动化系统为算法团队节省约 63% 的工作时间；用户向量建模使舍友匹配准确率提高 30% 以上；西班牙语毒评检测模型准确率达到 81%。">An automation system saved an algorithm team about 63% of its working time; user-vector modeling improved roommate matching accuracy by more than 30%; a Spanish toxicity classifier reached 81% accuracy.</span></p>
+        </div>
+      </article>
+    </div>
+
+    <section class="skills-section" aria-labelledby="deliverables-title">
+      <h2 class="skills-section-title" id="deliverables-title" data-en="What I Can Deliver" data-zh="我可以交付什么">What I Can Deliver</h2>
+      <ol class="deliverable-list">
+        <li data-en="AI-assisted workflows and internal automation tools" data-zh="AI 工作流与内部自动化工具">AI-assisted workflows and internal automation tools</li>
+        <li data-en="Full-stack MVPs and third-party API integrations" data-zh="全栈 MVP 与第三方 API 集成">Full-stack MVPs and third-party API integrations</li>
+        <li data-en="Data classification, evaluation, and structured reports" data-zh="数据分类、效果评估与结构化报告">Data classification, evaluation, and structured reports</li>
+        <li data-en="English project coordination and progress communication" data-zh="英文项目协调与进度沟通">English project coordination and progress communication</li>
+      </ol>
+    </section>
+
+    <section class="skills-section" aria-labelledby="toolkit-title">
+      <h2 class="skills-section-title" id="toolkit-title" data-en="Working Toolkit" data-zh="工作技能">Working Toolkit</h2>
+      <dl class="toolkit-list">
+        <div class="toolkit-row"><dt data-en="AI Applications" data-zh="AI 应用">AI Applications</dt><dd data-en="DeepSeek, Agent workflows, prompt engineering, structured output, self-review, validation, and fallback design" data-zh="DeepSeek、Agent 工作流、提示词工程、结构化输出、自检、校验与降级设计">DeepSeek, Agent workflows, prompt engineering, structured output, self-review, validation, and fallback design</dd></div>
+        <div class="toolkit-row"><dt data-en="Full-stack" data-zh="全栈开发">Full-stack</dt><dd data-en="React, Vue, Node.js, Express, MySQL, IndexedDB, REST APIs, and Google Maps APIs" data-zh="React、Vue、Node.js、Express、MySQL、IndexedDB、REST API 与 Google Maps API">React, Vue, Node.js, Express, MySQL, IndexedDB, REST APIs, and Google Maps APIs</dd></div>
+        <div class="toolkit-row"><dt data-en="Data & ML" data-zh="数据与机器学习">Data &amp; ML</dt><dd data-en="Data cleaning, classification, BERT/BETO, data augmentation, pseudo-labeling, cross-validation, and visualization" data-zh="数据清洗、分类、BERT/BETO、数据增强、伪标签、交叉验证与可视化">Data cleaning, classification, BERT/BETO, data augmentation, pseudo-labeling, cross-validation, and visualization</dd></div>
+        <div class="toolkit-row"><dt data-en="Delivery" data-zh="交付能力">Delivery</dt><dd data-en="Requirements analysis, solution design, automated regression testing, end-to-end validation, and project coordination" data-zh="需求分析、方案设计、自动化回归测试、端到端验证与项目协调">Requirements analysis, solution design, automated regression testing, end-to-end validation, and project coordination</dd></div>
+      </dl>
+    </section>
   </section>
 
   <section class="view" id="projects" aria-labelledby="projects-title" hidden>
@@ -748,7 +904,7 @@
   </section>
 
   <section class="view" id="articles" aria-labelledby="articles-title" hidden>
-    <h1 class="page-title" id="articles-title" data-en="Articles" data-zh="文章">Articles</h1>
+    <h1 class="page-title" id="articles-title" data-en="Blog" data-zh="博客">Blog</h1>
     <div class="article-list">
       <article class="article-entry" data-article="investment-psychology">
         <a class="article-back-link" href="./#articles" data-en="Back to articles" data-zh="返回文章列表">Back to articles</a>
@@ -1721,45 +1877,45 @@
     <article class="trip-group">
       <header class="trip-header"><h2 data-en="Singapore" data-zh="新加坡">Singapore</h2><time datetime="2025-09-16">2025.09.16</time></header>
       <div class="photo-grid">
-        <figure><img src="trip photos/sng1.jpg" alt="Singapore trip photo 1" loading="lazy" /></figure>
-        <figure><img src="trip photos/sng2.jpg" alt="Singapore trip photo 2" loading="lazy" /></figure>
-        <figure><img src="trip photos/sng3.jpg" alt="Singapore trip photo 3" loading="lazy" /></figure>
+        <figure><img src="trip%20photos/sng1-800.webp" srcset="trip%20photos/sng1-640.webp 640w, trip%20photos/sng1-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Singapore trip photo 1" width="800" height="600" loading="eager" decoding="async" fetchpriority="high" /></figure>
+        <figure><img src="trip%20photos/sng2-800.webp" srcset="trip%20photos/sng2-640.webp 640w, trip%20photos/sng2-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Singapore trip photo 2" width="600" height="800" loading="eager" decoding="async" fetchpriority="high" /></figure>
+        <figure><img src="trip%20photos/sng3-800.webp" srcset="trip%20photos/sng3-640.webp 640w, trip%20photos/sng3-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Singapore trip photo 3" width="600" height="800" loading="eager" decoding="async" fetchpriority="high" /></figure>
       </div>
     </article>
 
     <article class="trip-group">
       <header class="trip-header"><h2 data-en="Osaka" data-zh="大阪">Osaka</h2><time datetime="2025-11-03">2025.11.03</time></header>
       <div class="photo-grid">
-        <figure><img src="trip photos/osaka1.jpg" alt="Osaka trip photo 1" loading="lazy" /></figure>
-        <figure><img src="trip photos/osaka2.jpg" alt="Osaka trip photo 2" loading="lazy" /></figure>
-        <figure><img src="trip photos/osaka3.jpg" alt="Osaka trip photo 3" loading="lazy" /></figure>
+        <figure><img src="trip%20photos/osaka1-800.webp" srcset="trip%20photos/osaka1-640.webp 640w, trip%20photos/osaka1-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Osaka trip photo 1" width="600" height="800" loading="lazy" decoding="async" fetchpriority="low" /></figure>
+        <figure><img src="trip%20photos/osaka2-800.webp" srcset="trip%20photos/osaka2-640.webp 640w, trip%20photos/osaka2-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Osaka trip photo 2" width="800" height="600" loading="lazy" decoding="async" fetchpriority="low" /></figure>
+        <figure><img src="trip%20photos/osaka3-800.webp" srcset="trip%20photos/osaka3-640.webp 640w, trip%20photos/osaka3-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Osaka trip photo 3" width="800" height="600" loading="lazy" decoding="async" fetchpriority="low" /></figure>
       </div>
     </article>
 
     <article class="trip-group">
       <header class="trip-header"><h2 data-en="Kyoto" data-zh="京都">Kyoto</h2><time datetime="2025-11-07">2025.11.07</time></header>
       <div class="photo-grid">
-        <figure><img src="trip photos/kyoto1.jpg" alt="Kyoto trip photo 1" loading="lazy" /></figure>
-        <figure><img src="trip photos/kyoto2.jpg" alt="Kyoto trip photo 2" loading="lazy" /></figure>
-        <figure><img src="trip photos/kyoto3.jpg" alt="Kyoto trip photo 3" loading="lazy" /></figure>
+        <figure><img src="trip%20photos/kyoto1-800.webp" srcset="trip%20photos/kyoto1-640.webp 640w, trip%20photos/kyoto1-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Kyoto trip photo 1" width="800" height="800" loading="lazy" decoding="async" fetchpriority="low" /></figure>
+        <figure><img src="trip%20photos/kyoto2-800.webp" srcset="trip%20photos/kyoto2-640.webp 640w, trip%20photos/kyoto2-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Kyoto trip photo 2" width="800" height="600" loading="lazy" decoding="async" fetchpriority="low" /></figure>
+        <figure><img src="trip%20photos/kyoto3-800.webp" srcset="trip%20photos/kyoto3-640.webp 640w, trip%20photos/kyoto3-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Kyoto trip photo 3" width="800" height="600" loading="lazy" decoding="async" fetchpriority="low" /></figure>
       </div>
     </article>
 
     <article class="trip-group">
       <header class="trip-header"><h2 data-en="Mount Fuji" data-zh="富士山">Mount Fuji</h2><time datetime="2025-11-10">2025.11.10</time></header>
       <div class="photo-grid">
-        <figure><img src="trip photos/fuji1.jpg" alt="Mount Fuji trip photo 1" loading="lazy" /></figure>
-        <figure><img src="trip photos/fuji2.jpg" alt="Mount Fuji trip photo 2" loading="lazy" /></figure>
-        <figure><img src="trip photos/fuji3.jpg" alt="Mount Fuji trip photo 3" loading="lazy" /></figure>
+        <figure><img src="trip%20photos/fuji1-800.webp" srcset="trip%20photos/fuji1-640.webp 640w, trip%20photos/fuji1-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Mount Fuji trip photo 1" width="800" height="800" loading="lazy" decoding="async" fetchpriority="low" /></figure>
+        <figure><img src="trip%20photos/fuji2-800.webp" srcset="trip%20photos/fuji2-640.webp 640w, trip%20photos/fuji2-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Mount Fuji trip photo 2" width="600" height="800" loading="lazy" decoding="async" fetchpriority="low" /></figure>
+        <figure><img src="trip%20photos/fuji3-800.webp" srcset="trip%20photos/fuji3-640.webp 640w, trip%20photos/fuji3-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Mount Fuji trip photo 3" width="600" height="800" loading="lazy" decoding="async" fetchpriority="low" /></figure>
       </div>
     </article>
 
     <article class="trip-group">
       <header class="trip-header"><h2 data-en="Tokyo" data-zh="东京">Tokyo</h2><time datetime="2025-11-12">2025.11.12</time></header>
       <div class="photo-grid">
-        <figure><img src="trip photos/tokyo1.jpg" alt="Tokyo trip photo 1" loading="lazy" /></figure>
-        <figure><img src="trip photos/tokyo2.jpg" alt="Tokyo trip photo 2" loading="lazy" /></figure>
-        <figure><img src="trip photos/tokyo3.jpg" alt="Tokyo trip photo 3" loading="lazy" /></figure>
+        <figure><img src="trip%20photos/tokyo1-800.webp" srcset="trip%20photos/tokyo1-640.webp 640w, trip%20photos/tokyo1-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Tokyo trip photo 1" width="600" height="800" loading="lazy" decoding="async" fetchpriority="low" /></figure>
+        <figure><img src="trip%20photos/tokyo2-800.webp" srcset="trip%20photos/tokyo2-640.webp 640w, trip%20photos/tokyo2-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Tokyo trip photo 2" width="800" height="600" loading="lazy" decoding="async" fetchpriority="low" /></figure>
+        <figure><img src="trip%20photos/tokyo3-800.webp" srcset="trip%20photos/tokyo3-640.webp 640w, trip%20photos/tokyo3-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Tokyo trip photo 3" width="600" height="800" loading="lazy" decoding="async" fetchpriority="low" /></figure>
       </div>
     </article>
   </section>
@@ -1778,13 +1934,23 @@
   var lang = 'en';
   var theme = 'light';
 
-  var requestedArticle = new URLSearchParams(window.location.search).get('article');
   var articleEntries = document.querySelectorAll('.article-entry[data-article]');
-  for (var articleIndex = 0; articleIndex < articleEntries.length; articleIndex++) {
-    if (articleEntries[articleIndex].getAttribute('data-article') === requestedArticle) {
+
+  function applyArticleRoute() {
+    var requestedArticle = new URLSearchParams(window.location.search).get('article');
+    var activeArticle = null;
+
+    document.body.classList.remove('article-reader');
+    for (var articleIndex = 0; articleIndex < articleEntries.length; articleIndex++) {
+      articleEntries[articleIndex].classList.remove('is-active-article');
+      if (articleEntries[articleIndex].getAttribute('data-article') === requestedArticle) {
+        activeArticle = articleEntries[articleIndex];
+      }
+    }
+
+    if (activeArticle) {
       document.body.classList.add('article-reader');
-      articleEntries[articleIndex].classList.add('is-active-article');
-      break;
+      activeArticle.classList.add('is-active-article');
     }
   }
 
@@ -1816,6 +1982,7 @@
   }
 
   function showView() {
+    applyArticleRoute();
     var id = window.location.hash.slice(1);
     if (!document.getElementById(id) || !document.getElementById(id).classList.contains('view')) id = 'home';
 
@@ -1840,7 +2007,20 @@
     applyTheme();
   });
 
+  for (var navIndex = 0; navIndex < navLinks.length; navIndex++) {
+    navLinks[navIndex].addEventListener('click', function (event) {
+      event.preventDefault();
+      var nextHash = this.getAttribute('href');
+      var nextUrl = window.location.pathname + nextHash;
+      if (window.location.pathname + window.location.search + window.location.hash !== nextUrl) {
+        window.history.pushState(null, '', nextUrl);
+      }
+      showView();
+    });
+  }
+
   window.addEventListener('hashchange', showView);
+  window.addEventListener('popstate', showView);
   applyLanguage();
   applyTheme();
   showView();
