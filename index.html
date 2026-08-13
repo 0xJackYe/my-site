@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-lang="en" data-initial-view="home">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,9 +11,26 @@
 <script>
   (function () {
     var root = document.documentElement;
+    var validViews = { home: true, skills: true, projects: true, articles: true, travel: true };
+    var validArticles = {
+      'investment-psychology': true,
+      'scarce-skills': true,
+      'what-is-bitcoin': true,
+      'focus-experiment': true,
+      'ielts-guide': true
+    };
+    var requestedArticle = new URLSearchParams(window.location.search).get('article');
+    var initialView = window.location.hash.slice(1);
+
+    if (!validViews[initialView]) initialView = validArticles[requestedArticle] ? 'articles' : 'home';
+    root.setAttribute('data-initial-view', initialView);
+    if (initialView === 'articles' && validArticles[requestedArticle]) {
+      root.setAttribute('data-initial-article', requestedArticle);
+    }
+
     try {
       if (localStorage.getItem('jye-theme') === 'dark') root.setAttribute('data-theme', 'dark');
-      if (localStorage.getItem('jye-lang') === 'zh') root.setAttribute('data-lang', 'zh');
+      root.setAttribute('data-lang', localStorage.getItem('jye-lang') === 'zh' ? 'zh' : 'en');
     } catch (e) {}
   })();
 </script>
@@ -89,7 +106,12 @@
     color: var(--fg);
   }
 
-  .nav-link[aria-current="page"] {
+  .nav-link[aria-current="page"],
+  html[data-initial-view="home"] .nav-link[data-view="home"],
+  html[data-initial-view="skills"] .nav-link[data-view="skills"],
+  html[data-initial-view="projects"] .nav-link[data-view="projects"],
+  html[data-initial-view="articles"] .nav-link[data-view="articles"],
+  html[data-initial-view="travel"] .nav-link[data-view="travel"] {
     background: var(--bg);
     color: var(--fg);
     box-shadow: inset 0 -3px 0 var(--fg);
@@ -115,6 +137,19 @@
   }
 
   .view[hidden] { display: none; }
+
+  html[data-initial-view] .view {
+    display: none;
+    animation: none;
+  }
+
+  html[data-initial-view="home"] #home,
+  html[data-initial-view="skills"] #skills,
+  html[data-initial-view="projects"] #projects,
+  html[data-initial-view="articles"] #articles,
+  html[data-initial-view="travel"] #travel {
+    display: block;
+  }
 
   .view {
     animation: view-in 180ms steps(2, end) both;
@@ -426,6 +461,29 @@
   html[data-lang="en"] body.article-reader .article-content[data-article-lang="en"],
   html[data-lang="zh"] body.article-reader .article-content[data-article-lang="zh"] { display: block; }
 
+  html[data-initial-article] #articles > .page-title,
+  html[data-initial-article] #articles .article-preview { display: none; }
+
+  html[data-initial-article] #articles .article-list > .article-entry {
+    display: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  html[data-initial-article="investment-psychology"] #articles .article-entry[data-article="investment-psychology"],
+  html[data-initial-article="scarce-skills"] #articles .article-entry[data-article="scarce-skills"],
+  html[data-initial-article="what-is-bitcoin"] #articles .article-entry[data-article="what-is-bitcoin"],
+  html[data-initial-article="focus-experiment"] #articles .article-entry[data-article="focus-experiment"],
+  html[data-initial-article="ielts-guide"] #articles .article-entry[data-article="ielts-guide"] {
+    display: block;
+  }
+
+  html[data-initial-article] #articles .article-back-link { display: inline-flex; }
+  html[data-initial-article] #articles .article-content { display: none; }
+  html[data-initial-article][data-lang="en"] #articles .article-content[data-article-lang="en"],
+  html[data-initial-article][data-lang="zh"] #articles .article-content[data-article-lang="zh"] { display: block; }
+
   .article-content h3 {
     margin: 30px 0 12px;
     padding-bottom: 6px;
@@ -729,7 +787,7 @@
     </div>
   </section>
 
-  <section class="view" id="skills" aria-labelledby="skills-title" hidden>
+  <section class="view" id="skills" aria-labelledby="skills-title">
     <h1 class="page-title" id="skills-title" data-en="Capabilities" data-zh="技能">Capabilities</h1>
 
     <div class="capability-list">
@@ -782,7 +840,7 @@
     </section>
   </section>
 
-  <section class="view" id="projects" aria-labelledby="projects-title" hidden>
+  <section class="view" id="projects" aria-labelledby="projects-title">
     <h1 class="page-title" id="projects-title" data-en="My Projects" data-zh="我的项目">My Projects</h1>
     <div class="project-list">
       <article class="project-entry">
@@ -857,7 +915,7 @@
     </div>
   </section>
 
-  <section class="view" id="articles" aria-labelledby="articles-title" hidden>
+  <section class="view" id="articles" aria-labelledby="articles-title">
     <h1 class="page-title" id="articles-title" data-en="Blog" data-zh="博客">Blog</h1>
     <div class="article-list">
       <article class="article-entry" data-article="investment-psychology">
@@ -1825,7 +1883,7 @@
     </div>
   </section>
 
-  <section class="view" id="travel" aria-labelledby="travel-title" hidden>
+  <section class="view" id="travel" aria-labelledby="travel-title">
     <h1 class="page-title" id="travel-title" data-en="Solo Trip" data-zh="个人旅行">Solo Trip</h1>
 
     <article class="trip-group">
@@ -1939,13 +1997,17 @@
   function showView() {
     applyArticleRoute();
     var id = window.location.hash.slice(1);
-    if (!document.getElementById(id) || !document.getElementById(id).classList.contains('view')) id = 'home';
+    if (!document.getElementById(id) || !document.getElementById(id).classList.contains('view')) {
+      id = document.body.classList.contains('article-reader') ? 'articles' : 'home';
+    }
 
     for (var i = 0; i < views.length; i++) views[i].hidden = views[i].id !== id;
     for (var j = 0; j < navLinks.length; j++) {
       if (navLinks[j].getAttribute('data-view') === id) navLinks[j].setAttribute('aria-current', 'page');
       else navLinks[j].removeAttribute('aria-current');
     }
+    html.removeAttribute('data-initial-article');
+    html.removeAttribute('data-initial-view');
     window.scrollTo(0, 0);
     window.requestAnimationFrame(function () { window.scrollTo(0, 0); });
   }
