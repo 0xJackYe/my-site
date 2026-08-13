@@ -1892,6 +1892,7 @@
   var langButton = document.getElementById('lang-toggle');
   var themeButton = document.getElementById('theme-toggle');
   var navLinks = document.querySelectorAll('.nav-link');
+  var articleRouteLinks = document.querySelectorAll('.article-read-link, .article-back-link');
   var views = document.querySelectorAll('.view');
   var translatedNodes = document.querySelectorAll('[data-en][data-zh]');
   var lang = 'en';
@@ -1958,6 +1959,15 @@
     window.requestAnimationFrame(function () { window.scrollTo(0, 0); });
   }
 
+  function navigateWithoutReload(target) {
+    var nextUrl = new URL(target, window.location.href);
+    var nextRoute = nextUrl.pathname + nextUrl.search + nextUrl.hash;
+    var currentRoute = window.location.pathname + window.location.search + window.location.hash;
+
+    if (currentRoute !== nextRoute) window.history.pushState(null, '', nextRoute);
+    showView();
+  }
+
   langButton.addEventListener('click', function () {
     lang = lang === 'zh' ? 'en' : 'zh';
     try { localStorage.setItem('jye-lang', lang); } catch (e) {}
@@ -1974,11 +1984,15 @@
     navLinks[navIndex].addEventListener('click', function (event) {
       event.preventDefault();
       var nextHash = this.getAttribute('href');
-      var nextUrl = window.location.pathname + nextHash;
-      if (window.location.pathname + window.location.search + window.location.hash !== nextUrl) {
-        window.history.pushState(null, '', nextUrl);
-      }
-      showView();
+      navigateWithoutReload(window.location.pathname + nextHash);
+    });
+  }
+
+  for (var articleLinkIndex = 0; articleLinkIndex < articleRouteLinks.length; articleLinkIndex++) {
+    articleRouteLinks[articleLinkIndex].addEventListener('click', function (event) {
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      navigateWithoutReload(this.getAttribute('href'));
     });
   }
 
