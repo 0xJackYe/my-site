@@ -22,6 +22,7 @@
     var requestedArticle = new URLSearchParams(window.location.search).get('article');
     var initialView = window.location.hash.slice(1);
 
+    if ('scrollRestoration' in window.history) window.history.scrollRestoration = 'manual';
     if (!validViews[initialView]) initialView = validArticles[requestedArticle] ? 'articles' : 'home';
     root.setAttribute('data-initial-view', initialView);
     if (initialView === 'articles' && validArticles[requestedArticle]) {
@@ -29,8 +30,10 @@
     }
 
     try {
+      var initialLanguage = localStorage.getItem('jye-lang') === 'zh' ? 'zh' : 'en';
       if (localStorage.getItem('jye-theme') === 'dark') root.setAttribute('data-theme', 'dark');
-      root.setAttribute('data-lang', localStorage.getItem('jye-lang') === 'zh' ? 'zh' : 'en');
+      root.lang = initialLanguage === 'zh' ? 'zh-CN' : 'en';
+      root.setAttribute('data-lang', initialLanguage);
     } catch (e) {}
   })();
 </script>
@@ -64,6 +67,17 @@
 
   a { color: inherit; }
   button { border-radius: 0; }
+
+  .i18n-en { display: inline; }
+  .i18n-zh { display: none; }
+  html[data-lang="zh"] .i18n-en { display: none; }
+  html[data-lang="zh"] .i18n-zh { display: inline; }
+
+  .theme-label { display: none; }
+  html[data-lang="en"]:not([data-theme="dark"]) .theme-dark-en,
+  html[data-lang="en"][data-theme="dark"] .theme-light-en,
+  html[data-lang="zh"]:not([data-theme="dark"]) .theme-dark-zh,
+  html[data-lang="zh"][data-theme="dark"] .theme-light-zh { display: inline; }
 
   .topbar {
     position: fixed;
@@ -140,7 +154,6 @@
 
   html[data-initial-view] .view {
     display: none;
-    animation: none;
   }
 
   html[data-initial-view="home"] #home,
@@ -149,15 +162,6 @@
   html[data-initial-view="articles"] #articles,
   html[data-initial-view="travel"] #travel {
     display: block;
-  }
-
-  .view {
-    animation: view-in 180ms steps(2, end) both;
-  }
-
-  @keyframes view-in {
-    from { opacity: 0; }
-    to { opacity: 1; }
   }
 
   .page-title {
@@ -688,7 +692,7 @@
   @media (max-width: 680px) {
     body { padding: 128px 14px 48px; }
     .topbar { flex-direction: column; }
-    .nav-links { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); width: 100%; }
+    .nav-links { display: grid; grid-template-columns: repeat(3, minmax(0, min(112px, calc((100vw - 53px) / 3)))); width: 100%; }
     .nav-link { width: 100%; text-align: center; }
     .toolbar { align-self: flex-end; }
     .profile { margin-top: 0; }
@@ -729,15 +733,15 @@
 <body>
 <header class="topbar">
   <nav class="nav-links" aria-label="Site sections">
-    <a class="nav-link" href="#home" data-view="home" data-en="Home" data-zh="主页">Home</a>
-    <a class="nav-link" href="#skills" data-view="skills" data-en="Capabilities" data-zh="技能">Capabilities</a>
-    <a class="nav-link" href="#projects" data-view="projects" data-en="My Projects" data-zh="我的项目">My Projects</a>
-    <a class="nav-link" href="#articles" data-view="articles" data-en="Blog" data-zh="博客">Blog</a>
-    <a class="nav-link" href="#travel" data-view="travel" data-en="Solo Trip" data-zh="个人旅行">Solo Trip</a>
+    <a class="nav-link" href="#home" data-view="home" data-en="Home" data-zh="主页"><span class="i18n-en" lang="en">Home</span><span class="i18n-zh" lang="zh-CN">主页</span></a>
+    <a class="nav-link" href="#skills" data-view="skills" data-en="Capabilities" data-zh="技能"><span class="i18n-en" lang="en">Capabilities</span><span class="i18n-zh" lang="zh-CN">技能</span></a>
+    <a class="nav-link" href="#projects" data-view="projects" data-en="My Projects" data-zh="我的项目"><span class="i18n-en" lang="en">My Projects</span><span class="i18n-zh" lang="zh-CN">我的项目</span></a>
+    <a class="nav-link" href="#articles" data-view="articles" data-en="Blog" data-zh="博客"><span class="i18n-en" lang="en">Blog</span><span class="i18n-zh" lang="zh-CN">博客</span></a>
+    <a class="nav-link" href="#travel" data-view="travel" data-en="Solo Trip" data-zh="个人旅行"><span class="i18n-en" lang="en">Solo Trip</span><span class="i18n-zh" lang="zh-CN">个人旅行</span></a>
   </nav>
   <div class="toolbar">
-    <button id="lang-toggle" type="button" aria-label="Switch language">中</button>
-    <button id="theme-toggle" type="button" aria-label="Switch theme">Dark</button>
+    <button id="lang-toggle" type="button" aria-label="Switch language"><span class="i18n-en" lang="zh-CN">中</span><span class="i18n-zh" lang="en">EN</span></button>
+    <button id="theme-toggle" type="button" aria-label="Switch theme"><span class="theme-label theme-dark-en" lang="en">Dark</span><span class="theme-label theme-light-en" lang="en">Light</span><span class="theme-label theme-dark-zh" lang="zh-CN">黑</span><span class="theme-label theme-light-zh" lang="zh-CN">白</span></button>
   </div>
 </header>
 
@@ -760,121 +764,121 @@
       </div>
       <div class="profile-grid">
         <div class="profile-item">
-          <span class="profile-label" data-en="Date of birth" data-zh="出生年月日">Date of birth</span>
+          <span class="profile-label" data-en="Date of birth" data-zh="出生年月日"><span class="i18n-en" lang="en">Date of birth</span><span class="i18n-zh" lang="zh-CN">出生年月日</span></span>
           <span class="profile-value">20040501</span>
         </div>
         <div class="profile-item">
-          <span class="profile-label" data-en="Gender" data-zh="性别">Gender</span>
-          <span class="profile-value" data-en="Male" data-zh="男">Male</span>
+          <span class="profile-label" data-en="Gender" data-zh="性别"><span class="i18n-en" lang="en">Gender</span><span class="i18n-zh" lang="zh-CN">性别</span></span>
+          <span class="profile-value" data-en="Male" data-zh="男"><span class="i18n-en" lang="en">Male</span><span class="i18n-zh" lang="zh-CN">男</span></span>
         </div>
         <div class="profile-item">
-          <span class="profile-label" data-en="Profession" data-zh="职业">Profession</span>
-          <span class="profile-value" data-en="IT Engineer" data-zh="IT工程师">IT Engineer</span>
+          <span class="profile-label" data-en="Profession" data-zh="职业"><span class="i18n-en" lang="en">Profession</span><span class="i18n-zh" lang="zh-CN">职业</span></span>
+          <span class="profile-value" data-en="IT Engineer" data-zh="IT工程师"><span class="i18n-en" lang="en">IT Engineer</span><span class="i18n-zh" lang="zh-CN">IT工程师</span></span>
         </div>
         <div class="profile-item">
-          <span class="profile-label" data-en="Email" data-zh="邮箱">Email</span>
+          <span class="profile-label" data-en="Email" data-zh="邮箱"><span class="i18n-en" lang="en">Email</span><span class="i18n-zh" lang="zh-CN">邮箱</span></span>
           <a class="profile-value" href="mailto:oxjackye@qq.com">oxjackye@qq.com</a>
         </div>
         <div class="profile-item">
-          <span class="profile-label" data-en="Languages" data-zh="语言">Languages</span>
-          <span class="profile-value" data-en="English (Fluent) / Chinese (Native)" data-zh="英语（流利）/ 中文（母语）">English (Fluent) / Chinese (Native)</span>
+          <span class="profile-label" data-en="Languages" data-zh="语言"><span class="i18n-en" lang="en">Languages</span><span class="i18n-zh" lang="zh-CN">语言</span></span>
+          <span class="profile-value" data-en="English (Fluent) / Chinese (Native)" data-zh="英语（流利）/ 中文（母语）"><span class="i18n-en" lang="en">English (Fluent) / Chinese (Native)</span><span class="i18n-zh" lang="zh-CN">英语（流利）/ 中文（母语）</span></span>
         </div>
         <div class="profile-item">
-          <span class="profile-label" data-en="Education" data-zh="学历">Education</span>
-          <span class="profile-value" data-en="B.Sc. in Computer Science" data-zh="计算机科学本科">B.Sc. in Computer Science</span>
+          <span class="profile-label" data-en="Education" data-zh="学历"><span class="i18n-en" lang="en">Education</span><span class="i18n-zh" lang="zh-CN">学历</span></span>
+          <span class="profile-value" data-en="B.Sc. in Computer Science" data-zh="计算机科学本科"><span class="i18n-en" lang="en">B.Sc. in Computer Science</span><span class="i18n-zh" lang="zh-CN">计算机科学本科</span></span>
         </div>
       </div>
     </div>
   </section>
 
   <section class="view" id="skills" aria-labelledby="skills-title">
-    <h1 class="page-title" id="skills-title" data-en="Capabilities" data-zh="技能">Capabilities</h1>
+    <h1 class="page-title" id="skills-title" data-en="Capabilities" data-zh="技能"><span class="i18n-en" lang="en">Capabilities</span><span class="i18n-zh" lang="zh-CN">技能</span></h1>
 
     <div class="capability-list">
       <article class="capability-entry">
         <div class="capability-index">01 / 03</div>
         <div class="capability-body">
-          <h2 data-en="Work fluently across Chinese and English" data-zh="中英文流利沟通">Work fluently across Chinese and English</h2>
-          <p class="capability-statement" data-en="I can read English industry material and white papers, communicate in day-to-day work, and coordinate requirements, progress, and blockers in English. This reduces information loss in cross-language projects and keeps delivery aligned." data-zh="我能够流畅阅读英文行业资料与白皮书，使用英语进行日常工作沟通，并协调需求、进度与阻塞点。这可以减少跨语言项目中的信息损失，让团队始终围绕交付目标保持一致。">I can read English industry material and white papers, communicate in day-to-day work, and coordinate requirements, progress, and blockers in English. This reduces information loss in cross-language projects and keeps delivery aligned.</p>
-          <p class="capability-detail"><strong data-en="Evidence" data-zh="证明">Evidence</strong><span data-en="IELTS 7.0, with 7.5 in Listening and Reading; CET-6; coordination experience on an English-language Hong Kong project." data-zh="雅思 7.0，听力与阅读均为 7.5；通过 CET-6；参与香港英文项目的全流程协调。">IELTS 7.0, with 7.5 in Listening and Reading; CET-6; coordination experience on an English-language Hong Kong project.</span></p>
+          <h2 data-en="Work fluently across Chinese and English" data-zh="中英文流利沟通"><span class="i18n-en" lang="en">Work fluently across Chinese and English</span><span class="i18n-zh" lang="zh-CN">中英文流利沟通</span></h2>
+          <p class="capability-statement" data-en="I can read English industry material and white papers, communicate in day-to-day work, and coordinate requirements, progress, and blockers in English. This reduces information loss in cross-language projects and keeps delivery aligned." data-zh="我能够流畅阅读英文行业资料与白皮书，使用英语进行日常工作沟通，并协调需求、进度与阻塞点。这可以减少跨语言项目中的信息损失，让团队始终围绕交付目标保持一致。"><span class="i18n-en" lang="en">I can read English industry material and white papers, communicate in day-to-day work, and coordinate requirements, progress, and blockers in English. This reduces information loss in cross-language projects and keeps delivery aligned.</span><span class="i18n-zh" lang="zh-CN">我能够流畅阅读英文行业资料与白皮书，使用英语进行日常工作沟通，并协调需求、进度与阻塞点。这可以减少跨语言项目中的信息损失，让团队始终围绕交付目标保持一致。</span></p>
+          <p class="capability-detail"><strong data-en="Evidence" data-zh="证明"><span class="i18n-en" lang="en">Evidence</span><span class="i18n-zh" lang="zh-CN">证明</span></strong><span data-en="IELTS 7.0, with 7.5 in Listening and Reading; CET-6; coordination experience on an English-language Hong Kong project." data-zh="雅思 7.0，听力与阅读均为 7.5；通过 CET-6；参与香港英文项目的全流程协调。"><span class="i18n-en" lang="en">IELTS 7.0, with 7.5 in Listening and Reading; CET-6; coordination experience on an English-language Hong Kong project.</span><span class="i18n-zh" lang="zh-CN">雅思 7.0，听力与阅读均为 7.5；通过 CET-6；参与香港英文项目的全流程协调。</span></span></p>
         </div>
       </article>
 
       <article class="capability-entry">
         <div class="capability-index">02 / 03</div>
         <div class="capability-body">
-          <h2 data-en="Turn real problems into AI products" data-zh="把现实问题转化为 AI 产品">Turn real problems into AI products</h2>
-          <p class="capability-statement" data-en="I can take an everyday pain point, identify its users and constraints, design the data flow and AI workflow, then build and test a working product. This helps a team move from a vague idea to a solution that can be demonstrated, evaluated, and improved." data-zh="我能够从日常痛点出发，识别用户与约束条件，设计数据流和 AI 工作流，再完成产品开发与测试。这能帮助团队把模糊想法变成可演示、可评估、可迭代的解决方案。">I can take an everyday pain point, identify its users and constraints, design the data flow and AI workflow, then build and test a working product. This helps a team move from a vague idea to a solution that can be demonstrated, evaluated, and improved.</p>
-          <p class="capability-detail"><strong data-en="Evidence" data-zh="证明">Evidence</strong><span data-en="Built an AI travel planner with geographic validation and 11 regression tests; led a roommate allocation system from problem research to full-stack delivery; developed an automated bad-case identification workflow during an internship." data-zh="开发具备地理校验与 11 项回归测试的 AI 旅行助手；从需求调研到全栈落地主导智能舍友分配系统；实习期间开发自动化 BadCase 识别流程。">Built an AI travel planner with geographic validation and 11 regression tests; led a roommate allocation system from problem research to full-stack delivery; developed an automated bad-case identification workflow during an internship.</span></p>
+          <h2 data-en="Turn real problems into AI products" data-zh="把现实问题转化为 AI 产品"><span class="i18n-en" lang="en">Turn real problems into AI products</span><span class="i18n-zh" lang="zh-CN">把现实问题转化为 AI 产品</span></h2>
+          <p class="capability-statement" data-en="I can take an everyday pain point, identify its users and constraints, design the data flow and AI workflow, then build and test a working product. This helps a team move from a vague idea to a solution that can be demonstrated, evaluated, and improved." data-zh="我能够从日常痛点出发，识别用户与约束条件，设计数据流和 AI 工作流，再完成产品开发与测试。这能帮助团队把模糊想法变成可演示、可评估、可迭代的解决方案。"><span class="i18n-en" lang="en">I can take an everyday pain point, identify its users and constraints, design the data flow and AI workflow, then build and test a working product. This helps a team move from a vague idea to a solution that can be demonstrated, evaluated, and improved.</span><span class="i18n-zh" lang="zh-CN">我能够从日常痛点出发，识别用户与约束条件，设计数据流和 AI 工作流，再完成产品开发与测试。这能帮助团队把模糊想法变成可演示、可评估、可迭代的解决方案。</span></p>
+          <p class="capability-detail"><strong data-en="Evidence" data-zh="证明"><span class="i18n-en" lang="en">Evidence</span><span class="i18n-zh" lang="zh-CN">证明</span></strong><span data-en="Built an AI travel planner with geographic validation and 11 regression tests; led a roommate allocation system from problem research to full-stack delivery; developed an automated bad-case identification workflow during an internship." data-zh="开发具备地理校验与 11 项回归测试的 AI 旅行助手；从需求调研到全栈落地主导智能舍友分配系统；实习期间开发自动化 BadCase 识别流程。"><span class="i18n-en" lang="en">Built an AI travel planner with geographic validation and 11 regression tests; led a roommate allocation system from problem research to full-stack delivery; developed an automated bad-case identification workflow during an internship.</span><span class="i18n-zh" lang="zh-CN">开发具备地理校验与 11 项回归测试的 AI 旅行助手；从需求调研到全栈落地主导智能舍友分配系统；实习期间开发自动化 BadCase 识别流程。</span></span></p>
         </div>
       </article>
 
       <article class="capability-entry">
         <div class="capability-index">03 / 03</div>
         <div class="capability-body">
-          <h2 data-en="Use data to make decisions" data-zh="用数据推动判断">Use data to make decisions</h2>
-          <p class="capability-statement" data-en="I prefer measurable evidence to intuition alone. I structure failure data, define evaluation criteria, compare outcomes, and use the result to improve a system or workflow. This gives a team a clearer basis for prioritization and iteration." data-zh="相比只凭直觉，我更重视可衡量的证据。我会结构化整理失败数据、定义评估标准、比较结果，并据此改进系统或工作流程，为团队的优先级判断与迭代提供更清晰的依据。">I prefer measurable evidence to intuition alone. I structure failure data, define evaluation criteria, compare outcomes, and use the result to improve a system or workflow. This gives a team a clearer basis for prioritization and iteration.</p>
-          <p class="capability-detail"><strong data-en="Evidence" data-zh="证明">Evidence</strong><span data-en="An automation system saved an algorithm team about 63% of its working time; user-vector modeling improved roommate matching accuracy by more than 30%; a Spanish toxicity classifier reached 81% accuracy." data-zh="自动化系统为算法团队节省约 63% 的工作时间；用户向量建模使舍友匹配准确率提高 30% 以上；西班牙语毒评检测模型准确率达到 81%。">An automation system saved an algorithm team about 63% of its working time; user-vector modeling improved roommate matching accuracy by more than 30%; a Spanish toxicity classifier reached 81% accuracy.</span></p>
+          <h2 data-en="Use data to make decisions" data-zh="用数据推动判断"><span class="i18n-en" lang="en">Use data to make decisions</span><span class="i18n-zh" lang="zh-CN">用数据推动判断</span></h2>
+          <p class="capability-statement" data-en="I prefer measurable evidence to intuition alone. I structure failure data, define evaluation criteria, compare outcomes, and use the result to improve a system or workflow. This gives a team a clearer basis for prioritization and iteration." data-zh="相比只凭直觉，我更重视可衡量的证据。我会结构化整理失败数据、定义评估标准、比较结果，并据此改进系统或工作流程，为团队的优先级判断与迭代提供更清晰的依据。"><span class="i18n-en" lang="en">I prefer measurable evidence to intuition alone. I structure failure data, define evaluation criteria, compare outcomes, and use the result to improve a system or workflow. This gives a team a clearer basis for prioritization and iteration.</span><span class="i18n-zh" lang="zh-CN">相比只凭直觉，我更重视可衡量的证据。我会结构化整理失败数据、定义评估标准、比较结果，并据此改进系统或工作流程，为团队的优先级判断与迭代提供更清晰的依据。</span></p>
+          <p class="capability-detail"><strong data-en="Evidence" data-zh="证明"><span class="i18n-en" lang="en">Evidence</span><span class="i18n-zh" lang="zh-CN">证明</span></strong><span data-en="An automation system saved an algorithm team about 63% of its working time; user-vector modeling improved roommate matching accuracy by more than 30%; a Spanish toxicity classifier reached 81% accuracy." data-zh="自动化系统为算法团队节省约 63% 的工作时间；用户向量建模使舍友匹配准确率提高 30% 以上；西班牙语毒评检测模型准确率达到 81%。"><span class="i18n-en" lang="en">An automation system saved an algorithm team about 63% of its working time; user-vector modeling improved roommate matching accuracy by more than 30%; a Spanish toxicity classifier reached 81% accuracy.</span><span class="i18n-zh" lang="zh-CN">自动化系统为算法团队节省约 63% 的工作时间；用户向量建模使舍友匹配准确率提高 30% 以上；西班牙语毒评检测模型准确率达到 81%。</span></span></p>
         </div>
       </article>
     </div>
 
     <section class="skills-section" aria-labelledby="deliverables-title">
-      <h2 class="skills-section-title" id="deliverables-title" data-en="What I Can Deliver" data-zh="我可以交付什么">What I Can Deliver</h2>
+      <h2 class="skills-section-title" id="deliverables-title" data-en="What I Can Deliver" data-zh="我可以交付什么"><span class="i18n-en" lang="en">What I Can Deliver</span><span class="i18n-zh" lang="zh-CN">我可以交付什么</span></h2>
       <ol class="deliverable-list">
-        <li data-en="AI-assisted workflows and internal automation tools" data-zh="AI 工作流与内部自动化工具">AI-assisted workflows and internal automation tools</li>
-        <li data-en="Full-stack MVPs and third-party API integrations" data-zh="全栈 MVP 与第三方 API 集成">Full-stack MVPs and third-party API integrations</li>
-        <li data-en="Data classification, evaluation, and structured reports" data-zh="数据分类、效果评估与结构化报告">Data classification, evaluation, and structured reports</li>
-        <li data-en="English project coordination and progress communication" data-zh="英文项目协调与进度沟通">English project coordination and progress communication</li>
+        <li data-en="AI-assisted workflows and internal automation tools" data-zh="AI 工作流与内部自动化工具"><span class="i18n-en" lang="en">AI-assisted workflows and internal automation tools</span><span class="i18n-zh" lang="zh-CN">AI 工作流与内部自动化工具</span></li>
+        <li data-en="Full-stack MVPs and third-party API integrations" data-zh="全栈 MVP 与第三方 API 集成"><span class="i18n-en" lang="en">Full-stack MVPs and third-party API integrations</span><span class="i18n-zh" lang="zh-CN">全栈 MVP 与第三方 API 集成</span></li>
+        <li data-en="Data classification, evaluation, and structured reports" data-zh="数据分类、效果评估与结构化报告"><span class="i18n-en" lang="en">Data classification, evaluation, and structured reports</span><span class="i18n-zh" lang="zh-CN">数据分类、效果评估与结构化报告</span></li>
+        <li data-en="English project coordination and progress communication" data-zh="英文项目协调与进度沟通"><span class="i18n-en" lang="en">English project coordination and progress communication</span><span class="i18n-zh" lang="zh-CN">英文项目协调与进度沟通</span></li>
       </ol>
     </section>
 
     <section class="skills-section" aria-labelledby="toolkit-title">
-      <h2 class="skills-section-title" id="toolkit-title" data-en="Working Toolkit" data-zh="工作技能">Working Toolkit</h2>
+      <h2 class="skills-section-title" id="toolkit-title" data-en="Working Toolkit" data-zh="工作技能"><span class="i18n-en" lang="en">Working Toolkit</span><span class="i18n-zh" lang="zh-CN">工作技能</span></h2>
       <dl class="toolkit-list">
-        <div class="toolkit-row"><dt data-en="AI Applications" data-zh="AI 应用">AI Applications</dt><dd data-en="DeepSeek, Agent workflows, prompt engineering, structured output, self-review, validation, and fallback design" data-zh="DeepSeek、Agent 工作流、提示词工程、结构化输出、自检、校验与降级设计">DeepSeek, Agent workflows, prompt engineering, structured output, self-review, validation, and fallback design</dd></div>
-        <div class="toolkit-row"><dt data-en="Full-stack" data-zh="全栈开发">Full-stack</dt><dd data-en="React, Vue, Node.js, Express, MySQL, IndexedDB, REST APIs, and Google Maps APIs" data-zh="React、Vue、Node.js、Express、MySQL、IndexedDB、REST API 与 Google Maps API">React, Vue, Node.js, Express, MySQL, IndexedDB, REST APIs, and Google Maps APIs</dd></div>
-        <div class="toolkit-row"><dt data-en="Data & ML" data-zh="数据与机器学习">Data &amp; ML</dt><dd data-en="Data cleaning, classification, BERT/BETO, data augmentation, pseudo-labeling, cross-validation, and visualization" data-zh="数据清洗、分类、BERT/BETO、数据增强、伪标签、交叉验证与可视化">Data cleaning, classification, BERT/BETO, data augmentation, pseudo-labeling, cross-validation, and visualization</dd></div>
-        <div class="toolkit-row"><dt data-en="Delivery" data-zh="交付能力">Delivery</dt><dd data-en="Requirements analysis, solution design, automated regression testing, end-to-end validation, and project coordination" data-zh="需求分析、方案设计、自动化回归测试、端到端验证与项目协调">Requirements analysis, solution design, automated regression testing, end-to-end validation, and project coordination</dd></div>
+        <div class="toolkit-row"><dt data-en="AI Applications" data-zh="AI 应用"><span class="i18n-en" lang="en">AI Applications</span><span class="i18n-zh" lang="zh-CN">AI 应用</span></dt><dd data-en="DeepSeek, Agent workflows, prompt engineering, structured output, self-review, validation, and fallback design" data-zh="DeepSeek、Agent 工作流、提示词工程、结构化输出、自检、校验与降级设计"><span class="i18n-en" lang="en">DeepSeek, Agent workflows, prompt engineering, structured output, self-review, validation, and fallback design</span><span class="i18n-zh" lang="zh-CN">DeepSeek、Agent 工作流、提示词工程、结构化输出、自检、校验与降级设计</span></dd></div>
+        <div class="toolkit-row"><dt data-en="Full-stack" data-zh="全栈开发"><span class="i18n-en" lang="en">Full-stack</span><span class="i18n-zh" lang="zh-CN">全栈开发</span></dt><dd data-en="React, Vue, Node.js, Express, MySQL, IndexedDB, REST APIs, and Google Maps APIs" data-zh="React、Vue、Node.js、Express、MySQL、IndexedDB、REST API 与 Google Maps API"><span class="i18n-en" lang="en">React, Vue, Node.js, Express, MySQL, IndexedDB, REST APIs, and Google Maps APIs</span><span class="i18n-zh" lang="zh-CN">React、Vue、Node.js、Express、MySQL、IndexedDB、REST API 与 Google Maps API</span></dd></div>
+        <div class="toolkit-row"><dt data-en="Data & ML" data-zh="数据与机器学习"><span class="i18n-en" lang="en">Data & ML</span><span class="i18n-zh" lang="zh-CN">数据与机器学习</span></dt><dd data-en="Data cleaning, classification, BERT/BETO, data augmentation, pseudo-labeling, cross-validation, and visualization" data-zh="数据清洗、分类、BERT/BETO、数据增强、伪标签、交叉验证与可视化"><span class="i18n-en" lang="en">Data cleaning, classification, BERT/BETO, data augmentation, pseudo-labeling, cross-validation, and visualization</span><span class="i18n-zh" lang="zh-CN">数据清洗、分类、BERT/BETO、数据增强、伪标签、交叉验证与可视化</span></dd></div>
+        <div class="toolkit-row"><dt data-en="Delivery" data-zh="交付能力"><span class="i18n-en" lang="en">Delivery</span><span class="i18n-zh" lang="zh-CN">交付能力</span></dt><dd data-en="Requirements analysis, solution design, automated regression testing, end-to-end validation, and project coordination" data-zh="需求分析、方案设计、自动化回归测试、端到端验证与项目协调"><span class="i18n-en" lang="en">Requirements analysis, solution design, automated regression testing, end-to-end validation, and project coordination</span><span class="i18n-zh" lang="zh-CN">需求分析、方案设计、自动化回归测试、端到端验证与项目协调</span></dd></div>
       </dl>
     </section>
   </section>
 
   <section class="view" id="projects" aria-labelledby="projects-title">
-    <h1 class="page-title" id="projects-title" data-en="My Projects" data-zh="我的项目">My Projects</h1>
+    <h1 class="page-title" id="projects-title" data-en="My Projects" data-zh="我的项目"><span class="i18n-en" lang="en">My Projects</span><span class="i18n-zh" lang="zh-CN">我的项目</span></h1>
     <div class="project-list">
       <article class="project-entry">
         <div class="project-body">
           <header class="project-head">
             <div>
-              <p class="project-kicker" data-en="AI travel planning / Full stack" data-zh="AI 旅行规划 / 全栈项目">AI travel planning / Full stack</p>
-              <h2 class="project-title" data-en="AItour" data-zh="AI旅游助手">AItour</h2>
+              <p class="project-kicker" data-en="AI travel planning / Full stack" data-zh="AI 旅行规划 / 全栈项目"><span class="i18n-en" lang="en">AI travel planning / Full stack</span><span class="i18n-zh" lang="zh-CN">AI 旅行规划 / 全栈项目</span></p>
+              <h2 class="project-title" data-en="AItour" data-zh="AI旅游助手"><span class="i18n-en" lang="en">AItour</span><span class="i18n-zh" lang="zh-CN">AI旅游助手</span></h2>
             </div>
             <a class="project-link" href="https://github.com/JustaNewer/AItour" target="_blank" rel="noopener noreferrer" aria-label="View AItour on GitHub">
               <svg class="platform-logo" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg>
               <span>GitHub</span>
             </a>
           </header>
-          <p class="project-summary" data-en="An AI travel planner that turns an open-ended request into a geographically verified, route-aware itinerary ready to use on a real map." data-zh="把一句模糊的旅行愿望，变成经过地理校验、带有路线规划并能在真实地图上执行的结构化行程。">An AI travel planner that turns an open-ended request into a geographically verified, route-aware itinerary ready to use on a real map.</p>
+          <p class="project-summary" data-en="An AI travel planner that turns an open-ended request into a geographically verified, route-aware itinerary ready to use on a real map." data-zh="把一句模糊的旅行愿望，变成经过地理校验、带有路线规划并能在真实地图上执行的结构化行程。"><span class="i18n-en" lang="en">An AI travel planner that turns an open-ended request into a geographically verified, route-aware itinerary ready to use on a real map.</span><span class="i18n-zh" lang="zh-CN">把一句模糊的旅行愿望，变成经过地理校验、带有路线规划并能在真实地图上执行的结构化行程。</span></p>
           <div class="project-highlights">
             <div class="project-highlight">
-              <strong data-en="Self-review loop" data-zh="生成后自检">Self-review loop</strong>
-              <p data-en="DeepSeek reviews its own itinerary and triggers one controlled regeneration when it finds a serious flaw." data-zh="DeepSeek 会复核自己生成的行程，发现严重问题时触发一次受控重生成。">DeepSeek reviews its own itinerary and triggers one controlled regeneration when it finds a serious flaw.</p>
+              <strong data-en="Self-review loop" data-zh="生成后自检"><span class="i18n-en" lang="en">Self-review loop</span><span class="i18n-zh" lang="zh-CN">生成后自检</span></strong>
+              <p data-en="DeepSeek reviews its own itinerary and triggers one controlled regeneration when it finds a serious flaw." data-zh="DeepSeek 会复核自己生成的行程，发现严重问题时触发一次受控重生成。"><span class="i18n-en" lang="en">DeepSeek reviews its own itinerary and triggers one controlled regeneration when it finds a serious flaw.</span><span class="i18n-zh" lang="zh-CN">DeepSeek 会复核自己生成的行程，发现严重问题时触发一次受控重生成。</span></p>
             </div>
             <div class="project-highlight">
-              <strong data-en="Long-trip resilience" data-zh="长行程稳定性">Long-trip resilience</strong>
-              <p data-en="Trips of 12+ days use a complete skeleton and seven-day detail chunks to avoid truncated JSON." data-zh="12 天以上行程采用完整骨架与每 7 天分段生成，避免长 JSON 被截断。">Trips of 12+ days use a complete skeleton and seven-day detail chunks to avoid truncated JSON.</p>
+              <strong data-en="Long-trip resilience" data-zh="长行程稳定性"><span class="i18n-en" lang="en">Long-trip resilience</span><span class="i18n-zh" lang="zh-CN">长行程稳定性</span></strong>
+              <p data-en="Trips of 12+ days use a complete skeleton and seven-day detail chunks to avoid truncated JSON." data-zh="12 天以上行程采用完整骨架与每 7 天分段生成，避免长 JSON 被截断。"><span class="i18n-en" lang="en">Trips of 12+ days use a complete skeleton and seven-day detail chunks to avoid truncated JSON.</span><span class="i18n-zh" lang="zh-CN">12 天以上行程采用完整骨架与每 7 天分段生成，避免长 JSON 被截断。</span></p>
             </div>
             <div class="project-highlight">
-              <strong data-en="Geographic guardrails" data-zh="地理真实性校验">Geographic guardrails</strong>
-              <p data-en="Country, city viewport, administrative area and place name are cross-checked to block same-name attractions in the wrong city." data-zh="交叉验证国家、城市视口、行政区和地点名称，拦截位于错误城市的同名景点。">Country, city viewport, administrative area and place name are cross-checked to block same-name attractions in the wrong city.</p>
+              <strong data-en="Geographic guardrails" data-zh="地理真实性校验"><span class="i18n-en" lang="en">Geographic guardrails</span><span class="i18n-zh" lang="zh-CN">地理真实性校验</span></strong>
+              <p data-en="Country, city viewport, administrative area and place name are cross-checked to block same-name attractions in the wrong city." data-zh="交叉验证国家、城市视口、行政区和地点名称，拦截位于错误城市的同名景点。"><span class="i18n-en" lang="en">Country, city viewport, administrative area and place name are cross-checked to block same-name attractions in the wrong city.</span><span class="i18n-zh" lang="zh-CN">交叉验证国家、城市视口、行政区和地点名称，拦截位于错误城市的同名景点。</span></p>
             </div>
             <div class="project-highlight">
-              <strong data-en="Local-first history" data-zh="本地优先记录">Local-first history</strong>
-              <p data-en="Generated plans are kept in IndexedDB, preserving user history without adding a project database." data-zh="生成记录保存在 IndexedDB，无需额外搭建项目数据库也能保留用户历史。">Generated plans are kept in IndexedDB, preserving user history without adding a project database.</p>
+              <strong data-en="Local-first history" data-zh="本地优先记录"><span class="i18n-en" lang="en">Local-first history</span><span class="i18n-zh" lang="zh-CN">本地优先记录</span></strong>
+              <p data-en="Generated plans are kept in IndexedDB, preserving user history without adding a project database." data-zh="生成记录保存在 IndexedDB，无需额外搭建项目数据库也能保留用户历史。"><span class="i18n-en" lang="en">Generated plans are kept in IndexedDB, preserving user history without adding a project database.</span><span class="i18n-zh" lang="zh-CN">生成记录保存在 IndexedDB，无需额外搭建项目数据库也能保留用户历史。</span></p>
             </div>
           </div>
-          <p class="project-stack"><span data-en="STACK / REACT 18 / VITE 5 / NODE.JS / DEEPSEEK / GOOGLE MAPS / INDEXEDDB" data-zh="技术栈 / REACT 18 / VITE 5 / NODE.JS / DEEPSEEK / GOOGLE MAPS / INDEXEDDB">STACK / REACT 18 / VITE 5 / NODE.JS / DEEPSEEK / GOOGLE MAPS / INDEXEDDB</span></p>
+          <p class="project-stack"><span data-en="STACK / REACT 18 / VITE 5 / NODE.JS / DEEPSEEK / GOOGLE MAPS / INDEXEDDB" data-zh="技术栈 / REACT 18 / VITE 5 / NODE.JS / DEEPSEEK / GOOGLE MAPS / INDEXEDDB"><span class="i18n-en" lang="en">STACK / REACT 18 / VITE 5 / NODE.JS / DEEPSEEK / GOOGLE MAPS / INDEXEDDB</span><span class="i18n-zh" lang="zh-CN">技术栈 / REACT 18 / VITE 5 / NODE.JS / DEEPSEEK / GOOGLE MAPS / INDEXEDDB</span></span></p>
         </div>
       </article>
 
@@ -882,51 +886,51 @@
         <div class="project-body">
           <header class="project-head">
             <div>
-              <p class="project-kicker" data-en="AI matching / Full stack" data-zh="AI 智能匹配 / 全栈项目">AI matching / Full stack</p>
-              <h2 class="project-title" data-en="RoommateDistributor" data-zh="智能舍友分配系统">RoommateDistributor</h2>
+              <p class="project-kicker" data-en="AI matching / Full stack" data-zh="AI 智能匹配 / 全栈项目"><span class="i18n-en" lang="en">AI matching / Full stack</span><span class="i18n-zh" lang="zh-CN">AI 智能匹配 / 全栈项目</span></p>
+              <h2 class="project-title" data-en="RoommateDistributor" data-zh="智能舍友分配系统"><span class="i18n-en" lang="en">RoommateDistributor</span><span class="i18n-zh" lang="zh-CN">智能舍友分配系统</span></h2>
             </div>
             <a class="project-link" href="https://github.com/JustaNewer/RoommateDistributor" target="_blank" rel="noopener noreferrer" aria-label="View RoommateDistributor on GitHub">
               <svg class="platform-logo" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg>
               <span>GitHub</span>
             </a>
           </header>
-          <p class="project-summary" data-en="A full-stack dormitory operating system that combines deterministic personality modeling, hard schedule constraints and LLM reasoning to form more compatible rooms." data-zh="不是让大模型直接“拍脑袋分宿舍”，而是以作息硬约束收敛解空间，再用 OCEAN 性格模型和 DeepSeek 优化组合，形成更契合的宿舍。">A full-stack dormitory operating system that combines deterministic personality modeling, hard schedule constraints and LLM reasoning to form more compatible rooms.</p>
+          <p class="project-summary" data-en="A full-stack dormitory operating system that combines deterministic personality modeling, hard schedule constraints and LLM reasoning to form more compatible rooms." data-zh="不是让大模型直接“拍脑袋分宿舍”，而是以作息硬约束收敛解空间，再用 OCEAN 性格模型和 DeepSeek 优化组合，形成更契合的宿舍。"><span class="i18n-en" lang="en">A full-stack dormitory operating system that combines deterministic personality modeling, hard schedule constraints and LLM reasoning to form more compatible rooms.</span><span class="i18n-zh" lang="zh-CN">不是让大模型直接“拍脑袋分宿舍”，而是以作息硬约束收敛解空间，再用 OCEAN 性格模型和 DeepSeek 优化组合，形成更契合的宿舍。</span></p>
           <div class="project-highlights">
             <div class="project-highlight">
-              <strong data-en="9D to OCEAN" data-zh="9 维性格建模">9D to OCEAN</strong>
-              <p data-en="Nine Likert dimensions are converted into a deterministic Big Five profile, so identical inputs always receive a consistent interpretation." data-zh="将 9 维李克特量表转化为确定性的五大人格画像，相同输入始终获得一致解释。">Nine Likert dimensions are converted into a deterministic Big Five profile, so identical inputs always receive a consistent interpretation.</p>
+              <strong data-en="9D to OCEAN" data-zh="9 维性格建模"><span class="i18n-en" lang="en">9D to OCEAN</span><span class="i18n-zh" lang="zh-CN">9 维性格建模</span></strong>
+              <p data-en="Nine Likert dimensions are converted into a deterministic Big Five profile, so identical inputs always receive a consistent interpretation." data-zh="将 9 维李克特量表转化为确定性的五大人格画像，相同输入始终获得一致解释。"><span class="i18n-en" lang="en">Nine Likert dimensions are converted into a deterministic Big Five profile, so identical inputs always receive a consistent interpretation.</span><span class="i18n-zh" lang="zh-CN">将 9 维李克特量表转化为确定性的五大人格画像，相同输入始终获得一致解释。</span></p>
             </div>
             <div class="project-highlight">
-              <strong data-en="Three-layer allocation" data-zh="三层分配架构">Three-layer allocation</strong>
-              <p data-en="Schedule clustering narrows the solution space, AI optimizes personality compatibility, then each room receives an explainable report." data-zh="先按作息聚类缩小解空间，再由 AI 优化性格兼容度，最后为每间宿舍生成可解释报告。">Schedule clustering narrows the solution space, AI optimizes personality compatibility, then each room receives an explainable report.</p>
+              <strong data-en="Three-layer allocation" data-zh="三层分配架构"><span class="i18n-en" lang="en">Three-layer allocation</span><span class="i18n-zh" lang="zh-CN">三层分配架构</span></strong>
+              <p data-en="Schedule clustering narrows the solution space, AI optimizes personality compatibility, then each room receives an explainable report." data-zh="先按作息聚类缩小解空间，再由 AI 优化性格兼容度，最后为每间宿舍生成可解释报告。"><span class="i18n-en" lang="en">Schedule clustering narrows the solution space, AI optimizes personality compatibility, then each room receives an explainable report.</span><span class="i18n-zh" lang="zh-CN">先按作息聚类缩小解空间，再由 AI 优化性格兼容度，最后为每间宿舍生成可解释报告。</span></p>
             </div>
             <div class="project-highlight">
-              <strong data-en="Safe fallback" data-zh="可靠降级机制">Safe fallback</strong>
-              <p data-en="If the AI service fails, the system preserves the deterministic schedule-based allocation instead of blocking the workflow." data-zh="AI 服务失败时保留基于作息的确定性分配结果，不让核心流程因外部模型而中断。">If the AI service fails, the system preserves the deterministic schedule-based allocation instead of blocking the workflow.</p>
+              <strong data-en="Safe fallback" data-zh="可靠降级机制"><span class="i18n-en" lang="en">Safe fallback</span><span class="i18n-zh" lang="zh-CN">可靠降级机制</span></strong>
+              <p data-en="If the AI service fails, the system preserves the deterministic schedule-based allocation instead of blocking the workflow." data-zh="AI 服务失败时保留基于作息的确定性分配结果，不让核心流程因外部模型而中断。"><span class="i18n-en" lang="en">If the AI service fails, the system preserves the deterministic schedule-based allocation instead of blocking the workflow.</span><span class="i18n-zh" lang="zh-CN">AI 服务失败时保留基于作息的确定性分配结果，不让核心流程因外部模型而中断。</span></p>
             </div>
             <div class="project-highlight">
-              <strong data-en="Operations interface" data-zh="宿舍运营界面">Operations interface</strong>
-              <p data-en="Administrators can inspect floors, rooms and beds, review compatibility, and drag, swap or remove occupants manually." data-zh="管理员可查看楼层、房间和床位，检查兼容性，并通过拖拽、交换或移除完成手动调整。">Administrators can inspect floors, rooms and beds, review compatibility, and drag, swap or remove occupants manually.</p>
+              <strong data-en="Operations interface" data-zh="宿舍运营界面"><span class="i18n-en" lang="en">Operations interface</span><span class="i18n-zh" lang="zh-CN">宿舍运营界面</span></strong>
+              <p data-en="Administrators can inspect floors, rooms and beds, review compatibility, and drag, swap or remove occupants manually." data-zh="管理员可查看楼层、房间和床位，检查兼容性，并通过拖拽、交换或移除完成手动调整。"><span class="i18n-en" lang="en">Administrators can inspect floors, rooms and beds, review compatibility, and drag, swap or remove occupants manually.</span><span class="i18n-zh" lang="zh-CN">管理员可查看楼层、房间和床位，检查兼容性，并通过拖拽、交换或移除完成手动调整。</span></p>
             </div>
           </div>
-          <p class="project-stack"><span data-en="STACK / VUE 3 / NODE.JS / EXPRESS / MYSQL 8 / DEEPSEEK / ALIYUN OSS" data-zh="技术栈 / VUE 3 / NODE.JS / EXPRESS / MYSQL 8 / DEEPSEEK / 阿里云 OSS">STACK / VUE 3 / NODE.JS / EXPRESS / MYSQL 8 / DEEPSEEK / ALIYUN OSS</span></p>
+          <p class="project-stack"><span data-en="STACK / VUE 3 / NODE.JS / EXPRESS / MYSQL 8 / DEEPSEEK / ALIYUN OSS" data-zh="技术栈 / VUE 3 / NODE.JS / EXPRESS / MYSQL 8 / DEEPSEEK / 阿里云 OSS"><span class="i18n-en" lang="en">STACK / VUE 3 / NODE.JS / EXPRESS / MYSQL 8 / DEEPSEEK / ALIYUN OSS</span><span class="i18n-zh" lang="zh-CN">技术栈 / VUE 3 / NODE.JS / EXPRESS / MYSQL 8 / DEEPSEEK / 阿里云 OSS</span></span></p>
         </div>
       </article>
     </div>
   </section>
 
   <section class="view" id="articles" aria-labelledby="articles-title">
-    <h1 class="page-title" id="articles-title" data-en="Blog" data-zh="博客">Blog</h1>
+    <h1 class="page-title" id="articles-title" data-en="Blog" data-zh="博客"><span class="i18n-en" lang="en">Blog</span><span class="i18n-zh" lang="zh-CN">博客</span></h1>
     <div class="article-list">
       <article class="article-entry" data-article="investment-psychology">
-        <a class="article-back-link" href="./#articles" data-en="Back to articles" data-zh="返回文章列表">Back to articles</a>
+        <a class="article-back-link" href="./#articles" data-en="Back to articles" data-zh="返回文章列表"><span class="i18n-en" lang="en">Back to articles</span><span class="i18n-zh" lang="zh-CN">返回文章列表</span></a>
         <header class="article-header">
-          <h2 data-en="The Psychology of Investing" data-zh="关于投资的心理学">The Psychology of Investing</h2>
+          <h2 data-en="The Psychology of Investing" data-zh="关于投资的心理学"><span class="i18n-en" lang="en">The Psychology of Investing</span><span class="i18n-zh" lang="zh-CN">关于投资的心理学</span></h2>
           <time datetime="2026-08-08">2026.08.08</time>
         </header>
         <div class="article-preview">
-          <p data-en="Prices shape emotions, and emotions filter evidence. In investing, your real opponent is often yourself." data-zh="价格会改变情绪，情绪又会筛选证据。投资中真正的对手往往是自己。">Prices shape emotions, and emotions filter evidence. In investing, your real opponent is often yourself.</p>
-          <a class="article-read-link" href="?article=investment-psychology#articles" data-en="Read full article" data-zh="阅读全文">Read full article</a>
+          <p data-en="Prices shape emotions, and emotions filter evidence. In investing, your real opponent is often yourself." data-zh="价格会改变情绪，情绪又会筛选证据。投资中真正的对手往往是自己。"><span class="i18n-en" lang="en">Prices shape emotions, and emotions filter evidence. In investing, your real opponent is often yourself.</span><span class="i18n-zh" lang="zh-CN">价格会改变情绪，情绪又会筛选证据。投资中真正的对手往往是自己。</span></p>
+          <a class="article-read-link" href="?article=investment-psychology#articles" data-en="Read full article" data-zh="阅读全文"><span class="i18n-en" lang="en">Read full article</span><span class="i18n-zh" lang="zh-CN">阅读全文</span></a>
         </div>
         <div class="article-content" data-article-lang="en" lang="en">
           <p>There is something strange about investing. If an item in a supermarket drops from 100 yuan to 70, most people see it as cheaper and become more willing to buy, as long as the product itself has not changed. Financial markets often work in exactly the opposite way. An asset rises from 100 to 150, and people begin to think it is worth buying. At 200, more people start talking about it. At 300, even those who were never interested begin doing research. Only when everyone seems to be making money do many finally convince themselves: “This thing really is good.” The reverse is also true. They like it at 100, begin to doubt it at 90, revisit all the risks at 70, suddenly find problems everywhere at 50, and finally sell at the moment of greatest pessimism.</p>
@@ -1085,14 +1089,14 @@
       </article>
 
       <article class="article-entry" data-article="scarce-skills">
-        <a class="article-back-link" href="./#articles" data-en="Back to articles" data-zh="返回文章列表">Back to articles</a>
+        <a class="article-back-link" href="./#articles" data-en="Back to articles" data-zh="返回文章列表"><span class="i18n-en" lang="en">Back to articles</span><span class="i18n-zh" lang="zh-CN">返回文章列表</span></a>
         <header class="article-header">
-          <h2 data-en="What Makes a Skill Scarce?" data-zh="什么是稀缺的技能">What Makes a Skill Scarce?</h2>
+          <h2 data-en="What Makes a Skill Scarce?" data-zh="什么是稀缺的技能"><span class="i18n-en" lang="en">What Makes a Skill Scarce?</span><span class="i18n-zh" lang="zh-CN">什么是稀缺的技能</span></h2>
           <time datetime="2026-08-08">2026.08.08</time>
         </header>
         <div class="article-preview">
-          <p data-en="A difficult skill is not necessarily a scarce one. What makes a skill genuinely scarce and valuable?" data-zh="困难的技能不等于稀缺。什么样的技能才是真正有价值的稀缺能力？">A difficult skill is not necessarily a scarce one. What makes a skill genuinely scarce and valuable?</p>
-          <a class="article-read-link" href="?article=scarce-skills#articles" data-en="Read full article" data-zh="阅读全文">Read full article</a>
+          <p data-en="A difficult skill is not necessarily a scarce one. What makes a skill genuinely scarce and valuable?" data-zh="困难的技能不等于稀缺。什么样的技能才是真正有价值的稀缺能力？"><span class="i18n-en" lang="en">A difficult skill is not necessarily a scarce one. What makes a skill genuinely scarce and valuable?</span><span class="i18n-zh" lang="zh-CN">困难的技能不等于稀缺。什么样的技能才是真正有价值的稀缺能力？</span></p>
+          <a class="article-read-link" href="?article=scarce-skills#articles" data-en="Read full article" data-zh="阅读全文"><span class="i18n-en" lang="en">Read full article</span><span class="i18n-zh" lang="zh-CN">阅读全文</span></a>
         </div>
         <div class="article-content" data-article-lang="en" lang="en">
           <p>While looking for work recently, one fact has become harder and harder to ignore: people who know how to do useful work are no longer scarce. Open a job app and pick any half-decent position, and hundreds of applications are no longer unusual. A new graduate can use Office, edit videos, make PowerPoint slides, write a little Python and Java, pass China’s CET-4 or CET-6 English exam, and use ChatGPT to help write code. Ten or fifteen years ago, that person might have counted as a capable university graduate. Today, they are simply an entirely ordinary one.</p>
@@ -1323,14 +1327,14 @@
       </article>
 
       <article class="article-entry" data-article="what-is-bitcoin">
-        <a class="article-back-link" href="./#articles" data-en="Back to articles" data-zh="返回文章列表">Back to articles</a>
+        <a class="article-back-link" href="./#articles" data-en="Back to articles" data-zh="返回文章列表"><span class="i18n-en" lang="en">Back to articles</span><span class="i18n-zh" lang="zh-CN">返回文章列表</span></a>
         <header class="article-header">
-          <h2 data-en="What Is Bitcoin?" data-zh="什么是比特币？">What Is Bitcoin?</h2>
+          <h2 data-en="What Is Bitcoin?" data-zh="什么是比特币？"><span class="i18n-en" lang="en">What Is Bitcoin?</span><span class="i18n-zh" lang="zh-CN">什么是比特币？</span></h2>
           <time datetime="2026-08-01">2026.08.01</time>
         </header>
         <div class="article-preview">
-          <p data-en="A plain-language explanation of Bitcoin as a distributed ledger, how mining and confirmations work, how miners, developers and users keep one another in check, and why scarcity, self-custody and volatility matter." data-zh="从分布式账本、区块与挖矿，到矿工、开发者和用户之间的权力制衡，解释比特币为何安全、稀缺、难以冻结，以及应如何看待它的价格波动。">A plain-language explanation of Bitcoin as a distributed ledger, how mining and confirmations work, how miners, developers and users keep one another in check, and why scarcity, self-custody and volatility matter.</p>
-          <a class="article-read-link" href="?article=what-is-bitcoin#articles" data-en="Read full article" data-zh="阅读全文">Read full article</a>
+          <p data-en="A plain-language explanation of Bitcoin as a distributed ledger, how mining and confirmations work, how miners, developers and users keep one another in check, and why scarcity, self-custody and volatility matter." data-zh="从分布式账本、区块与挖矿，到矿工、开发者和用户之间的权力制衡，解释比特币为何安全、稀缺、难以冻结，以及应如何看待它的价格波动。"><span class="i18n-en" lang="en">A plain-language explanation of Bitcoin as a distributed ledger, how mining and confirmations work, how miners, developers and users keep one another in check, and why scarcity, self-custody and volatility matter.</span><span class="i18n-zh" lang="zh-CN">从分布式账本、区块与挖矿，到矿工、开发者和用户之间的权力制衡，解释比特币为何安全、稀缺、难以冻结，以及应如何看待它的价格波动。</span></p>
+          <a class="article-read-link" href="?article=what-is-bitcoin#articles" data-en="Read full article" data-zh="阅读全文"><span class="i18n-en" lang="en">Read full article</span><span class="i18n-zh" lang="zh-CN">阅读全文</span></a>
         </div>
         <div class="article-content" data-article-lang="en" lang="en">
           <p>Bitcoin can seem mysterious. One bitcoin is already worth tens of thousands of dollars, and it is familiar to many institutions and investors, yet very few people understand how it actually works. Most people are still puzzled by why it costs so much. Some even think it was invented as a scam or a Ponzi scheme. I see it as a utopian company created by a vast number of equal "employees." It offers a one-of-a-kind currency and an entirely new way to save. I believe that even a complete beginner can understand what Bitcoin really is after reading this article.</p>
@@ -1373,14 +1377,14 @@
       </article>
 
       <article class="article-entry" data-article="focus-experiment">
-        <a class="article-back-link" href="./#articles" data-en="Back to articles" data-zh="返回文章列表">Back to articles</a>
+        <a class="article-back-link" href="./#articles" data-en="Back to articles" data-zh="返回文章列表"><span class="i18n-en" lang="en">Back to articles</span><span class="i18n-zh" lang="zh-CN">返回文章列表</span></a>
         <header class="article-header">
-          <h2 data-en="An Unorthodox Focus Hack: L-Theanine and Caffeine for IELTS" data-zh="邪修提升专注力：茶氨酸与咖啡因在雅思场景中的个人观察">An Unorthodox Focus Hack: L-Theanine and Caffeine for IELTS</h2>
+          <h2 data-en="An Unorthodox Focus Hack: L-Theanine and Caffeine for IELTS" data-zh="邪修提升专注力：茶氨酸与咖啡因在雅思场景中的个人观察"><span class="i18n-en" lang="en">An Unorthodox Focus Hack: L-Theanine and Caffeine for IELTS</span><span class="i18n-zh" lang="zh-CN">邪修提升专注力：茶氨酸与咖啡因在雅思场景中的个人观察</span></h2>
           <time datetime="2026-07-21">2026.07.21</time>
         </header>
         <div class="article-preview">
-          <p data-en="Seven IELTS listening and reading sessions, one L-theanine-caffeine combination, and a careful look at the results, limits, and safety considerations." data-zh="记录 7 次雅思听力与阅读表现，对比茶氨酸—咖啡因组合与未服用状态，并结合随机对照研究讨论可能收益、实验局限和安全边界。">Seven IELTS listening and reading sessions, one L-theanine-caffeine combination, and a careful look at the results, limits, and safety considerations.</p>
-          <a class="article-read-link" href="?article=focus-experiment#articles" data-en="Read full article" data-zh="阅读全文">Read full article</a>
+          <p data-en="Seven IELTS listening and reading sessions, one L-theanine-caffeine combination, and a careful look at the results, limits, and safety considerations." data-zh="记录 7 次雅思听力与阅读表现，对比茶氨酸—咖啡因组合与未服用状态，并结合随机对照研究讨论可能收益、实验局限和安全边界。"><span class="i18n-en" lang="en">Seven IELTS listening and reading sessions, one L-theanine-caffeine combination, and a careful look at the results, limits, and safety considerations.</span><span class="i18n-zh" lang="zh-CN">记录 7 次雅思听力与阅读表现，对比茶氨酸—咖啡因组合与未服用状态，并结合随机对照研究讨论可能收益、实验局限和安全边界。</span></p>
+          <a class="article-read-link" href="?article=focus-experiment#articles" data-en="Read full article" data-zh="阅读全文"><span class="i18n-en" lang="en">Read full article</span><span class="i18n-zh" lang="zh-CN">阅读全文</span></a>
         </div>
         <div class="article-content" data-article-lang="en" lang="en">
           <blockquote>
@@ -1571,14 +1575,14 @@
       </article>
 
       <article class="article-entry" data-article="ielts-guide">
-        <a class="article-back-link" href="./#articles" data-en="Back to articles" data-zh="返回文章列表">Back to articles</a>
+        <a class="article-back-link" href="./#articles" data-en="Back to articles" data-zh="返回文章列表"><span class="i18n-en" lang="en">Back to articles</span><span class="i18n-zh" lang="zh-CN">返回文章列表</span></a>
         <header class="article-header">
-          <h2 data-en="IELTS on a Budget: A Zero-Cost Self-Study Guide" data-zh="平民雅思备考指南：0 成本学雅思教程">IELTS on a Budget: A Zero-Cost Self-Study Guide</h2>
+          <h2 data-en="IELTS on a Budget: A Zero-Cost Self-Study Guide" data-zh="平民雅思备考指南：0 成本学雅思教程"><span class="i18n-en" lang="en">IELTS on a Budget: A Zero-Cost Self-Study Guide</span><span class="i18n-zh" lang="zh-CN">平民雅思备考指南：0 成本学雅思教程</span></h2>
           <time datetime="2026-07-17">2026.07.17</time>
         </header>
         <div class="article-preview">
-          <p data-en="How I prepared for IELTS at no cost and scored 7.0 on my first attempt: vocabulary, grammar, all four sections, free tools, and a practical study timeline." data-zh="从零成本备考到首考雅思 7.0：这篇文章整理了词汇、语法、听说读写、免费工具与考前时间规划，给出一套可以直接执行的自学路线。">How I prepared for IELTS at no cost and scored 7.0 on my first attempt: vocabulary, grammar, all four sections, free tools, and a practical study timeline.</p>
-          <a class="article-read-link" href="?article=ielts-guide#articles" data-en="Read full article" data-zh="阅读全文">Read full article</a>
+          <p data-en="How I prepared for IELTS at no cost and scored 7.0 on my first attempt: vocabulary, grammar, all four sections, free tools, and a practical study timeline." data-zh="从零成本备考到首考雅思 7.0：这篇文章整理了词汇、语法、听说读写、免费工具与考前时间规划，给出一套可以直接执行的自学路线。"><span class="i18n-en" lang="en">How I prepared for IELTS at no cost and scored 7.0 on my first attempt: vocabulary, grammar, all four sections, free tools, and a practical study timeline.</span><span class="i18n-zh" lang="zh-CN">从零成本备考到首考雅思 7.0：这篇文章整理了词汇、语法、听说读写、免费工具与考前时间规划，给出一套可以直接执行的自学路线。</span></p>
+          <a class="article-read-link" href="?article=ielts-guide#articles" data-en="Read full article" data-zh="阅读全文"><span class="i18n-en" lang="en">Read full article</span><span class="i18n-zh" lang="zh-CN">阅读全文</span></a>
         </div>
         <div class="article-content" data-article-lang="en" lang="en">
           <blockquote>
@@ -1884,10 +1888,10 @@
   </section>
 
   <section class="view" id="travel" aria-labelledby="travel-title">
-    <h1 class="page-title" id="travel-title" data-en="Solo Trip" data-zh="个人旅行">Solo Trip</h1>
+    <h1 class="page-title" id="travel-title" data-en="Solo Trip" data-zh="个人旅行"><span class="i18n-en" lang="en">Solo Trip</span><span class="i18n-zh" lang="zh-CN">个人旅行</span></h1>
 
     <article class="trip-group">
-      <header class="trip-header"><h2 data-en="Singapore" data-zh="新加坡">Singapore</h2><time datetime="2025-09-16">2025.09.16</time></header>
+      <header class="trip-header"><h2 data-en="Singapore" data-zh="新加坡"><span class="i18n-en" lang="en">Singapore</span><span class="i18n-zh" lang="zh-CN">新加坡</span></h2><time datetime="2025-09-16">2025.09.16</time></header>
       <div class="photo-grid">
         <figure><img src="trip%20photos/sng1-800.webp" srcset="trip%20photos/sng1-640.webp 640w, trip%20photos/sng1-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Singapore trip photo 1" width="800" height="600" loading="eager" decoding="async" fetchpriority="high" /></figure>
         <figure><img src="trip%20photos/sng2-800.webp" srcset="trip%20photos/sng2-640.webp 640w, trip%20photos/sng2-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Singapore trip photo 2" width="600" height="800" loading="eager" decoding="async" fetchpriority="high" /></figure>
@@ -1896,7 +1900,7 @@
     </article>
 
     <article class="trip-group">
-      <header class="trip-header"><h2 data-en="Osaka" data-zh="大阪">Osaka</h2><time datetime="2025-11-03">2025.11.03</time></header>
+      <header class="trip-header"><h2 data-en="Osaka" data-zh="大阪"><span class="i18n-en" lang="en">Osaka</span><span class="i18n-zh" lang="zh-CN">大阪</span></h2><time datetime="2025-11-03">2025.11.03</time></header>
       <div class="photo-grid">
         <figure><img src="trip%20photos/osaka1-800.webp" srcset="trip%20photos/osaka1-640.webp 640w, trip%20photos/osaka1-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Osaka trip photo 1" width="600" height="800" loading="lazy" decoding="async" fetchpriority="low" /></figure>
         <figure><img src="trip%20photos/osaka2-800.webp" srcset="trip%20photos/osaka2-640.webp 640w, trip%20photos/osaka2-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Osaka trip photo 2" width="800" height="600" loading="lazy" decoding="async" fetchpriority="low" /></figure>
@@ -1905,7 +1909,7 @@
     </article>
 
     <article class="trip-group">
-      <header class="trip-header"><h2 data-en="Kyoto" data-zh="京都">Kyoto</h2><time datetime="2025-11-07">2025.11.07</time></header>
+      <header class="trip-header"><h2 data-en="Kyoto" data-zh="京都"><span class="i18n-en" lang="en">Kyoto</span><span class="i18n-zh" lang="zh-CN">京都</span></h2><time datetime="2025-11-07">2025.11.07</time></header>
       <div class="photo-grid">
         <figure><img src="trip%20photos/kyoto1-800.webp" srcset="trip%20photos/kyoto1-640.webp 640w, trip%20photos/kyoto1-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Kyoto trip photo 1" width="800" height="800" loading="lazy" decoding="async" fetchpriority="low" /></figure>
         <figure><img src="trip%20photos/kyoto2-800.webp" srcset="trip%20photos/kyoto2-640.webp 640w, trip%20photos/kyoto2-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Kyoto trip photo 2" width="800" height="600" loading="lazy" decoding="async" fetchpriority="low" /></figure>
@@ -1914,7 +1918,7 @@
     </article>
 
     <article class="trip-group">
-      <header class="trip-header"><h2 data-en="Mount Fuji" data-zh="富士山">Mount Fuji</h2><time datetime="2025-11-10">2025.11.10</time></header>
+      <header class="trip-header"><h2 data-en="Mount Fuji" data-zh="富士山"><span class="i18n-en" lang="en">Mount Fuji</span><span class="i18n-zh" lang="zh-CN">富士山</span></h2><time datetime="2025-11-10">2025.11.10</time></header>
       <div class="photo-grid">
         <figure><img src="trip%20photos/fuji1-800.webp" srcset="trip%20photos/fuji1-640.webp 640w, trip%20photos/fuji1-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Mount Fuji trip photo 1" width="800" height="800" loading="lazy" decoding="async" fetchpriority="low" /></figure>
         <figure><img src="trip%20photos/fuji2-800.webp" srcset="trip%20photos/fuji2-640.webp 640w, trip%20photos/fuji2-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Mount Fuji trip photo 2" width="600" height="800" loading="lazy" decoding="async" fetchpriority="low" /></figure>
@@ -1923,7 +1927,7 @@
     </article>
 
     <article class="trip-group">
-      <header class="trip-header"><h2 data-en="Tokyo" data-zh="东京">Tokyo</h2><time datetime="2025-11-12">2025.11.12</time></header>
+      <header class="trip-header"><h2 data-en="Tokyo" data-zh="东京"><span class="i18n-en" lang="en">Tokyo</span><span class="i18n-zh" lang="zh-CN">东京</span></h2><time datetime="2025-11-12">2025.11.12</time></header>
       <div class="photo-grid">
         <figure><img src="trip%20photos/tokyo1-800.webp" srcset="trip%20photos/tokyo1-640.webp 640w, trip%20photos/tokyo1-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Tokyo trip photo 1" width="600" height="800" loading="lazy" decoding="async" fetchpriority="low" /></figure>
         <figure><img src="trip%20photos/tokyo2-800.webp" srcset="trip%20photos/tokyo2-640.webp 640w, trip%20photos/tokyo2-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Tokyo trip photo 2" width="800" height="600" loading="lazy" decoding="async" fetchpriority="low" /></figure>
@@ -1943,7 +1947,6 @@
   var navLinks = document.querySelectorAll('.nav-link');
   var articleRouteLinks = document.querySelectorAll('.article-read-link, .article-back-link');
   var views = document.querySelectorAll('.view');
-  var translatedNodes = document.querySelectorAll('[data-en][data-zh]');
   var lang = 'en';
   var theme = 'light';
 
@@ -1975,17 +1978,13 @@
   function applyLanguage() {
     html.lang = lang === 'zh' ? 'zh-CN' : 'en';
     html.setAttribute('data-lang', lang);
-    for (var i = 0; i < translatedNodes.length; i++) {
-      translatedNodes[i].textContent = translatedNodes[i].getAttribute(lang === 'zh' ? 'data-zh' : 'data-en');
-    }
-    langButton.textContent = lang === 'zh' ? 'EN' : '中';
     langButton.setAttribute('aria-label', lang === 'zh' ? '切换到英文' : 'Switch to Chinese');
     updateThemeButton();
   }
 
   function updateThemeButton() {
-    themeButton.textContent = theme === 'dark' ? (lang === 'zh' ? '白' : 'Light') : (lang === 'zh' ? '黑' : 'Dark');
-    themeButton.setAttribute('aria-label', lang === 'zh' ? '切换主题' : 'Switch theme');
+    var nextTheme = theme === 'dark' ? (lang === 'zh' ? '浅色' : 'light') : (lang === 'zh' ? '深色' : 'dark');
+    themeButton.setAttribute('aria-label', lang === 'zh' ? '切换到' + nextTheme + '主题' : 'Switch to ' + nextTheme + ' theme');
   }
 
   function applyTheme() {
