@@ -310,28 +310,43 @@
     line-height: 1.45;
   }
 
+  .work-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(160px, 36%);
+    gap: 2px 28px;
+    align-items: start;
+  }
+
   .work-company {
-    margin-bottom: 2px;
+    grid-column: 1;
+    grid-row: 1;
     font-size: 18px;
     line-height: 1.35;
   }
 
   .work-company-alt {
-    margin-bottom: 7px;
+    grid-column: 1;
+    grid-row: 2;
     font-size: 12px;
     line-height: 1.45;
   }
 
   .work-role {
+    grid-column: 2;
+    grid-row: 1;
+    padding-top: 3px;
     font-size: 13px;
     font-weight: 700;
     line-height: 1.5;
+    text-align: right;
   }
 
   .work-location {
-    margin-top: 2px;
+    grid-column: 2;
+    grid-row: 2;
     font-size: 12px;
     line-height: 1.45;
+    text-align: right;
   }
 
   .resume-skills {
@@ -761,6 +776,7 @@
     .profile-grid { grid-template-columns: 1fr; }
     .work-entry { grid-template-columns: 1fr; gap: 6px; }
     .work-period { padding-top: 0; }
+    .work-body { grid-template-columns: minmax(0, 1fr) minmax(112px, 40%); gap: 2px 14px; }
     .capability-entry { grid-template-columns: 46px minmax(0, 1fr); }
     .capability-body { padding-left: 14px; }
     .deliverable-list { grid-template-columns: 1fr; }
