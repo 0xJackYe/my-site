@@ -277,15 +277,72 @@
     font-weight: 700;
   }
 
-  /* Capabilities */
-  .capability-list { display: grid; }
+  /* Experience */
+  #skills > .page-title {
+    margin-bottom: 40px;
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  .work-history-title,
+  .resume-skills-title {
+    margin-bottom: 24px;
+    font-size: 18px;
+    line-height: 1.3;
+    text-transform: uppercase;
+  }
+
+  .work-list {
+    display: grid;
+    gap: 30px;
+  }
+
+  .work-entry {
+    display: grid;
+    grid-template-columns: 150px minmax(0, 1fr);
+    gap: 28px;
+  }
+
+  .work-period {
+    padding-top: 3px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.45;
+  }
+
+  .work-company {
+    margin-bottom: 2px;
+    font-size: 18px;
+    line-height: 1.35;
+  }
+
+  .work-company-alt {
+    margin-bottom: 7px;
+    font-size: 12px;
+    line-height: 1.45;
+  }
+
+  .work-role {
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.5;
+  }
+
+  .resume-skills {
+    margin-top: 44px;
+    padding-top: 30px;
+    border-top: 1px solid var(--fg);
+  }
+
+  .capability-list {
+    display: grid;
+    gap: 14px;
+  }
 
   .capability-entry {
     display: grid;
     grid-template-columns: 64px minmax(0, 1fr);
   }
-
-  .capability-entry + .capability-entry { border-top: 1px solid var(--fg); }
 
   .capability-index {
     padding: 22px 12px 22px 0;
@@ -325,8 +382,7 @@
 
   .skills-section {
     margin-top: 38px;
-    padding-top: 32px;
-    border-top: 1px solid var(--fg);
+    padding-top: 0;
   }
 
   .skills-section-title {
@@ -697,6 +753,8 @@
     .toolbar { align-self: flex-end; }
     .profile { margin-top: 0; }
     .profile-grid { grid-template-columns: 1fr; }
+    .work-entry { grid-template-columns: 1fr; gap: 6px; }
+    .work-period { padding-top: 0; }
     .capability-entry { grid-template-columns: 46px minmax(0, 1fr); }
     .capability-body { padding-left: 14px; }
     .deliverable-list { grid-template-columns: 1fr; }
@@ -734,7 +792,7 @@
 <header class="topbar">
   <nav class="nav-links" aria-label="Site sections">
     <a class="nav-link" href="#home" data-view="home" data-en="Home" data-zh="主页"><span class="i18n-en" lang="en">Home</span><span class="i18n-zh" lang="zh-CN">主页</span></a>
-    <a class="nav-link" href="#skills" data-view="skills" data-en="Capabilities" data-zh="技能"><span class="i18n-en" lang="en">Capabilities</span><span class="i18n-zh" lang="zh-CN">技能</span></a>
+    <a class="nav-link" href="#skills" data-view="skills" data-en="Experience" data-zh="履历"><span class="i18n-en" lang="en">Experience</span><span class="i18n-zh" lang="zh-CN">履历</span></a>
     <a class="nav-link" href="#projects" data-view="projects" data-en="My Projects" data-zh="我的项目"><span class="i18n-en" lang="en">My Projects</span><span class="i18n-zh" lang="zh-CN">我的项目</span></a>
     <a class="nav-link" href="#articles" data-view="articles" data-en="Blog" data-zh="博客"><span class="i18n-en" lang="en">Blog</span><span class="i18n-zh" lang="zh-CN">博客</span></a>
     <a class="nav-link" href="#travel" data-view="travel" data-en="Solo Trip" data-zh="个人旅行"><span class="i18n-en" lang="en">Solo Trip</span><span class="i18n-zh" lang="zh-CN">个人旅行</span></a>
@@ -792,7 +850,42 @@
   </section>
 
   <section class="view" id="skills" aria-labelledby="skills-title">
-    <h1 class="page-title" id="skills-title" data-en="Capabilities" data-zh="技能"><span class="i18n-en" lang="en">Capabilities</span><span class="i18n-zh" lang="zh-CN">技能</span></h1>
+    <h1 class="page-title" id="skills-title" data-en="Experience" data-zh="履历"><span class="i18n-en" lang="en">Experience</span><span class="i18n-zh" lang="zh-CN">履历</span></h1>
+
+    <section class="work-history" aria-labelledby="work-history-title">
+      <h2 class="work-history-title" id="work-history-title" data-en="Work Experience" data-zh="工作经历"><span class="i18n-en" lang="en">Work Experience</span><span class="i18n-zh" lang="zh-CN">工作经历</span></h2>
+      <div class="work-list">
+        <article class="work-entry">
+          <time class="work-period" datetime="2026-09" data-en="Starting 2026.09" data-zh="2026.09 即将入职"><span class="i18n-en" lang="en">Starting 2026.09</span><span class="i18n-zh" lang="zh-CN">2026.09 即将入职</span></time>
+          <div class="work-body">
+            <h3 class="work-company" data-en="DSV Air &amp; Sea Co., Ltd." data-zh="上海得斯威国际货运有限公司"><span class="i18n-en" lang="en">DSV Air &amp; Sea Co., Ltd.</span><span class="i18n-zh" lang="zh-CN">上海得斯威国际货运有限公司</span></h3>
+            <p class="work-company-alt" data-en="上海得斯威国际货运有限公司" data-zh="DSV Air &amp; Sea Co., Ltd."><span class="i18n-en" lang="en">上海得斯威国际货运有限公司</span><span class="i18n-zh" lang="zh-CN">DSV Air &amp; Sea Co., Ltd.</span></p>
+            <p class="work-role" data-en="IT Engineer (Incoming)" data-zh="IT工程师（即将入职）"><span class="i18n-en" lang="en">IT Engineer (Incoming)</span><span class="i18n-zh" lang="zh-CN">IT工程师（即将入职）</span></p>
+          </div>
+        </article>
+
+        <article class="work-entry">
+          <time class="work-period" data-en="2026.02 - 2026.04" data-zh="2026.02 - 2026.04"><span class="i18n-en" lang="en">2026.02 - 2026.04</span><span class="i18n-zh" lang="zh-CN">2026.02 - 2026.04</span></time>
+          <div class="work-body">
+            <h3 class="work-company" data-en="Beijing Rongda Technology Co., Ltd." data-zh="北京荣大科技股份有限公司"><span class="i18n-en" lang="en">Beijing Rongda Technology Co., Ltd.</span><span class="i18n-zh" lang="zh-CN">北京荣大科技股份有限公司</span></h3>
+            <p class="work-company-alt" data-en="北京荣大科技股份有限公司" data-zh="Beijing Rongda Technology Co., Ltd."><span class="i18n-en" lang="en">北京荣大科技股份有限公司</span><span class="i18n-zh" lang="zh-CN">Beijing Rongda Technology Co., Ltd.</span></p>
+            <p class="work-role" data-en="Project Assistant Intern" data-zh="项目助理实习生"><span class="i18n-en" lang="en">Project Assistant Intern</span><span class="i18n-zh" lang="zh-CN">项目助理实习生</span></p>
+          </div>
+        </article>
+
+        <article class="work-entry">
+          <time class="work-period" data-en="2025.05 - 2025.10" data-zh="2025.05 - 2025.10"><span class="i18n-en" lang="en">2025.05 - 2025.10</span><span class="i18n-zh" lang="zh-CN">2025.05 - 2025.10</span></time>
+          <div class="work-body">
+            <h3 class="work-company" data-en="Z.AI Co., Ltd." data-zh="北京智谱华章科技股份有限公司"><span class="i18n-en" lang="en">Z.AI Co., Ltd.</span><span class="i18n-zh" lang="zh-CN">北京智谱华章科技股份有限公司</span></h3>
+            <p class="work-company-alt" data-en="北京智谱华章科技股份有限公司" data-zh="Z.AI Co., Ltd."><span class="i18n-en" lang="en">北京智谱华章科技股份有限公司</span><span class="i18n-zh" lang="zh-CN">Z.AI Co., Ltd.</span></p>
+            <p class="work-role" data-en="Software Development Assistant Intern" data-zh="软件开发助理实习生"><span class="i18n-en" lang="en">Software Development Assistant Intern</span><span class="i18n-zh" lang="zh-CN">软件开发助理实习生</span></p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="resume-skills" aria-labelledby="resume-skills-title">
+      <h2 class="resume-skills-title" id="resume-skills-title" data-en="Skills" data-zh="技能"><span class="i18n-en" lang="en">Skills</span><span class="i18n-zh" lang="zh-CN">技能</span></h2>
 
     <div class="capability-list">
       <article class="capability-entry">
@@ -841,6 +934,7 @@
         <div class="toolkit-row"><dt data-en="Data & ML" data-zh="数据与机器学习"><span class="i18n-en" lang="en">Data & ML</span><span class="i18n-zh" lang="zh-CN">数据与机器学习</span></dt><dd data-en="Data cleaning, classification, BERT/BETO, data augmentation, pseudo-labeling, cross-validation, and visualization" data-zh="数据清洗、分类、BERT/BETO、数据增强、伪标签、交叉验证与可视化"><span class="i18n-en" lang="en">Data cleaning, classification, BERT/BETO, data augmentation, pseudo-labeling, cross-validation, and visualization</span><span class="i18n-zh" lang="zh-CN">数据清洗、分类、BERT/BETO、数据增强、伪标签、交叉验证与可视化</span></dd></div>
         <div class="toolkit-row"><dt data-en="Delivery" data-zh="交付能力"><span class="i18n-en" lang="en">Delivery</span><span class="i18n-zh" lang="zh-CN">交付能力</span></dt><dd data-en="Requirements analysis, solution design, automated regression testing, end-to-end validation, and project coordination" data-zh="需求分析、方案设计、自动化回归测试、端到端验证与项目协调"><span class="i18n-en" lang="en">Requirements analysis, solution design, automated regression testing, end-to-end validation, and project coordination</span><span class="i18n-zh" lang="zh-CN">需求分析、方案设计、自动化回归测试、端到端验证与项目协调</span></dd></div>
       </dl>
+    </section>
     </section>
   </section>
 
