@@ -244,10 +244,11 @@
   }
 
   .profile-grid {
-    width: min(100%, 560px);
+    width: max-content;
+    max-width: 100%;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, max-content);
     column-gap: 32px;
     text-align: left;
     justify-items: stretch;
@@ -257,13 +258,13 @@
     min-width: 0;
     min-height: 22px;
     padding: 4px 0;
-    display: grid;
-    grid-template-columns: 82px minmax(0, 1fr);
+    display: flex;
     align-items: baseline;
-    gap: 8px;
+    gap: 4px;
   }
 
   .profile-label {
+    flex: 0 0 auto;
     font-size: 11px;
     text-align: left;
     text-transform: uppercase;
@@ -742,7 +743,7 @@
       </div>
       <div class="profile-grid">
         <div class="profile-item">
-          <span class="profile-label" data-en="Date of birth" data-zh="出生年月日"><span class="i18n-en" lang="en">Date of birth</span><span class="i18n-zh" lang="zh-CN">出生年月日</span></span>
+          <span class="profile-label" data-en="Birthday" data-zh="出生年月日"><span class="i18n-en" lang="en">Birthday</span><span class="i18n-zh" lang="zh-CN">出生年月日</span></span>
           <span class="profile-value">20040501</span>
         </div>
         <div class="profile-item">
