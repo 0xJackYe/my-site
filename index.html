@@ -244,27 +244,28 @@
   }
 
   .profile-grid {
+    width: min(100%, 560px);
+    margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     column-gap: 32px;
-    text-align: center;
-    justify-items: center;
+    text-align: left;
+    justify-items: stretch;
   }
 
   .profile-item {
-    width: 100%;
     min-width: 0;
     min-height: 22px;
     padding: 4px 0;
-    display: flex;
+    display: grid;
+    grid-template-columns: 82px minmax(0, 1fr);
     align-items: baseline;
-    justify-content: center;
     gap: 8px;
   }
 
   .profile-label {
-    flex: 0 0 auto;
     font-size: 11px;
+    text-align: right;
     text-transform: uppercase;
   }
 
