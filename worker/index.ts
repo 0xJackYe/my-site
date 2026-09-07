@@ -17,11 +17,42 @@ interface ExecutionContext {
   passThroughOnException(): void;
 }
 
+function withCacheHeaders(response: Response, cacheControl: string, contentType?: string): Response {
+  const headers = new Headers(response.headers);
+  headers.set("cache-control", cacheControl);
+  if (contentType) headers.set("content-type", contentType);
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
+}
+
 const worker = {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
-    if (url.pathname.startsWith("/assets/") || url.pathname.startsWith("/trip%20photos/") || url.pathname.startsWith("/trip photos/")) {
-      return env.ASSETS.fetch(request);
+    if (env?.ASSETS && (url.pathname === "/" || url.pathname === "/index.html")) {
+      const assetUrl = new URL(request.url);
+      assetUrl.pathname = "/index.html";
+      const response = await env.ASSETS.fetch(new Request(assetUrl, request));
+      if (response.ok) {
+        return withCacheHeaders(
+          response,
+          "public, max-age=60, stale-while-revalidate=86400",
+          "text/html; charset=utf-8",
+        );
+      }
+    }
+    if (env?.ASSETS && (url.pathname.startsWith("/assets/") || url.pathname.startsWith("/trip%20photos/") || url.pathname.startsWith("/trip photos/"))) {
+      const response = await env.ASSETS.fetch(request);
+      if (url.pathname.endsWith(".webp")) {
+        return withCacheHeaders(
+          response,
+          "public, max-age=604800, stale-while-revalidate=2592000",
+          "image/webp",
+        );
+      }
+      return response;
     }
     if (url.pathname === "/_vinext/image") {
       const allowedWidths = [...DEFAULT_DEVICE_SIZES, ...DEFAULT_IMAGE_SIZES];

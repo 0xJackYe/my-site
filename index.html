@@ -144,6 +144,7 @@
     align-items: center;
     justify-content: center;
     transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .toolbar button {
@@ -160,8 +161,8 @@
   html[data-initial-view="travel"] .nav-link[data-view="travel"] {
     background: var(--bg);
     color: var(--fg);
-    border-color: var(--line-hover);
-    box-shadow: inset 0 -2px 0 var(--accent);
+    border-color: var(--fg);
+    box-shadow: inset 0 -2px 0 var(--fg);
   }
 
   .nav-link:hover, .nav-link:focus-visible {
@@ -179,7 +180,27 @@
   }
 
   .nav-link:focus-visible,
-  .toolbar button:focus-visible,
+  .toolbar button:focus-visible {
+    outline: 2px solid var(--fg);
+    outline-offset: 2px;
+  }
+
+  .nav-link:active,
+  .toolbar button:active {
+    background: var(--bg);
+    color: var(--fg);
+    border-color: var(--fg);
+    box-shadow: none;
+  }
+
+  .nav-link[aria-current="page"]:hover,
+  .nav-link[aria-current="page"]:focus-visible {
+    background: var(--bg);
+    color: var(--fg);
+    border-color: var(--fg);
+    box-shadow: inset 0 -2px 0 var(--fg);
+  }
+
   .platform-link:focus-visible,
   .article-read-link:focus-visible,
   .article-back-link:focus-visible,
@@ -1974,9 +1995,9 @@
     <article class="trip-group">
       <header class="trip-header"><h2 data-en="Singapore" data-zh="新加坡"><span class="i18n-en" lang="en">Singapore</span><span class="i18n-zh" lang="zh-CN">新加坡</span></h2><time datetime="2025-09-16">2025.09.16</time></header>
       <div class="photo-grid">
-        <figure><img src="trip%20photos/sng1-800.webp" srcset="trip%20photos/sng1-640.webp 640w, trip%20photos/sng1-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Singapore trip photo 1" width="800" height="600" loading="eager" decoding="async" fetchpriority="high" /></figure>
-        <figure><img src="trip%20photos/sng2-800.webp" srcset="trip%20photos/sng2-640.webp 640w, trip%20photos/sng2-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Singapore trip photo 2" width="600" height="800" loading="eager" decoding="async" fetchpriority="high" /></figure>
-        <figure><img src="trip%20photos/sng3-800.webp" srcset="trip%20photos/sng3-640.webp 640w, trip%20photos/sng3-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Singapore trip photo 3" width="600" height="800" loading="eager" decoding="async" fetchpriority="high" /></figure>
+        <figure><img src="trip%20photos/sng1-800.webp" srcset="trip%20photos/sng1-640.webp 640w, trip%20photos/sng1-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Singapore trip photo 1" width="800" height="600" loading="lazy" decoding="async" fetchpriority="low" /></figure>
+        <figure><img src="trip%20photos/sng2-800.webp" srcset="trip%20photos/sng2-640.webp 640w, trip%20photos/sng2-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Singapore trip photo 2" width="600" height="800" loading="lazy" decoding="async" fetchpriority="low" /></figure>
+        <figure><img src="trip%20photos/sng3-800.webp" srcset="trip%20photos/sng3-640.webp 640w, trip%20photos/sng3-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Singapore trip photo 3" width="600" height="800" loading="lazy" decoding="async" fetchpriority="low" /></figure>
       </div>
     </article>
 
@@ -2030,8 +2051,50 @@
   var views = document.querySelectorAll('.view');
   var lang = 'en';
   var theme = 'light';
+  var mediaWarmers = [];
+  var mediaWarmupStarted = false;
 
   var articleEntries = document.querySelectorAll('.article-entry[data-article]');
+
+  function getWarmupSources() {
+    var sources = [];
+    var travelImages = document.querySelectorAll('#travel img');
+    var chartImages = document.querySelectorAll('.article-figure img');
+
+    for (var travelIndex = 0; travelIndex < travelImages.length; travelIndex++) {
+      var srcset = travelImages[travelIndex].getAttribute('srcset') || '';
+      var preferredSource = srcset ? srcset.split(',')[0].trim().split(/\s+/)[0] : travelImages[travelIndex].getAttribute('src');
+      if (preferredSource && sources.indexOf(preferredSource) === -1) sources.push(preferredSource);
+    }
+    for (var chartIndex = 0; chartIndex < chartImages.length; chartIndex++) {
+      var chartSource = chartImages[chartIndex].getAttribute('src');
+      if (chartSource && sources.indexOf(chartSource) === -1) sources.push(chartSource);
+    }
+    return sources;
+  }
+
+  function warmHeavyMedia() {
+    if (mediaWarmupStarted) return;
+    mediaWarmupStarted = true;
+    var sources = getWarmupSources();
+    for (var sourceIndex = 0; sourceIndex < sources.length; sourceIndex++) {
+      var warmer = new Image();
+      warmer.decoding = 'async';
+      warmer.fetchPriority = sourceIndex < 6 ? 'high' : 'low';
+      warmer.src = sources[sourceIndex];
+      mediaWarmers.push(warmer);
+    }
+  }
+
+  function prioritizeViewMedia(id) {
+    if (id !== 'travel') return;
+    var images = document.querySelectorAll('#travel img');
+    for (var imageIndex = 0; imageIndex < images.length; imageIndex++) {
+      images[imageIndex].loading = 'eager';
+      images[imageIndex].fetchPriority = imageIndex < 6 ? 'high' : 'auto';
+    }
+    warmHeavyMedia();
+  }
 
   function applyArticleRoute() {
     var requestedArticle = new URLSearchParams(window.location.search).get('article');
@@ -2081,6 +2144,7 @@
       id = document.body.classList.contains('article-reader') ? 'articles' : 'home';
     }
 
+    prioritizeViewMedia(id);
     for (var i = 0; i < views.length; i++) views[i].hidden = views[i].id !== id;
     for (var j = 0; j < navLinks.length; j++) {
       if (navLinks[j].getAttribute('data-view') === id) navLinks[j].setAttribute('aria-current', 'page');
@@ -2114,6 +2178,10 @@
   });
 
   for (var navIndex = 0; navIndex < navLinks.length; navIndex++) {
+    if (navLinks[navIndex].getAttribute('data-view') === 'travel') {
+      navLinks[navIndex].addEventListener('pointerenter', warmHeavyMedia, { once: true });
+      navLinks[navIndex].addEventListener('focus', warmHeavyMedia, { once: true });
+    }
     navLinks[navIndex].addEventListener('click', function (event) {
       event.preventDefault();
       var nextHash = this.getAttribute('href');
@@ -2134,6 +2202,8 @@
   applyLanguage();
   applyTheme();
   showView();
+  if ('requestIdleCallback' in window) window.requestIdleCallback(warmHeavyMedia, { timeout: 300 });
+  else window.setTimeout(warmHeavyMedia, 0);
 })();
 </script>
 </body>
