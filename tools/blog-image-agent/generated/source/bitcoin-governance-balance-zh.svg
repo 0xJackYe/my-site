@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">矿工、开发者和用户围绕比特币规则相互制衡的三角关系图</title>
+  <desc id="desc">图：三个群体权力来源不同，任何一方都难以单独把自己的规则强加给整个网络。</desc>
+  <rect width="1200" height="675" fill="#f3f0e8"/>
+  <style>
+    text { font-family: Arial, "Microsoft YaHei", "PingFang SC", sans-serif; fill: #181714; letter-spacing: 0; }
+    .eyebrow { font-size: 21px; font-weight: 700; }
+    .label { font-size: 28px; font-weight: 700; }
+    .small { font-size: 17px; fill: #706b61; }
+    .number { font-size: 17px; font-weight: 700; fill: #a65032; }
+    .inverse { fill: #f3f0e8; }
+    .node { fill: #fffdf8; stroke: #181714; stroke-width: 2; }
+    .soft { fill: none; stroke: #b8b0a3; stroke-width: 2; }
+    .strong { fill: none; stroke: #181714; stroke-width: 3; }
+    .accent { fill: none; stroke: #a65032; stroke-width: 4; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#181714"/></marker>
+    <marker id="arrow-accent" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a65032"/></marker>
+  </defs>
+  <path d="M600 120 L260 515 L940 515 Z" fill="none" stroke="#b8b0a3" stroke-width="3"/><path class="strong" d="M600 192 L390 465" marker-end="url(#arrow)"/><path class="strong" d="M815 465 L610 195" marker-end="url(#arrow)"/><path class="accent" d="M390 515 H800" marker-end="url(#arrow-accent)"/><g><circle cx="600" cy="145" r="84" fill="#fffdf8" stroke="#181714" stroke-width="2"/><text class="label" x="600" y="139" text-anchor="middle" style="font-size:28px">矿工</text><text class="small" x="600" y="172" text-anchor="middle" style="font-size:17px">打包与算力</text></g><g><circle cx="255" cy="520" r="95" fill="#fffdf8" stroke="#181714" stroke-width="2"/><text class="label" x="255" y="513" text-anchor="middle" style="font-size:28px">开发者</text><text class="small" x="255" y="548" text-anchor="middle" style="font-size:17px">提出与维护代码</text></g><g><circle cx="945" cy="520" r="95" fill="#fffdf8" stroke="#181714" stroke-width="2"/><text class="label" x="945" y="513" text-anchor="middle" style="font-size:28px">用户</text><text class="small" x="945" y="548" text-anchor="middle" style="font-size:17px">选择采用或拒绝</text></g><rect x="480" y="345" width="240" height="80" rx="40" fill="#181714"/><text class="inverse" x="600" y="394" text-anchor="middle" style="font-size:22px;font-weight:700">共同规则</text><text class="small" x="600" y="640" text-anchor="middle">没有任何一方可以单独决定网络</text>
+</svg>

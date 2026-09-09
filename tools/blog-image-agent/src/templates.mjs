@@ -1,0 +1,343 @@
+export const visualStyle = "Warm-white editorial paper, near-black ink, restrained clay-orange accent, flat two-dimensional geometry, fine rules, generous negative space, no gradients";
+
+export const sharedNegativeConstraints = [
+  "no gradient",
+  "no 3D corporate illustration",
+  "no embedded words or letters",
+  "no watermark or logo",
+  "no photorealistic human face",
+  "no decorative clutter",
+];
+
+export const opportunityTemplates = [
+  {
+    id: "investment-feedback-loop",
+    category: "causal-loop",
+    mediaType: "svg",
+    languageStrategy: "localized-svg",
+    aspectRatio: "16:9",
+    width: 1200,
+    height: 675,
+    cues: {
+      zh: ["很多时候，事实根本没有发生变化，变化的只是价格"],
+      en: ["Often, the facts have not changed at all. Only the price has changed"],
+    },
+    keywords: {
+      zh: ["价格", "情绪", "信息", "证明", "循环"],
+      en: ["price", "mood", "information", "prove", "loop"],
+    },
+    visualRole: "Expose the self-reinforcing decision loop described in the surrounding paragraph",
+    subject: {
+      zh: "价格、情绪、选择性证据与行动之间的反馈回路",
+      en: "The feedback loop between price, emotion, selective evidence, and action",
+    },
+    composition: "Four labeled nodes arranged clockwise around an open center, joined by directional arrows and one restrained accent link",
+    prompt: "Render a deterministic editorial diagram of the investment feedback loop: price movement changes emotion, emotion filters evidence, selected evidence drives action, and action reinforces price. Use localized labels from the renderer.",
+    alt: {
+      zh: "价格变化、情绪、选择性证据和投资行动相互强化的循环图",
+      en: "A loop showing price movement, emotion, selective evidence, and investor action reinforcing one another",
+    },
+    caption: {
+      zh: "图：价格先改变情绪，情绪再筛选证据，行动最终把判断推回市场。",
+      en: "Figure: Price changes emotion, emotion filters evidence, and action feeds the judgment back into the market.",
+    },
+    explanatoryValue: 0.97,
+  },
+  {
+    id: "investment-high-wire",
+    category: "risk-metaphor",
+    mediaType: "raster",
+    languageStrategy: "shared-raster",
+    aspectRatio: "3:2",
+    width: 1536,
+    height: 1024,
+    cues: {
+      zh: ["如果一个人站在一厘米高的木板上"],
+      en: ["A person can balance comfortably on a board one centimeter above the ground"],
+    },
+    keywords: {
+      zh: ["木板", "一百米", "平衡", "犯错", "仓位"],
+      en: ["board", "one hundred meters", "balance", "mistake", "position"],
+    },
+    visualRole: "Turn position sizing and the cost of mistakes into a memorable, non-literal visual metaphor",
+    subject: {
+      zh: "同一块窄木板在地面与高空带来的不同心理压力",
+      en: "The same narrow board producing different psychological pressure at ground level and high above a city",
+    },
+    composition: "A single continuous narrow board crosses the frame; the left half is inches above a quiet floor and the right half extends between two severe architectural planes high above an abstract city, with no visible face",
+    prompt: "Editorial conceptual illustration, landscape 3:2. Show one continuous narrow wooden board changing context from nearly touching the ground on the left to spanning a high gap between two stark building planes on the right. A small faceless human silhouette stands steady on the low section while a second abstract silhouette of the same person hesitates on the high section. Warm off-white paper texture, near-black ink shapes, restrained clay-orange safety line, subtle screen-print grain, strong negative space, intelligent financial essay aesthetic. No text anywhere.",
+    alt: {
+      zh: "同一块木板分别贴近地面和横跨高楼，表现仓位改变犯错代价",
+      en: "The same board close to the ground and spanning between high buildings, showing how position size changes the cost of a mistake",
+    },
+    caption: {
+      zh: "图：平衡能力没有变，变化的是犯错的代价。仓位也会这样改变判断。",
+      en: "Figure: The ability to balance has not changed; the cost of a mistake has. Position size can alter judgment in the same way.",
+    },
+    explanatoryValue: 0.91,
+  },
+  {
+    id: "scarcity-demand-supply-impact",
+    category: "decision-model",
+    mediaType: "svg",
+    languageStrategy: "localized-svg",
+    aspectRatio: "16:9",
+    width: 1200,
+    height: 675,
+    cues: {
+      zh: ["有一万人急着解决一个问题，只有一百个人会解决"],
+      en: ["If ten thousand people urgently need a problem solved and only one hundred know how to solve it"],
+    },
+    keywords: {
+      zh: ["需要", "提供", "影响", "稀缺", "价值"],
+      en: ["need", "provide", "affect", "scarcity", "valuable"],
+    },
+    visualRole: "Condense the article's three-part test for economically valuable scarcity",
+    subject: {
+      zh: "需求、供给约束与结果影响共同形成有价值的稀缺能力",
+      en: "Demand, constrained supply, and outcome impact combine to create valuable scarcity",
+    },
+    composition: "Three balanced factors flow into one clear result, with relative scale indicated through simple bars rather than decoration",
+    prompt: "Render a deterministic editorial decision model showing high demand, constrained supply, and meaningful outcome impact converging into valuable scarcity. Use localized labels from the renderer.",
+    alt: {
+      zh: "判断稀缺技能价值的三个因素：需求、供给约束和结果影响",
+      en: "Three factors for judging a scarce skill: demand, constrained supply, and impact on outcomes",
+    },
+    caption: {
+      zh: "图：困难本身不产生价值；真实需求、有限供给与结果影响缺一不可。",
+      en: "Figure: Difficulty alone does not create value; real demand, limited supply, and meaningful impact must meet.",
+    },
+    explanatoryValue: 0.98,
+  },
+  {
+    id: "scarcity-skill-stack",
+    category: "set-intersection",
+    mediaType: "svg",
+    languageStrategy: "localized-svg",
+    aspectRatio: "16:9",
+    width: 1200,
+    height: 675,
+    cues: {
+      zh: ["单项能力根本不需要做到世界第一"],
+      en: ["No single ability has to be the best in the world"],
+    },
+    keywords: {
+      zh: ["编程", "沟通", "英语", "行业知识", "项目经验"],
+      en: ["program", "communicate", "English", "industry knowledge", "project experience"],
+    },
+    visualRole: "Show why a complementary skill stack can be rarer than excellence on one crowded axis",
+    subject: {
+      zh: "能力组合逐层缩小真正竞争者的范围",
+      en: "A skill stack progressively narrows the field of true competitors",
+    },
+    composition: "Four nested horizontal fields narrow toward a small final intersection, each labeled with one complementary capability",
+    prompt: "Render a deterministic editorial diagram of a complementary skill stack narrowing a large candidate pool into a small intersection. Use localized labels from the renderer.",
+    alt: {
+      zh: "编程、沟通、英语和行业经验叠加后，符合全部条件的人逐层减少",
+      en: "Programming, communication, English, and industry experience progressively reduce the number of people who meet every condition",
+    },
+    caption: {
+      zh: "图：不必在单一维度击败所有人，互补能力的交集本身就能形成稀缺。",
+      en: "Figure: You do not need to beat everyone on one axis; the intersection of complementary abilities can itself be scarce.",
+    },
+    explanatoryValue: 0.94,
+  },
+  {
+    id: "bitcoin-ledger-topology",
+    category: "system-comparison",
+    mediaType: "svg",
+    languageStrategy: "localized-svg",
+    aspectRatio: "16:9",
+    width: 1200,
+    height: 675,
+    cues: {
+      zh: ["简单来说比特币是一个分布式账本"],
+      en: ["Put simply, Bitcoin is a distributed ledger"],
+    },
+    keywords: {
+      zh: ["传统", "机构", "矿工", "账本", "恶意节点"],
+      en: ["traditional", "institution", "miner", "ledger", "malicious node"],
+    },
+    visualRole: "Contrast a single trusted ledger with a network of mutually checking copies",
+    subject: {
+      zh: "中心化记账与分布式账本的结构差异",
+      en: "The structural difference between centralized bookkeeping and a distributed ledger",
+    },
+    composition: "A left-side hub-and-spoke ledger contrasted with a right-side peer network whose copies agree, separated by a fine vertical rule",
+    prompt: "Render a deterministic editorial comparison between one central bookkeeper and a distributed network of agreeing ledger copies. Use localized labels from the renderer.",
+    alt: {
+      zh: "单一机构记账与多个节点共同维护同一账本的对比图",
+      en: "A comparison between one institution keeping the ledger and many nodes maintaining matching copies",
+    },
+    caption: {
+      zh: "图：传统系统把信任集中在一个记账者，比特币把核验分散给网络节点。",
+      en: "Figure: Traditional systems concentrate trust in one bookkeeper; Bitcoin distributes verification across network nodes.",
+    },
+    explanatoryValue: 0.99,
+  },
+  {
+    id: "bitcoin-transaction-path",
+    category: "process-flow",
+    mediaType: "svg",
+    languageStrategy: "localized-svg",
+    aspectRatio: "16:9",
+    width: 1200,
+    height: 675,
+    cues: {
+      zh: ["比特币的网络是由区块组成的"],
+      en: ["The Bitcoin network consists of blocks linked together in a chain"],
+    },
+    keywords: {
+      zh: ["交易", "矿工", "区块", "确认", "手续费"],
+      en: ["transaction", "miner", "block", "confirmation", "fees"],
+    },
+    visualRole: "Make the transaction-to-confirmation sequence legible without interrupting the technical explanation",
+    subject: {
+      zh: "一笔比特币交易从广播、等待打包到获得确认的路径",
+      en: "A Bitcoin transaction moving from broadcast and mempool to a block and confirmations",
+    },
+    composition: "A four-stage horizontal pipeline with a small fee-priority branch and three confirmation ticks",
+    prompt: "Render a deterministic editorial process diagram of a Bitcoin transaction: broadcast, mempool, miner-selected block, and confirmations. Use localized labels from the renderer.",
+    alt: {
+      zh: "比特币交易经过广播、内存池、矿工打包和区块确认的流程图",
+      en: "A Bitcoin transaction moving through broadcast, the mempool, miner selection, and block confirmations",
+    },
+    caption: {
+      zh: "图：交易先进入待处理池，矿工按规则打包进区块，后续区块继续增加确认。",
+      en: "Figure: A transaction waits in the mempool, is selected into a block, and gains confidence as later blocks add confirmations.",
+    },
+    explanatoryValue: 0.98,
+  },
+  {
+    id: "bitcoin-governance-balance",
+    category: "stakeholder-map",
+    mediaType: "svg",
+    languageStrategy: "localized-svg",
+    aspectRatio: "16:9",
+    width: 1200,
+    height: 675,
+    cues: {
+      zh: ["用户则是比特币生态的终端角色"],
+      en: ["Users are the final participants in the Bitcoin ecosystem"],
+    },
+    keywords: {
+      zh: ["矿工", "开发者", "用户", "拒绝", "三权分立"],
+      en: ["miners", "developers", "users", "refuse", "separation of powers"],
+    },
+    visualRole: "Map the checks among miners, developers, and users without implying that one group controls the protocol",
+    subject: {
+      zh: "矿工、开发者与用户围绕共同规则形成的制衡关系",
+      en: "The checks among miners, developers, and users around shared protocol rules",
+    },
+    composition: "Three equal nodes at the points of a triangle connected through a small central protocol core, with no node placed above the others",
+    prompt: "Render a deterministic editorial stakeholder map of equal miners, developers, and users checking one another around shared Bitcoin protocol rules. Use localized labels from the renderer.",
+    alt: {
+      zh: "矿工、开发者和用户围绕比特币规则相互制衡的三角关系图",
+      en: "A triangular map of miners, developers, and users checking one another around Bitcoin's rules",
+    },
+    caption: {
+      zh: "图：三个群体权力来源不同，任何一方都难以单独把自己的规则强加给整个网络。",
+      en: "Figure: The three groups draw power from different sources, so no one group can easily impose its rules on the whole network.",
+    },
+    explanatoryValue: 0.95,
+  },
+  {
+    id: "ielts-study-roadmap",
+    category: "learning-roadmap",
+    mediaType: "svg",
+    languageStrategy: "localized-svg",
+    aspectRatio: "16:9",
+    width: 1200,
+    height: 675,
+    cues: {
+      zh: ["打基础：词汇 + 语法"],
+      en: ["Build a foundation: vocabulary and grammar"],
+    },
+    keywords: {
+      zh: ["基础", "机考", "分项练习", "考前冲刺"],
+      en: ["foundation", "computer-based", "each section", "final stretch"],
+    },
+    visualRole: "Give readers a compact mental map before the detailed study sections",
+    subject: {
+      zh: "从基础、熟悉考试、分项训练到考前冲刺的四阶段路线",
+      en: "A four-stage route from foundations and format familiarity to section practice and the final stretch",
+    },
+    composition: "Four numbered stations on a restrained horizontal route with increasing specificity and a visible finish point",
+    prompt: "Render a deterministic editorial four-stage IELTS study roadmap from foundation to final preparation. Use localized labels from the renderer.",
+    alt: {
+      zh: "雅思备考四阶段路线：打基础、熟悉机考、分项练习和考前冲刺",
+      en: "A four-stage IELTS route: build foundations, learn the format, practise each section, and prepare for the final stretch",
+    },
+    caption: {
+      zh: "图：先建立语言基础，再熟悉形式、分项训练，最后进入严格限时的冲刺阶段。",
+      en: "Figure: Build language foundations first, then learn the format, practise each section, and finish with strict timed work.",
+    },
+    explanatoryValue: 0.98,
+  },
+  {
+    id: "ielts-reading-diagnosis",
+    category: "diagnostic-tree",
+    mediaType: "svg",
+    languageStrategy: "localized-svg",
+    aspectRatio: "16:9",
+    width: 1200,
+    height: 675,
+    cues: {
+      zh: ["题目理解错误：漏看词"],
+      en: ["Misreading the question: overlooking a word"],
+    },
+    keywords: {
+      zh: ["题目理解", "文章理解", "词汇不足", "错题"],
+      en: ["question", "passage", "vocabulary", "wrong answers"],
+    },
+    visualRole: "Turn a list of causes into a repeatable post-test diagnostic decision",
+    subject: {
+      zh: "阅读错题按题目、文章和词汇三个方向定位原因",
+      en: "Reading errors diagnosed through the question, the passage, or vocabulary",
+    },
+    composition: "One wrong-answer node branches into three cause cards, each ending in one concrete review action",
+    prompt: "Render a deterministic editorial diagnostic tree for IELTS reading mistakes, branching into question comprehension, passage comprehension, and vocabulary. Use localized labels from the renderer.",
+    alt: {
+      zh: "雅思阅读错题诊断树：检查题目理解、文章理解和词汇不足",
+      en: "An IELTS reading error tree checking question comprehension, passage comprehension, and vocabulary",
+    },
+    caption: {
+      zh: "图：复盘时先定位错因，再决定补语法、重读上下文还是整理同义替换。",
+      en: "Figure: Diagnose the cause first, then decide whether to repair grammar, reread context, or collect paraphrases.",
+    },
+    explanatoryValue: 0.96,
+  },
+  {
+    id: "ielts-speaking-cycle",
+    category: "practice-cycle",
+    mediaType: "svg",
+    languageStrategy: "localized-svg",
+    aspectRatio: "16:9",
+    width: 1200,
+    height: 675,
+    cues: {
+      zh: ["完成基础语法和词汇学习后，可以在线上平台找外国人聊天"],
+      en: ["Once you have built a foundation in grammar and vocabulary, find people from other countries"],
+    },
+    keywords: {
+      zh: ["话题", "录屏", "表达", "真实经历", "语料"],
+      en: ["topic", "record", "speaking", "real experiences", "material"],
+    },
+    visualRole: "Convert the speaking advice into a repeatable practice-and-feedback loop",
+    subject: {
+      zh: "准备话题、限时表达、回听诊断与重说的口语训练闭环",
+      en: "A speaking practice loop of preparing, timed speaking, reviewing, and trying again",
+    },
+    composition: "Four compact stations in a clockwise loop around an empty center, with a microphone icon reduced to simple geometry",
+    prompt: "Render a deterministic editorial IELTS speaking practice loop: prepare a personal story, speak under time, review the recording, revise and repeat. Use localized labels from the renderer.",
+    alt: {
+      zh: "雅思口语训练闭环：准备真实故事、限时表达、回听诊断、修改重说",
+      en: "An IELTS speaking loop: prepare a real story, speak under time, review the recording, revise and repeat",
+    },
+    caption: {
+      zh: "图：把真实经历变成可反复训练的素材，每轮只修正最具体的问题。",
+      en: "Figure: Turn real experience into reusable material and correct the most specific problem in each round.",
+    },
+    explanatoryValue: 0.93,
+  },
+];

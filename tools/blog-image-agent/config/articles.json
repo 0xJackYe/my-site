@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "indexHtml": "index.html",
+  "publicAssetsDir": "public/assets/blog",
+  "sourceAssetsDir": "tools/blog-image-agent/generated/source",
+  "workDir": "tools/blog-image-agent/generated/work",
+  "articles": [
+    {
+      "id": "investment-psychology",
+      "zh": {
+        "file": "article/关于投资的心理学.md",
+        "title": "关于投资的心理学"
+      },
+      "en": {
+        "file": "article/The Psychology of Investing.md",
+        "title": "The Psychology of Investing"
+      }
+    },
+    {
+      "id": "scarce-skills",
+      "zh": {
+        "file": "article/什么是稀缺的技能.md",
+        "title": "什么是稀缺的技能"
+      },
+      "en": {
+        "file": "article/What Makes a Skill Scarce.md",
+        "title": "What Makes a Skill Scarce?"
+      }
+    },
+    {
+      "id": "what-is-bitcoin",
+      "zh": {
+        "file": "article/什么是比特币.md",
+        "title": "什么是比特币？"
+      },
+      "en": {
+        "file": "article/What Is Bitcoin.md",
+        "title": "What Is Bitcoin?"
+      }
+    },
+    {
+      "id": "focus-experiment",
+      "zh": {
+        "file": "article/邪修提升专注力.md",
+        "title": "邪修提升专注力：茶氨酸与咖啡因在雅思场景中的个人观察"
+      },
+      "en": {
+        "file": "article/An Unorthodox Focus Hack.md",
+        "title": "An Unorthodox Focus Hack: Personal Observations on L-Theanine and Caffeine for IELTS"
+      }
+    },
+    {
+      "id": "ielts-guide",
+      "zh": {
+        "file": "article/平民雅思备考指南.md",
+        "title": "平民雅思备考指南：0 成本学雅思教程"
+      },
+      "en": {
+        "file": "article/IELTS on a Budget.md",
+        "title": "IELTS on a Budget: A Zero-Cost Self-Study Guide"
+      }
+    }
+  ]
+}

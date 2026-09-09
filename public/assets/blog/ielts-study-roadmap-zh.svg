@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">雅思备考四阶段路线：打基础、熟悉机考、分项练习和考前冲刺</title>
+  <desc id="desc">图：先建立语言基础，再熟悉形式、分项训练，最后进入严格限时的冲刺阶段。</desc>
+  <rect width="1200" height="675" fill="#f3f0e8"/>
+  <style>
+    text { font-family: Arial, "Microsoft YaHei", "PingFang SC", sans-serif; fill: #181714; letter-spacing: 0; }
+    .eyebrow { font-size: 21px; font-weight: 700; }
+    .label { font-size: 28px; font-weight: 700; }
+    .small { font-size: 17px; fill: #706b61; }
+    .number { font-size: 17px; font-weight: 700; fill: #a65032; }
+    .inverse { fill: #f3f0e8; }
+    .node { fill: #fffdf8; stroke: #181714; stroke-width: 2; }
+    .soft { fill: none; stroke: #b8b0a3; stroke-width: 2; }
+    .strong { fill: none; stroke: #181714; stroke-width: 3; }
+    .accent { fill: none; stroke: #a65032; stroke-width: 4; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#181714"/></marker>
+    <marker id="arrow-accent" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a65032"/></marker>
+  </defs>
+  <text class="eyebrow" x="70" y="78">从基础到考场</text><path d="M95 245 C255 245 305 365 450 365 S650 245 750 245 S940 365 1050 365" fill="none" stroke="#b8b0a3" stroke-width="12" stroke-linecap="round"/><path d="M95 245 C255 245 305 365 450 365 S650 245 750 245 S940 365 1050 365" fill="none" stroke="#181714" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)"/><g><rect x="38" y="199" width="224" height="92" rx="3" fill="#fffdf8" stroke="#181714" stroke-width="3"/><text class="number" x="150" y="179" text-anchor="middle">01</text><text class="label" x="150" y="254" text-anchor="middle" style="font-size:27px;fill:#181714">打基础</text><text class="small" x="150" y="327" text-anchor="middle" style="font-size:17px">词汇 + 语法</text></g><g><rect x="338" y="319" width="224" height="92" rx="3" fill="#fffdf8" stroke="#181714" stroke-width="3"/><text class="number" x="450" y="299" text-anchor="middle">02</text><text class="label" x="450" y="374" text-anchor="middle" style="font-size:27px;fill:#181714">熟悉形式</text><text class="small" x="450" y="447" text-anchor="middle" style="font-size:17px">机考 + 真题</text></g><g><rect x="638" y="199" width="224" height="92" rx="3" fill="#fffdf8" stroke="#181714" stroke-width="3"/><text class="number" x="750" y="179" text-anchor="middle">03</text><text class="label" x="750" y="254" text-anchor="middle" style="font-size:27px;fill:#181714">分项训练</text><text class="small" x="750" y="327" text-anchor="middle" style="font-size:17px">听 · 说 · 读 · 写</text></g><g><rect x="938" y="319" width="224" height="92" rx="3" fill="#a65032" stroke="#181714" stroke-width="3"/><text class="number" x="1050" y="299" text-anchor="middle">04</text><text class="label" x="1050" y="374" text-anchor="middle" style="font-size:27px;fill:#f3f0e8">考前冲刺</text><text class="small" x="1050" y="447" text-anchor="middle" style="font-size:17px">限时 + 复盘</text></g>
+</svg>

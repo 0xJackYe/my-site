@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">比特币交易经过广播、内存池、矿工打包和区块确认的流程图</title>
+  <desc id="desc">图：交易先进入待处理池，矿工按规则打包进区块，后续区块继续增加确认。</desc>
+  <rect width="1200" height="675" fill="#f3f0e8"/>
+  <style>
+    text { font-family: Arial, "Microsoft YaHei", "PingFang SC", sans-serif; fill: #181714; letter-spacing: 0; }
+    .eyebrow { font-size: 21px; font-weight: 700; }
+    .label { font-size: 28px; font-weight: 700; }
+    .small { font-size: 17px; fill: #706b61; }
+    .number { font-size: 17px; font-weight: 700; fill: #a65032; }
+    .inverse { fill: #f3f0e8; }
+    .node { fill: #fffdf8; stroke: #181714; stroke-width: 2; }
+    .soft { fill: none; stroke: #b8b0a3; stroke-width: 2; }
+    .strong { fill: none; stroke: #181714; stroke-width: 3; }
+    .accent { fill: none; stroke: #a65032; stroke-width: 4; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#181714"/></marker>
+    <marker id="arrow-accent" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a65032"/></marker>
+  </defs>
+  <path class="soft" d="M80 150 H1120"/><text class="eyebrow" x="80" y="125">一笔交易的路径</text><g><rect class="node" x="55" y="210" width="245" height="190" rx="3"/><text class="number" x="77" y="245">01</text><text class="label" x="77" y="294" style="font-size:28px">广播交易</text><text class="small" x="77" y="330">用户签名并发送</text></g><g><rect class="node" x="345" y="210" width="245" height="190" rx="3"/><text class="number" x="367" y="245">02</text><text class="label" x="367" y="294" style="font-size:28px">进入内存池</text><text class="small" x="367" y="330">等待矿工选择</text></g><g><rect class="node" x="635" y="210" width="245" height="190" rx="3"/><text class="number" x="657" y="245">03</text><text class="label" x="657" y="294" style="font-size:28px">写入区块</text><text class="small" x="657" y="330">手续费影响优先级</text></g><g><rect class="node" x="925" y="210" width="245" height="190" rx="3"/><text class="number" x="947" y="245">04</text><text class="label" x="947" y="294" style="font-size:28px">获得确认</text><text class="small" x="947" y="330">后续区块继续累积</text><g transform="translate(948 352)"><rect width="48" height="14" fill="#a65032"/><rect x="58" width="48" height="14" fill="#181714"/><rect x="116" width="48" height="14" fill="#181714"/></g></g><path class="accent" d="M300 305 H330" marker-end="url(#arrow-accent)"/><path class="strong" d="M590 305 H620" marker-end="url(#arrow)"/><path class="strong" d="M880 305 H910" marker-end="url(#arrow)"/><text class="small" x="600" y="505" text-anchor="middle">约 10 分钟一个区块 · 常见服务等待多次确认</text>
+</svg>

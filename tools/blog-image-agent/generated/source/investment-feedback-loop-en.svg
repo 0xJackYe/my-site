@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">A loop showing price movement, emotion, selective evidence, and investor action reinforcing one another</title>
+  <desc id="desc">Figure: Price changes emotion, emotion filters evidence, and action feeds the judgment back into the market.</desc>
+  <rect width="1200" height="675" fill="#f3f0e8"/>
+  <style>
+    text { font-family: Arial, "Microsoft YaHei", "PingFang SC", sans-serif; fill: #181714; letter-spacing: 0; }
+    .eyebrow { font-size: 21px; font-weight: 700; }
+    .label { font-size: 28px; font-weight: 700; }
+    .small { font-size: 17px; fill: #706b61; }
+    .number { font-size: 17px; font-weight: 700; fill: #a65032; }
+    .inverse { fill: #f3f0e8; }
+    .node { fill: #fffdf8; stroke: #181714; stroke-width: 2; }
+    .soft { fill: none; stroke: #b8b0a3; stroke-width: 2; }
+    .strong { fill: none; stroke: #181714; stroke-width: 3; }
+    .accent { fill: none; stroke: #a65032; stroke-width: 4; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#181714"/></marker>
+    <marker id="arrow-accent" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a65032"/></marker>
+  </defs>
+  <g><rect class="node" x="120" y="120" width="320" height="145" rx="3"/><text class="number" x="144" y="154">01</text><text class="label" x="144" y="198">Price moves</text><text class="small" x="144" y="232">Rise / fall</text></g><g><rect class="node" x="760" y="120" width="320" height="145" rx="3"/><text class="number" x="784" y="154">02</text><text class="label" x="784" y="198">Emotion</text><text class="small" x="784" y="232">Greed / fear</text></g><g><rect class="node" x="760" y="405" width="320" height="145" rx="3"/><text class="number" x="784" y="439">03</text><text class="label" x="784" y="483">Selective evidence</text><text class="small" x="784" y="517">Only confirming signals</text></g><g><rect class="node" x="120" y="405" width="320" height="145" rx="3"/><text class="number" x="144" y="439">04</text><text class="label" x="144" y="483">Investor action</text><text class="small" x="144" y="517">Chase / panic-sell</text></g>
+  <path class="strong" d="M440 193 H745" marker-end="url(#arrow)"/>
+  <path class="strong" d="M920 265 V390" marker-end="url(#arrow)"/>
+  <path class="strong" d="M760 478 H455" marker-end="url(#arrow)"/>
+  <path class="accent" d="M280 405 V280" marker-end="url(#arrow-accent)"/>
+  <circle cx="600" cy="337" r="63" fill="#181714"/><text class="inverse" x="600" y="329" text-anchor="middle" style="font-size:18px;font-weight:700">SELF-</text><text class="inverse" x="600" y="355" text-anchor="middle" style="font-size:18px;font-weight:700">REINFORCING</text>
+</svg>

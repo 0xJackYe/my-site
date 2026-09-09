@@ -19,6 +19,13 @@ Xiahua and ZYZ are *ji jing*: collections of real test questions recalled and co
 3. **Work on each section:** listening, reading, writing, and speaking.
 4. **Prepare for the final stretch:** use strict time limits, review exactly why answers were wrong, and work through the speaking question bank.
 
+<!-- blog-image-agent:start id="ielts-study-roadmap" -->
+<figure class="article-figure article-figure--agent" data-image-id="ielts-study-roadmap">
+  <img src="../public/assets/blog/ielts-study-roadmap-en.svg" alt="A four-stage IELTS route: build foundations, learn the format, practise each section, and prepare for the final stretch" width="1200" height="675" loading="lazy" decoding="async" />
+  <figcaption>Figure: Build language foundations first, then learn the format, practise each section, and finish with strict timed work.</figcaption>
+</figure>
+<!-- blog-image-agent:end id="ielts-study-roadmap" -->
+
 The foundation stage matters. Formal test preparation becomes much more efficient once the basics are solid. Depending on your current level, I suggest allowing **two to six months** for this stage.
 
 **At its core, IELTS is about recognizing paraphrases.**
@@ -96,6 +103,13 @@ Free course recommendation: the Bilibili creator “Larry 想做技术大佬” 
 2. **Misreading the passage:** missing part of the information in a paragraph, or locating the right sentence without understanding it.
 3. **Insufficient vocabulary:** failing to recognize a paraphrase between the question and the passage.
 
+<!-- blog-image-agent:start id="ielts-reading-diagnosis" -->
+<figure class="article-figure article-figure--agent" data-image-id="ielts-reading-diagnosis">
+  <img src="../public/assets/blog/ielts-reading-diagnosis-en.svg" alt="An IELTS reading error tree checking question comprehension, passage comprehension, and vocabulary" width="1200" height="675" loading="lazy" decoding="async" />
+  <figcaption>Figure: Diagnose the cause first, then decide whether to repair grammar, reread context, or collect paraphrases.</figcaption>
+</figure>
+<!-- blog-image-agent:end id="ielts-reading-diagnosis" -->
+
 ## 6. Strategies Shared by Listening and Reading
 
 - Build your vocabulary and grammar before focusing on test-taking techniques.
@@ -131,6 +145,13 @@ Free course recommendation: the Bilibili creator “Larry 想做技术大佬” 
 - The speaking test has three parts. Part 1 is everyday conversation. In Part 2, you have one minute to make notes and then speak about one topic for two minutes. Part 3 explores broader questions in more depth. In my view, **Part 2 is the most important**. Aim to speak for at least one minute and forty seconds, and preferably for the full two minutes.
 - Collect speaking questions and send them to AI, asking it to suggest useful material and expressions based on your own experiences. Your chat history can help it find a Part 2 story that suits you, including experiences you may not remember when you first see the question.
 - If possible, avoid taking the speaking test during a question-change season. These usually fall in **January, May, and September**.
+
+<!-- blog-image-agent:start id="ielts-speaking-cycle" -->
+<figure class="article-figure article-figure--agent" data-image-id="ielts-speaking-cycle">
+  <img src="../public/assets/blog/ielts-speaking-cycle-en.svg" alt="An IELTS speaking loop: prepare a real story, speak under time, review the recording, revise and repeat" width="1200" height="675" loading="lazy" decoding="async" />
+  <figcaption>Figure: Turn real experience into reusable material and correct the most specific problem in each round.</figcaption>
+</figure>
+<!-- blog-image-agent:end id="ielts-speaking-cycle" -->
 
 ## 9. Preparation Timeline
 

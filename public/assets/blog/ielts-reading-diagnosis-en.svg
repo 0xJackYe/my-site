@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">An IELTS reading error tree checking question comprehension, passage comprehension, and vocabulary</title>
+  <desc id="desc">Figure: Diagnose the cause first, then decide whether to repair grammar, reread context, or collect paraphrases.</desc>
+  <rect width="1200" height="675" fill="#f3f0e8"/>
+  <style>
+    text { font-family: Arial, "Microsoft YaHei", "PingFang SC", sans-serif; fill: #181714; letter-spacing: 0; }
+    .eyebrow { font-size: 21px; font-weight: 700; }
+    .label { font-size: 28px; font-weight: 700; }
+    .small { font-size: 17px; fill: #706b61; }
+    .number { font-size: 17px; font-weight: 700; fill: #a65032; }
+    .inverse { fill: #f3f0e8; }
+    .node { fill: #fffdf8; stroke: #181714; stroke-width: 2; }
+    .soft { fill: none; stroke: #b8b0a3; stroke-width: 2; }
+    .strong { fill: none; stroke: #181714; stroke-width: 3; }
+    .accent { fill: none; stroke: #a65032; stroke-width: 4; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#181714"/></marker>
+    <marker id="arrow-accent" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a65032"/></marker>
+  </defs>
+  <rect x="365" y="90" width="470" height="100" rx="3" fill="#181714"/><text class="inverse" x="600" y="151" text-anchor="middle" style="font-size:25px;font-weight:700">WHY WAS THIS ANSWER WRONG?</text><path class="strong" d="M600 190 V270 H225 V335" marker-end="url(#arrow)"/><path class="strong" d="M600 270 V335" marker-end="url(#arrow)"/><path class="strong" d="M600 270 H975 V335" marker-end="url(#arrow)"/><g><rect class="node" x="80" y="350" width="290" height="155" rx="3"/><text class="number" x="105" y="386">01</text><text class="label" x="105" y="428">Question</text><path class="soft" d="M105 448 H345"/><text class="small" x="105" y="480">Check qualifiers &amp; grammar</text></g><g><rect class="node" x="455" y="350" width="290" height="155" rx="3"/><text class="number" x="480" y="386">02</text><text class="label" x="480" y="428">Passage</text><path class="soft" d="M480 448 H720"/><text class="small" x="480" y="480">Reread context &amp; logic</text></g><g><rect class="node" x="830" y="350" width="290" height="155" rx="3"/><text class="number" x="855" y="386">03</text><text class="label" x="855" y="428">Vocabulary</text><path class="soft" d="M855 448 H1095"/><text class="small" x="855" y="480">Collect the paraphrase</text></g><path class="accent" d="M420 585 H780" marker-end="url(#arrow-accent)"/><text class="eyebrow" x="600" y="625" text-anchor="middle">DIAGNOSE FIRST, THEN TRAIN</text>
+</svg>

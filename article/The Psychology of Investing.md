@@ -18,6 +18,13 @@ Market prices have an extraordinary ability not only to change your wealth, but 
 
 Often, the facts have not changed at all. Only the price has changed. The price changes the mood, the mood filters the information, and the selected information then proves that the mood was right. It forms a loop that is difficult to notice. People usually believe they see evidence first and form an opinion afterward. In reality, the order is often reversed: the opinion comes first, then the search for evidence. In a rising market, a holder actively looks for every reason the rise should continue. In a falling market, the same person begins looking for every reason to sell. The internet makes the problem worse, because almost anything you want to prove can be supported by more than enough material.
 
+<!-- blog-image-agent:start id="investment-feedback-loop" -->
+<figure class="article-figure article-figure--agent" data-image-id="investment-feedback-loop">
+  <img src="../public/assets/blog/investment-feedback-loop-en.svg" alt="A loop showing price movement, emotion, selective evidence, and investor action reinforcing one another" width="1200" height="675" loading="lazy" decoding="async" />
+  <figcaption>Figure: Price changes emotion, emotion filters evidence, and action feeds the judgment back into the market.</figcaption>
+</figure>
+<!-- blog-image-agent:end id="investment-feedback-loop" -->
+
 If you think the market will rise, you can find dozens of bullish reports. If you think it is about to collapse, you can find dozens of carefully reasoned bearish analyses. There is now too much information for information alone to become an answer. What people see in the market is often not reality itself, but only the part of reality they are willing to see.
 
 Cost basis is another fascinating thing. People become almost emotionally attached to their purchase price. Buy an asset at 100 and watch it fall to 80, and one of the most common thoughts is, “I will sell once it gets back to 100.” That sounds perfectly natural, but on closer examination it has very little logic behind it. The market does not know you bought at 100. The company’s management does not know. Other traders do not know. Future cash flows will not change because of your cost basis.
@@ -47,6 +54,13 @@ This is why talking only about “mental toughness” is not enough. An investor
 In theory, the same person should reach the same conclusion about the same asset. In practice, a change in position size can turn them into a different person. Every small decline in the market may push a real-life goal a little further away: the money for a home, a child’s education, years of savings, or retirement. Once those goals become tied to the number on a screen, even a calm person will struggle to treat the problem as pure mathematics.
 
 Many so-called problems of investment psychology are therefore problems of risk management at heart. If an ordinary market fluctuation is enough to make someone abandon their original investment logic, one possibility is not that their willpower is weak. Their position may simply have been too large from the beginning. The idea is easy to understand. A person can balance comfortably on a board one centimeter above the ground. Put the same board between two buildings one hundred meters in the air and their body will immediately stiffen. Their ability to balance has not suddenly disappeared. What changed was the cost of making a mistake.
+
+<!-- blog-image-agent:start id="investment-high-wire" -->
+<figure class="article-figure article-figure--agent" data-image-id="investment-high-wire">
+  <img src="../public/assets/blog/investment-high-wire.webp" alt="The same board close to the ground and spanning between high buildings, showing how position size changes the cost of a mistake" width="1536" height="1024" loading="lazy" decoding="async" />
+  <figcaption>Figure: The ability to balance has not changed; the cost of a mistake has. Position size can alter judgment in the same way.</figcaption>
+</figure>
+<!-- blog-image-agent:end id="investment-high-wire" -->
 
 Investing is the same. Many people are exceptionally rational in a paper-trading exercise and become someone else as soon as real money is involved. There is nothing strange about that. Real money creates real emotion.
 

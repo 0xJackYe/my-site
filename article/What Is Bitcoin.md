@@ -4,13 +4,34 @@ Bitcoin can seem mysterious. One bitcoin is already worth tens of thousands of d
 
 Put simply, Bitcoin is a distributed ledger. Traditional bookkeeping is usually handled by one person or a small number of institutions, separate entities such as banks and securities firms. That creates serious trust problems: companies can falsify their accounts, and banks can refuse to honor people's deposits. A few years ago, a township bank in Henan refused to recognize its customers' deposits. Residents who went to demand their money back were even beaten. Bitcoin does not have this problem. Every miner on the network helps maintain the ledger. If one miner's copy differs from everyone else's, the network identifies it as a malicious node and rejects it. This is how the network protects its credibility.
 
+<!-- blog-image-agent:start id="bitcoin-ledger-topology" -->
+<figure class="article-figure article-figure--agent" data-image-id="bitcoin-ledger-topology">
+  <img src="../public/assets/blog/bitcoin-ledger-topology-en.svg" alt="A comparison between one institution keeping the ledger and many nodes maintaining matching copies" width="1200" height="675" loading="lazy" decoding="async" />
+  <figcaption>Figure: Traditional systems concentrate trust in one bookkeeper; Bitcoin distributes verification across network nodes.</figcaption>
+</figure>
+<!-- blog-image-agent:end id="bitcoin-ledger-topology" -->
+
 The Bitcoin network consists of blocks linked together in a chain, which is the blockchain most people have heard of. Each block records transaction data. If A sends B one BTC, for example, that transaction is written into a block. A block can hold roughly 4,000 transactions. As of August 1, 2026, the number of blocks is approaching one million. "Mining" is tied directly to these blocks. Bitcoin miners use their computers to work out the hash, a kind of character string, for the next block. The first miner to get it right earns the right to record that block. The electricity used in mining scales with the number of miners. Tens of thousands of miners now operate around the world, making an attack extremely expensive and helping keep Bitcoin secure. Mining difficulty also adjusts as the number of miners changes, keeping the average time between blocks at about ten minutes. A transfer usually takes around 20 to 30 minutes because most institutions and applications consider a transaction safe only after at least three confirmations. Once a miner includes a transaction in a block, each new block counts as one confirmation. Users choose their own transaction fees, and miners give priority to transactions that pay more.
+
+<!-- blog-image-agent:start id="bitcoin-transaction-path" -->
+<figure class="article-figure article-figure--agent" data-image-id="bitcoin-transaction-path">
+  <img src="../public/assets/blog/bitcoin-transaction-path-en.svg" alt="A Bitcoin transaction moving through broadcast, the mempool, miner selection, and block confirmations" width="1200" height="675" loading="lazy" decoding="async" />
+  <figcaption>Figure: A transaction waits in the mempool, is selected into a block, and gains confidence as later blocks add confirmations.</figcaption>
+</figure>
+<!-- blog-image-agent:end id="bitcoin-transaction-path" -->
 
 Besides miners, the Bitcoin network has two other roles: developers and users. Developers are the core group responsible for maintaining the security of the network. They put forward ideas in the community, and an idea is added to the project only after community members agree on it. Most ideas never make it that far. Bitcoin is a system with a huge number of users. Constant updates would make the network less stable, and both developers and users are bound to disagree. The wishes of one group cannot simply override everyone else's.
 
 In fact, you can count the major updates in Bitcoin's history on one hand: Segregated Witness around 2015, the Lightning Network in 2016, and the Bitcoin Cash fork, known as BCH, in 2017. Each had a practical purpose. Segregated Witness was designed to save space in each block. A block used to be limited to 1 MB, and the update increased its effective capacity. The Lightning Network makes small payments faster and allows them to settle almost instantly. BCH came out of a disagreement within the community. Some people thought blocks were too small and transactions too slow, so they wanted to fork a new coin with 4 MB blocks. Others believed that larger blocks would reduce decentralization.
 
 Users are the final participants in the Bitcoin ecosystem. They decide whether to buy and use bitcoin. If the number of miners falls and the network becomes less secure, users can refuse to use it, while developers can look for ways to improve the network. If developers were captured by big capital and changed the rules to favor the powerful, miners could refuse to mine and users could stop buying, causing the price to fall. A falling price would also make hackers less interested in attacking the network. Few people would take on that much work for so little reward. Miners, developers, and users therefore form a subtle separation of powers. Bitcoin will not disappear simply because one of these groups collapses.
+
+<!-- blog-image-agent:start id="bitcoin-governance-balance" -->
+<figure class="article-figure article-figure--agent" data-image-id="bitcoin-governance-balance">
+  <img src="../public/assets/blog/bitcoin-governance-balance-en.svg" alt="A triangular map of miners, developers, and users checking one another around Bitcoin's rules" width="1200" height="675" loading="lazy" decoding="async" />
+  <figcaption>Figure: The three groups draw power from different sources, so no one group can easily impose its rules on the whole network.</figcaption>
+</figure>
+<!-- blog-image-agent:end id="bitcoin-governance-balance" -->
 
 More importantly, Bitcoin's total supply is capped at 21 million by its code. No person or institution has the authority to issue more. That makes it an almost perfect currency. Anyone familiar with the monetary history of different countries can appreciate how precious that is: the Gold Yuan notes issued by the Republic of China government a century ago, the modern Turkish lira, and the Iranian rial, whose exchange rate recently collapsed because of the war between the United States and Iran. I could spend an entire day listing currencies that have suffered similar collapses throughout history.
 

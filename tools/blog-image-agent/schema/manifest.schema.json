@@ -1,0 +1,161 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jackye.example/schemas/blog-image-manifest.schema.json",
+  "title": "Blog image agent manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "generatedAt", "scanHash", "articles", "candidates"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "scanHash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "articles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "status", "reason", "summary", "contentHash", "languages"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "status": { "enum": ["selected", "skipped"] },
+          "reason": { "type": "string", "minLength": 1 },
+          "summary": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["zh", "en"],
+            "properties": {
+              "zh": { "type": "string" },
+              "en": { "type": "string" }
+            }
+          },
+          "contentHash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+          "languages": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["zh", "en"],
+            "properties": {
+              "zh": { "$ref": "#/$defs/languageSource" },
+              "en": { "$ref": "#/$defs/languageSource" }
+            }
+          }
+        }
+      }
+    },
+    "candidates": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/candidate" }
+    }
+  },
+  "$defs": {
+    "languageSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file", "title", "contentHash"],
+      "properties": {
+        "file": { "type": "string", "minLength": 1 },
+        "title": { "type": "string", "minLength": 1 },
+        "contentHash": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      }
+    },
+    "localizedText": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["zh", "en"],
+      "properties": {
+        "zh": { "type": "string", "minLength": 1 },
+        "en": { "type": "string", "minLength": 1 }
+      }
+    },
+    "anchor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "match", "placement", "occurrence", "contextHash"],
+      "properties": {
+        "kind": { "enum": ["heading", "paragraph", "list"] },
+        "match": { "type": "string", "minLength": 8 },
+        "placement": { "const": "after" },
+        "occurrence": { "type": "integer", "minimum": 1 },
+        "contextHash": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      }
+    },
+    "scores": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["semanticFit", "explanatoryValue", "placement", "novelty", "total"],
+      "properties": {
+        "semanticFit": { "type": "number", "minimum": 0, "maximum": 1 },
+        "explanatoryValue": { "type": "number", "minimum": 0, "maximum": 1 },
+        "placement": { "type": "number", "minimum": 0, "maximum": 1 },
+        "novelty": { "type": "number", "minimum": 0, "maximum": 1 },
+        "total": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "asset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sourcePath", "webPath", "width", "height", "format"],
+      "properties": {
+        "sourcePath": { "type": "string", "minLength": 1 },
+        "webPath": { "type": "string", "pattern": "^assets/blog/" },
+        "width": { "type": "integer", "minimum": 320 },
+        "height": { "type": "integer", "minimum": 180 },
+        "format": { "enum": ["svg", "webp", "png"] },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      }
+    },
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "imageId", "articleId", "languageStrategy", "anchors", "visualRole",
+        "mediaType", "subject", "composition", "style", "aspectRatio",
+        "prompt", "negativeConstraints", "alt", "caption", "confidence",
+        "scores", "rationale", "critique", "contentHash", "assets"
+      ],
+      "properties": {
+        "imageId": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+        "articleId": { "type": "string", "minLength": 1 },
+        "languageStrategy": { "enum": ["localized-svg", "shared-raster"] },
+        "anchors": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["zh", "en"],
+          "properties": {
+            "zh": { "$ref": "#/$defs/anchor" },
+            "en": { "$ref": "#/$defs/anchor" }
+          }
+        },
+        "visualRole": { "type": "string", "minLength": 1 },
+        "mediaType": { "enum": ["svg", "raster"] },
+        "subject": { "$ref": "#/$defs/localizedText" },
+        "composition": { "type": "string", "minLength": 1 },
+        "style": { "type": "string", "minLength": 1 },
+        "aspectRatio": { "enum": ["3:2", "4:3", "16:9"] },
+        "prompt": { "type": "string", "minLength": 40 },
+        "negativeConstraints": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 2 },
+          "uniqueItems": true
+        },
+        "alt": { "$ref": "#/$defs/localizedText" },
+        "caption": { "$ref": "#/$defs/localizedText" },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "scores": { "$ref": "#/$defs/scores" },
+        "rationale": { "type": "string", "minLength": 8 },
+        "critique": { "type": "string", "minLength": 8 },
+        "contentHash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "assets": {
+          "type": "object",
+          "additionalProperties": false,
+          "minProperties": 1,
+          "properties": {
+            "shared": { "$ref": "#/$defs/asset" },
+            "zh": { "$ref": "#/$defs/asset" },
+            "en": { "$ref": "#/$defs/asset" }
+          }
+        }
+      }
+    }
+  }
+}

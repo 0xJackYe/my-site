@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Three factors for judging a scarce skill: demand, constrained supply, and impact on outcomes</title>
+  <desc id="desc">Figure: Difficulty alone does not create value; real demand, limited supply, and meaningful impact must meet.</desc>
+  <rect width="1200" height="675" fill="#f3f0e8"/>
+  <style>
+    text { font-family: Arial, "Microsoft YaHei", "PingFang SC", sans-serif; fill: #181714; letter-spacing: 0; }
+    .eyebrow { font-size: 21px; font-weight: 700; }
+    .label { font-size: 28px; font-weight: 700; }
+    .small { font-size: 17px; fill: #706b61; }
+    .number { font-size: 17px; font-weight: 700; fill: #a65032; }
+    .inverse { fill: #f3f0e8; }
+    .node { fill: #fffdf8; stroke: #181714; stroke-width: 2; }
+    .soft { fill: none; stroke: #b8b0a3; stroke-width: 2; }
+    .strong { fill: none; stroke: #181714; stroke-width: 3; }
+    .accent { fill: none; stroke: #a65032; stroke-width: 4; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#181714"/></marker>
+    <marker id="arrow-accent" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a65032"/></marker>
+  </defs>
+  <g><text class="number" x="75" y="120">01</text><text class="label" x="75" y="158">Real demand</text><text class="small" x="75" y="194">Enough people need the problem solved</text><rect x="75" y="235" width="285" height="20" fill="#ded8cc"/><rect x="75" y="235" width="220" height="20" fill="#181714"/></g><g><text class="number" x="450" y="120">02</text><text class="label" x="450" y="158">Limited supply</text><text class="small" x="450" y="194">Few people can solve it well</text><rect x="450" y="235" width="285" height="20" fill="#ded8cc"/><rect x="450" y="235" width="105" height="20" fill="#a65032"/></g><g><text class="number" x="825" y="120">03</text><text class="label" x="825" y="158">Outcome impact</text><text class="small" x="825" y="194">The solution changes a meaningful result</text><rect x="825" y="235" width="285" height="20" fill="#ded8cc"/><rect x="825" y="235" width="170" height="20" fill="#181714"/></g><path class="strong" d="M218 300 V380 H600"/><path class="strong" d="M593 300 V380"/><path class="strong" d="M968 300 V380 H600"/><path class="accent" d="M600 380 V438" marker-end="url(#arrow-accent)"/><rect class="node" x="395" y="470" width="410" height="120" rx="3"/><text class="label" x="600" y="522" text-anchor="middle">VALUABLE SCARCITY</text><text class="small" x="600" y="557" text-anchor="middle">DIFFICULT ≠ SCARCE</text>
+</svg>

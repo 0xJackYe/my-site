@@ -28,6 +28,13 @@ Scarcity has to exist alongside demand.
 
 If ten thousand people urgently need a problem solved and only one hundred know how to solve it, that is valuable scarcity. When I judge whether a skill is worth learning, I now prefer to look at three things: how many people need it, how many people can provide it, and how large an outcome it can affect once mastered. Following that logic, the scarcest things in the future may not be any particular software package or programming language at all.
 
+<!-- blog-image-agent:start id="scarcity-demand-supply-impact" -->
+<figure class="article-figure article-figure--agent" data-image-id="scarcity-demand-supply-impact">
+  <img src="../public/assets/blog/scarcity-demand-supply-impact-en.svg" alt="Three factors for judging a scarce skill: demand, constrained supply, and impact on outcomes" width="1200" height="675" loading="lazy" decoding="async" />
+  <figcaption>Figure: Difficulty alone does not create value; real demand, limited supply, and meaningful impact must meet.</figcaption>
+</figure>
+<!-- blog-image-agent:end id="scarcity-demand-supply-impact" -->
+
 The first thing becoming scarcer is the ability to find the problem.
 
 AI is very good at answering questions, provided you know what to ask. Imagine a company announcing, “We need to use AI to cut costs and improve efficiency.” It sounds correct, but in practice it says almost nothing. An ordinary person may immediately begin researching large language models, agents, and RAG, then produce a fifty-page deck explaining how powerful artificial intelligence is. A genuinely valuable person may first examine the company’s workflow. How much does customer service actually cost? Which step wastes the most labor? Where is the error rate highest? Does the problem need AI, or could a fifty-line script solve it? Is it even possible that efficiency is not the real problem and that nobody wants the product in the first place?
@@ -59,6 +66,13 @@ Many people compete with others along a single axis. Programmers compete over wh
 Sometimes the simplest answer is not to keep fighting harder on the same axis, but to choose another one. An ordinary programmer with sales ability might become an excellent SaaS salesperson or solutions consultant. An ordinary engineer with English and overseas experience might move into international technical support. Someone who understands AI and also truly understands a specific process in healthcare, law, logistics, or manufacturing may be worth far more than another person who only studies prompts.
 
 No single ability has to be the best in the world. If several abilities complement one another, the combination may place you in a much smaller group. Suppose 50 percent of people can program and 40 percent communicate well. If the two abilities are roughly independent, only about 20 percent may possess both. Add English, industry knowledge, and project experience, and the number who satisfy every condition shrinks further. Reality is not as perfectly independent as a mathematical model, of course, but the way of thinking matters. You do not have to defeat everyone on one dimension. You can add new dimensions until fewer and fewer people are genuinely competing with you.
+
+<!-- blog-image-agent:start id="scarcity-skill-stack" -->
+<figure class="article-figure article-figure--agent" data-image-id="scarcity-skill-stack">
+  <img src="../public/assets/blog/scarcity-skill-stack-en.svg" alt="Programming, communication, English, and industry experience progressively reduce the number of people who meet every condition" width="1200" height="675" loading="lazy" decoding="async" />
+  <figcaption>Figure: You do not need to beat everyone on one axis; the intersection of complementary abilities can itself be scarce.</figcaption>
+</figure>
+<!-- blog-image-agent:end id="scarcity-skill-stack" -->
 
 There is also the ability to deal with people. It can sound vague, almost unlike a technical skill, but I increasingly think it is one of the abilities least likely to lose value in the age of AI. It includes negotiation, sales, building trust, aligning interests, persuading people, and managing conflict. At their core, these activities are not simple exchanges of information. If exchanging information were enough, an email would do the job.
 

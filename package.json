@@ -8,7 +8,9 @@
   "scripts": {
     "dev": "vinext dev",
     "build": "vinext build",
-    "start": "vinext start"
+    "start": "vinext start",
+    "blog-images": "node tools/blog-image-agent/cli.mjs",
+    "test:blog-images": "node --test tools/blog-image-agent/test/*.test.mjs"
   },
   "dependencies": {
     "next": "16.2.6",
@@ -22,7 +24,10 @@
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "6.0.2",
     "@vitejs/plugin-rsc": "0.5.26",
+    "ajv": "^8.20.0",
+    "cheerio": "^1.1.2",
     "react-server-dom-webpack": "19.2.6",
+    "sharp": "^0.34.5",
     "typescript": "5.9.3",
     "vinext": "0.0.50",
     "vite": "8.0.13",

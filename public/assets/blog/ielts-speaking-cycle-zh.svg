@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">雅思口语训练闭环：准备真实故事、限时表达、回听诊断、修改重说</title>
+  <desc id="desc">图：把真实经历变成可反复训练的素材，每轮只修正最具体的问题。</desc>
+  <rect width="1200" height="675" fill="#f3f0e8"/>
+  <style>
+    text { font-family: Arial, "Microsoft YaHei", "PingFang SC", sans-serif; fill: #181714; letter-spacing: 0; }
+    .eyebrow { font-size: 21px; font-weight: 700; }
+    .label { font-size: 28px; font-weight: 700; }
+    .small { font-size: 17px; fill: #706b61; }
+    .number { font-size: 17px; font-weight: 700; fill: #a65032; }
+    .inverse { fill: #f3f0e8; }
+    .node { fill: #fffdf8; stroke: #181714; stroke-width: 2; }
+    .soft { fill: none; stroke: #b8b0a3; stroke-width: 2; }
+    .strong { fill: none; stroke: #181714; stroke-width: 3; }
+    .accent { fill: none; stroke: #a65032; stroke-width: 4; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#181714"/></marker>
+    <marker id="arrow-accent" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a65032"/></marker>
+  </defs>
+  <path class="strong" d="M680 140 C820 175 890 225 925 265" marker-end="url(#arrow)"/><path class="strong" d="M925 410 C875 485 790 530 685 548" marker-end="url(#arrow)"/><path class="strong" d="M515 548 C405 520 325 470 280 410" marker-end="url(#arrow)"/><path class="accent" d="M280 260 C340 185 420 145 515 125" marker-end="url(#arrow-accent)"/><g><circle cx="600" cy="120" r="82" fill="#fffdf8" stroke="#181714" stroke-width="2"/><text class="number" x="600" y="90" text-anchor="middle" style="fill:#a65032">01</text><text class="label" x="600" y="125" text-anchor="middle" style="font-size:24px;fill:#181714">准备</text><text class="small" x="600" y="159" text-anchor="middle" style="font-size:16px;fill:#706b61">选择真实故事</text></g><g><circle cx="940" cy="335" r="82" fill="#a65032" stroke="#181714" stroke-width="2"/><text class="number" x="940" y="305" text-anchor="middle" style="fill:#f3f0e8">02</text><text class="label" x="940" y="340" text-anchor="middle" style="font-size:24px;fill:#f3f0e8">限时表达</text><text class="small" x="940" y="374" text-anchor="middle" style="font-size:16px;fill:#f3f0e8">录下 2 分钟</text></g><g><circle cx="600" cy="550" r="82" fill="#fffdf8" stroke="#181714" stroke-width="2"/><text class="number" x="600" y="520" text-anchor="middle" style="fill:#a65032">03</text><text class="label" x="600" y="555" text-anchor="middle" style="font-size:24px;fill:#181714">回听</text><text class="small" x="600" y="589" text-anchor="middle" style="font-size:16px;fill:#706b61">定位一个问题</text></g><g><circle cx="260" cy="335" r="82" fill="#fffdf8" stroke="#181714" stroke-width="2"/><text class="number" x="260" y="305" text-anchor="middle" style="fill:#a65032">04</text><text class="label" x="260" y="340" text-anchor="middle" style="font-size:24px;fill:#181714">重说</text><text class="small" x="260" y="374" text-anchor="middle" style="font-size:16px;fill:#706b61">修正后再来一轮</text></g><circle cx="600" cy="335" r="58" fill="#181714"/><path d="M588 305 h24 a14 14 0 0 1 14 14 v26 a14 14 0 0 1-14 14 h-24 a14 14 0 0 1-14-14 v-26 a14 14 0 0 1 14-14z M560 336 a40 40 0 0 0 80 0 M600 376 v22 M570 398 h60" fill="none" stroke="#f3f0e8" stroke-width="6" stroke-linecap="round"/>
+</svg>
