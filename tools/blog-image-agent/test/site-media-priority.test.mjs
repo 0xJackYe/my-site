@@ -24,6 +24,16 @@ test("site defers agent illustrations until the active article and language need
   );
   assert.match(
     html,
+    /if \(typeof articleImage\.decode === 'function'\) articleImage\.decode\(\)/,
+    "offscreen images in the active article should be decoded immediately",
+  );
+  assert.match(
+    html,
+    /articleWarmer\.src = articleSource/,
+    "the active article should explicitly warm each current-language source",
+  );
+  assert.match(
+    html,
     /if \(document\.body\.classList\.contains\('article-reader'\)\) prioritizeViewMedia\('articles'\)/,
     "switching article language should prioritize the newly visible image set",
   );

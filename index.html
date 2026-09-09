@@ -2152,6 +2152,7 @@
   var lang = 'en';
   var theme = 'light';
   var mediaWarmers = [];
+  var warmedArticleSources = {};
   var mediaWarmupStarted = false;
 
   var articleEntries = document.querySelectorAll('.article-entry[data-article]');
@@ -2190,8 +2191,20 @@
     if (id === 'articles') {
       var articleImages = document.querySelectorAll('.article-entry.is-active-article .article-content[data-article-lang="' + lang + '"] .article-figure img');
       for (var articleImageIndex = 0; articleImageIndex < articleImages.length; articleImageIndex++) {
-        articleImages[articleImageIndex].loading = 'eager';
-        articleImages[articleImageIndex].fetchPriority = articleImageIndex === 0 ? 'high' : 'auto';
+        var articleImage = articleImages[articleImageIndex];
+        var articlePriority = articleImageIndex === 0 ? 'high' : 'auto';
+        var articleSource = articleImage.getAttribute('src');
+        articleImage.loading = 'eager';
+        articleImage.fetchPriority = articlePriority;
+        if (typeof articleImage.decode === 'function') articleImage.decode().catch(function () {});
+        if (articleSource && !warmedArticleSources[articleSource]) {
+          warmedArticleSources[articleSource] = true;
+          var articleWarmer = new Image();
+          articleWarmer.decoding = 'async';
+          articleWarmer.fetchPriority = articlePriority;
+          articleWarmer.src = articleSource;
+          mediaWarmers.push(articleWarmer);
+        }
       }
       return;
     }
