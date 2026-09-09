@@ -2159,7 +2159,7 @@
   function getWarmupSources() {
     var sources = [];
     var travelImages = document.querySelectorAll('#travel img');
-    var chartImages = document.querySelectorAll('.article-figure img');
+    var chartImages = document.querySelectorAll('.article-figure:not(.article-figure--agent) img');
 
     for (var travelIndex = 0; travelIndex < travelImages.length; travelIndex++) {
       var srcset = travelImages[travelIndex].getAttribute('srcset') || '';
@@ -2187,6 +2187,14 @@
   }
 
   function prioritizeViewMedia(id) {
+    if (id === 'articles') {
+      var articleImages = document.querySelectorAll('.article-entry.is-active-article .article-content[data-article-lang="' + lang + '"] .article-figure img');
+      for (var articleImageIndex = 0; articleImageIndex < articleImages.length; articleImageIndex++) {
+        articleImages[articleImageIndex].loading = 'eager';
+        articleImages[articleImageIndex].fetchPriority = articleImageIndex === 0 ? 'high' : 'auto';
+      }
+      return;
+    }
     if (id !== 'travel') return;
     var images = document.querySelectorAll('#travel img');
     for (var imageIndex = 0; imageIndex < images.length; imageIndex++) {
@@ -2269,6 +2277,7 @@
     lang = lang === 'zh' ? 'en' : 'zh';
     try { localStorage.setItem('jye-lang', lang); } catch (e) {}
     applyLanguage();
+    if (document.body.classList.contains('article-reader')) prioritizeViewMedia('articles');
   });
 
   themeButton.addEventListener('click', function () {
