@@ -129,6 +129,29 @@
 
   .toolbar { flex-shrink: 0; }
 
+  .private-entry { letter-spacing: .18em; }
+  .private-entry[data-unlocked] { letter-spacing: 0; }
+  .private-entry[aria-expanded="true"] { border-color: var(--accent); }
+  .private-dialog { width: min(380px, calc(100vw - 40px)); padding: 30px; color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 14px; }
+  .private-dialog::backdrop { background: #14141366; backdrop-filter: blur(5px); }
+  .private-dialog h2 { margin: 0 0 12px; font: 400 26px var(--font-display); }
+  .private-dialog p { color: var(--muted); font-size: 14px; line-height: 1.6; }
+  .private-dialog label { display: block; font-size: 13px; margin: 22px 0 8px; }
+  .private-dialog input { box-sizing: border-box; width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 7px; background: var(--surface); color: var(--fg); font: 20px var(--font-display); letter-spacing: .24em; }
+  .private-dialog input:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .private-dialog .private-error { min-height: 22px; margin: 10px 0 16px; color: var(--accent); font-size: 12px; }
+  .private-dialog-actions { display: flex; justify-content: flex-end; gap: 9px; }
+  .private-action { padding: 9px 16px; border: 1px solid var(--line); border-radius: 7px; background: var(--bg); color: var(--fg); cursor: pointer; font: inherit; font-size: 13px; }
+  .private-action.primary { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+  .private-action:disabled { opacity: .5; cursor: wait; }
+  .private-panel { position: fixed; z-index: 19; inset: 60px 12px 12px; background: var(--bg); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
+  .private-panel[hidden] { display: none; }
+  .private-panel-head { display: flex; align-items: center; gap: 10px; padding: 12px 20px; border-bottom: 1px solid var(--line); }
+  .private-panel-head strong { flex: 1; font-size: 15px; font-weight: 500; }
+  .private-panel iframe { flex: 1; width: 100%; min-height: 0; border: 0; background: #f4f1e9; }
+  .private-open { overflow: hidden; }
+  @media(max-width:680px) { .private-panel { inset: 104px 8px 8px; } .private-panel-head { padding: 10px 12px; } }
+
   .nav-link, .toolbar button {
     width: 108px;
     height: 32px;
@@ -848,6 +871,7 @@
 <body>
 <header class="topbar">
   <nav class="nav-links" aria-label="Site sections">
+    <button class="nav-link private-entry" id="private-entry" type="button" aria-label="解锁访问" aria-expanded="false" aria-controls="private-panel">••••••</button>
     <a class="nav-link" href="#home" data-view="home" data-en="Home" data-zh="主页"><span class="i18n-en" lang="en">Home</span><span class="i18n-zh" lang="zh-CN">主页</span></a>
     <a class="nav-link" href="#skills" data-view="skills" data-en="Experience" data-zh="履历"><span class="i18n-en" lang="en">Experience</span><span class="i18n-zh" lang="zh-CN">履历</span></a>
     <a class="nav-link" href="#projects" data-view="projects" data-en="My Projects" data-zh="我的项目"><span class="i18n-en" lang="en">My Projects</span><span class="i18n-zh" lang="zh-CN">我的项目</span></a>
@@ -859,6 +883,20 @@
     <button id="theme-toggle" type="button" aria-label="Switch theme"><span class="theme-label theme-dark-en" lang="en">Dark</span><span class="theme-label theme-light-en" lang="en">Light</span><span class="theme-label theme-dark-zh" lang="zh-CN">黑</span><span class="theme-label theme-light-zh" lang="zh-CN">白</span></button>
   </div>
 </header>
+
+<dialog class="private-dialog" id="private-dialog" aria-labelledby="private-dialog-title">
+  <form id="private-form">
+    <h2 id="private-dialog-title">解锁访问</h2>
+    <p>输入密码后，显示入口名称与页面内容。</p>
+    <label for="private-password">访问密码</label>
+    <input id="private-password" name="password" type="password" inputmode="numeric" pattern="[0-9]{6}" minlength="6" maxlength="6" autocomplete="current-password" required autofocus aria-describedby="private-error">
+    <p class="private-error" id="private-error" role="status" aria-live="polite"></p>
+    <div class="private-dialog-actions"><button class="private-action" id="private-cancel" type="button">取消</button><button class="private-action primary" id="private-submit" type="submit">解锁</button></div>
+  </form>
+</dialog>
+<section class="private-panel" id="private-panel" aria-label="已解锁页面" hidden>
+  <header class="private-panel-head"><strong id="private-title"></strong><button class="private-action" id="private-lock" type="button">重新锁定</button><button class="private-action" id="private-close" type="button">返回网站</button></header>
+</section>
 
 <main>
   <section class="view" id="home" aria-labelledby="home-name">
@@ -2146,7 +2184,7 @@
   var html = document.documentElement;
   var langButton = document.getElementById('lang-toggle');
   var themeButton = document.getElementById('theme-toggle');
-  var navLinks = document.querySelectorAll('.nav-link');
+  var navLinks = document.querySelectorAll('.nav-link[data-view]');
   var articleRouteLinks = document.querySelectorAll('.article-read-link, .article-back-link');
   var views = document.querySelectorAll('.view');
   var lang = 'en';
@@ -2328,5 +2366,6 @@
   else window.setTimeout(warmHeavyMedia, 0);
 })();
 </script>
+<script src="/assets/private-entry.js" defer></script>
 </body>
 </html>

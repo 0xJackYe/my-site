@@ -6,3 +6,10 @@
 /.env*
 *.pem
 npm-debug.log*
+
+/.dev.vars
+/.site-package/
+/.sites-runtime/
+/tsconfig.tsbuildinfo
+/outputs/
+/tools/node_modules/

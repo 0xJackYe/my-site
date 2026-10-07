@@ -1,11 +1,14 @@
 import { handleImageOptimization, DEFAULT_DEVICE_SIZES, DEFAULT_IMAGE_SIZES } from "vinext/server/image-optimization";
 import handler from "vinext/server/app-router-entry";
+import { handlePrivateAccess, type PrivateEnv } from "./private-access";
+import privatePage from "../private/terminal.enc.json";
+import { decryptPrivatePage } from "./private-page";
 
 interface StaticAssetFetcher {
   fetch(request: Request): Promise<Response>;
 }
 
-interface Env {
+interface Env extends PrivateEnv {
   ASSETS: StaticAssetFetcher;
   IMAGES: {
     input(stream: ReadableStream): {
@@ -35,6 +38,8 @@ function withCacheHeaders(response: Response, cacheControl: string, contentType?
 const worker = {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
+    const privateResponse = await handlePrivateAccess(request, env, () => decryptPrivatePage(env.PRIVATE_ACCESS_CONFIG, privatePage));
+    if (privateResponse) return privateResponse;
     if (env?.ASSETS && (url.pathname === "/" || url.pathname === "/index.html")) {
       const assetUrl = new URL(request.url);
       assetUrl.pathname = "/index.html";

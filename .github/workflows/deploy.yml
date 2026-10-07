@@ -1,4 +1,4 @@
-name: Deploy static content to Pages
+name: Deploy canonical site redirect to Pages
 
 on:
   push:
@@ -23,6 +23,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Build public redirect
+        run: node tools/build-pages-redirect.mjs
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:
@@ -30,7 +32,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: dist/pages
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
