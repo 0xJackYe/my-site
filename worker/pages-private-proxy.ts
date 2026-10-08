@@ -46,8 +46,18 @@ export async function proxyPrivateRequest(request: Request, send: typeof fetch =
       'x-content-type-options': 'nosniff', 'referrer-policy': 'no-referrer',
       'x-robots-tag': 'noindex, nofollow, noarchive',
     });
-    const session = upstream.headers.get('set-cookie');
-    if (session?.startsWith('private_access=')) responseHeaders.set('set-cookie', session);
+    // A hosting gateway can append its own cookies or scope cookies to its host.
+    // Extract only our session and issue a host-only cookie for this Pages origin.
+    const cookies = typeof upstream.headers.getSetCookie === 'function'
+      ? upstream.headers.getSetCookie() : [upstream.headers.get('set-cookie') || ''];
+    const session = cookies.join(', ').split(/,(?=\s*[\w!#$%&'*+.^`|~-]+=)/)
+      .find(value => /^\s*private_access=([a-f0-9]{64}|)(?=;|$)/.test(value));
+    if (session) {
+      const token = session.trim().split(';')[0].slice('private_access='.length);
+      const age = session.match(/;\s*max-age=(-?\d+)(?:;|$)/i);
+      const maxAge = Math.min(1800, Math.max(0, age ? Number(age[1]) : 1800));
+      if (token || maxAge === 0) responseHeaders.set('set-cookie', `private_access=${token}; Path=/private; HttpOnly; SameSite=Strict; Max-Age=${maxAge}; Secure`);
+    }
     const retryAfter = upstream.headers.get('retry-after');
     if (retryAfter) responseHeaders.set('retry-after', retryAfter);
     if (incoming.pathname === '/private/view') {

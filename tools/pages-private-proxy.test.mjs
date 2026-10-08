@@ -103,6 +103,55 @@ test('successful session preserves its host-only secure cookie and strips unrela
   assert.equal(response.headers.get('x-robots-tag'), 'noindex, nofollow, noarchive');
 });
 
+test('multiple upstream Set-Cookie fields retain only the private cookie regardless of header order', async () => {
+  const expected = cookie + '; Path=/private; HttpOnly; SameSite=Strict; Max-Age=1800; Secure';
+  const platform = 'platform_auth=not-forwarded; Expires=Wed, 21 Oct 2037 07:28:00 GMT; Path=/; Secure';
+  for (const fields of [[platform, expected], [expected, platform]]) {
+    const headers = new Headers({ 'content-type': 'application/json' });
+    for (const field of fields) headers.append('set-cookie', field);
+    const response = await proxyPrivateRequest(request('/private/session'), async () => new Response('{"unlocked":true}', { headers }));
+    assert.equal(response.headers.get('set-cookie'), expected);
+    assert.equal(response.headers.getSetCookie().length, 1);
+  }
+});
+
+test('a combined Set-Cookie field is split without treating the Expires date comma as a new cookie', async () => {
+  const expected = cookie + '; Path=/private; HttpOnly; SameSite=Strict; Max-Age=1800; Secure';
+  const combined = 'platform_auth=not-forwarded; Expires=Wed, 21 Oct 2037 07:28:00 GMT; Path=/, ' + expected + ', tracking=not-forwarded; Path=/';
+  const response = await proxyPrivateRequest(request('/private/session'), async () => json({ unlocked: true }, 200, { 'set-cookie': combined }));
+  assert.equal(response.headers.get('set-cookie'), expected);
+  assert.equal(response.headers.getSetCookie().length, 1);
+});
+
+test('an upstream Domain and Path cannot scope the Pages private cookie to the upstream host', async () => {
+  const upstreamCookie = cookie + '; Domain=jack-ye-oxjackye.realjackye.chatgpt.site; Path=/; HttpOnly; SameSite=None; Max-Age=600; Secure';
+  const response = await proxyPrivateRequest(request('/private/session'), async () => json({ unlocked: true }, 200, { 'set-cookie': upstreamCookie }));
+  assert.equal(response.headers.get('set-cookie'), cookie + '; Path=/private; HttpOnly; SameSite=Strict; Max-Age=600; Secure');
+  assert.doesNotMatch(response.headers.get('set-cookie'), /domain=/i);
+});
+
+test('logout clears the Pages cookie even when an unrelated cookie precedes an upstream-scoped deletion', async () => {
+  const headers = new Headers({ 'content-type': 'application/json' });
+  headers.append('set-cookie', 'platform_auth=not-forwarded; Path=/');
+  headers.append('set-cookie', 'private_access=; Domain=jack-ye-oxjackye.realjackye.chatgpt.site; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Max-Age=0; HttpOnly; Secure');
+  const response = await proxyPrivateRequest(request('/private/session', { method: 'DELETE', headers: { origin } }), async () => new Response('{"unlocked":false}', { headers }));
+  assert.equal(response.headers.get('set-cookie'), 'private_access=; Path=/private; HttpOnly; SameSite=Strict; Max-Age=0; Secure');
+});
+
+test('malformed upstream tokens and similarly named cookies are not forwarded', async () => {
+  for (const value of [
+    'private_access=short; Max-Age=1800',
+    'private_access=' + 'a'.repeat(63) + '; Max-Age=1800',
+    'private_access=' + 'A'.repeat(64) + '; Max-Age=1800',
+    'private_access=' + 'a'.repeat(65) + '; Max-Age=1800',
+    'not_' + cookie + '; Max-Age=1800',
+    'platform_auth=' + cookie + '; Max-Age=1800',
+  ]) {
+    const response = await proxyPrivateRequest(request('/private/session'), async () => json({ unlocked: false }, 401, { 'set-cookie': value }));
+    assert.equal(response.headers.has('set-cookie'), false);
+  }
+});
+
 test('authentication failures and rate-limit retry timing remain intact', async () => {
   for (const status of [400, 401, 403, 413, 415, 429, 503]) {
     const data = { error: status === 429 ? 'limited' : 'unavailable' };
