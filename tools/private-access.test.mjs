@@ -217,6 +217,7 @@ function frontendHarness(script) {
   });
   return { elements, timers, intervals, requests, classes, document,
     reply(status, data, headers = {}) { replies.push(() => new Response(JSON.stringify(data), { status, headers })); },
+    rawReply(status, body, headers = {}) { replies.push(() => new Response(body, { status, headers })); },
     deferReply() { let resolve; const promise = new Promise(done => { resolve = done; }); replies.push(() => promise); return (status, data) => resolve(new Response(JSON.stringify(data), { status })); },
     changeLanguage(lang) { document.documentElement.dataset.lang = lang; observeLanguage(); },
   };
@@ -274,4 +275,21 @@ test('canceling an in-flight login cannot reveal a late success response', async
   assert.equal(e['private-entry'].textContent, '••••••');
   assert.equal(e['private-panel'].querySelector('iframe'), null);
   assert.equal(e['private-submit'].disabled, false);
+});
+
+test('non-JSON authentication replies show a service error without revealing the label or page', async () => {
+  const script = await readFile(new URL('../public/assets/private-entry.js', import.meta.url), 'utf8');
+  for (const status of [200, 404, 502]) {
+    const app = frontendHarness(script), e = app.elements;
+    await e['private-entry'].dispatch('click');
+    e['private-password'].value = PASSWORD;
+    app.rawReply(status, '<!doctype html><p>Platform response</p>', { 'content-type': 'text/html' });
+    await e['private-form'].dispatch('submit');
+    assert.match(e['private-error'].textContent, /验证服务返回异常/);
+    assert.doesNotMatch(e['private-error'].textContent, /连接失败/);
+    assert.equal(e['private-entry'].textContent, '••••••');
+    assert.equal(e['private-panel'].querySelector('iframe'), null);
+    assert.equal(e['private-submit'].disabled, false);
+    assert.equal(e['private-password'].value, '');
+  }
 });

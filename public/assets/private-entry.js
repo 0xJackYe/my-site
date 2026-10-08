@@ -48,7 +48,15 @@
       headers: body ? { 'content-type': 'application/json' } : {},
       body: body ? JSON.stringify(body) : undefined,
     });
-    return { response, data: await response.json() };
+    const text = await response.text();
+    let data;
+    try { data = JSON.parse(text); } catch {
+      throw new Error('验证服务返回异常，请刷新页面后重试。');
+    }
+    if (response.ok && method !== 'DELETE' && (!data.unlocked || !data.label?.zh || !data.label?.en || !Number.isFinite(data.expiresAt))) {
+      throw new Error('验证服务暂时不可用，请稍后重试。');
+    }
+    return { response, data };
   }
   entry.addEventListener('click', () => {
     if (session && session.expiresAt > Date.now()) { showPanel(); return; }
@@ -93,7 +101,7 @@
       dialog.close();
       showPanel();
     } catch (cause) {
-      if (current === generation && cause.name !== 'AbortError') error.textContent = '连接失败，请检查网络后重试。';
+      if (current === generation && cause.name !== 'AbortError') error.textContent = cause instanceof TypeError ? '连接失败，请检查网络后重试。' : cause.message || '验证服务暂时不可用，请稍后重试。';
     } finally {
       if (current === generation) { submit.disabled = false; submit.textContent = '解锁'; pending = null; }
     }

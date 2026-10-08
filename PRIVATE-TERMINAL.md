@@ -1,6 +1,6 @@
 # 私有终端
 
-线上入口：[个人网站](https://jack-ye-oxjackye.realjackye.chatgpt.site/)。点击左上角打码按钮后输入访问密码。
+线上入口：[个人网站](https://0xjackye.pages.dev/)。点击左上角打码按钮后输入访问密码。
 
 本仓库包含页面模板、余额回放与盈亏算法、1 BTC 里程碑、服务端密码验证、会话与限流逻辑。实际钱包地址、交易和余额快照封装在 `private/terminal.enc.json` 中，以 AES-256-GCM 加密。解密依赖仅保存在服务端的 `PRIVATE_ACCESS_CONFIG`；浏览器只在会话验证成功后收到 HTML。仓库没有真实密码、明文快照或解密配置。
 
@@ -18,6 +18,6 @@
 
 ## 托管
 
-完整网站需要 Cloudflare Worker 和 D1；D1 的声明与迁移在 `.openai/hosting.json` 和 `drizzle/`。生产访问配置由 Sites 管理。
+Cloudflare Pages 提供个人网站的静态页面，`functions/private/[action].ts` 把两个受保护接口接到现有 Sites 服务。密码、会话和限流仍由 Sites 的 Worker 与 D1 验证，Pages 不保存密码或解密配置。D1 的声明与迁移在 `.openai/hosting.json` 和 `drizzle/`。生产访问配置由 Sites 管理。
 
-GitHub Pages 只能提供静态文件，不能执行密码验证。Pages 工作流因此只发布跳转页，旧链接会进入上述完整网站，并保留查询参数与页面锚点。仓库内容不作为静态网站整体公开。
+GitHub Pages 只能提供静态文件，不能执行密码验证。GitHub Pages 工作流因此只发布跳转页，旧链接会进入 [Sites 备用入口](https://jack-ye-oxjackye.realjackye.chatgpt.site/)，并保留查询参数与页面锚点。仓库内容不作为静态网站整体公开。
