@@ -2,11 +2,13 @@
 <html lang="en" data-lang="en" data-initial-view="home">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="Jack Ye - Personal Site" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="description" content="Jack Ye — IT engineer in Nanjing. Projects, writing and solo travel." />
 <meta name="color-scheme" content="light dark" />
+<meta name="theme-color" content="#fafaf9" />
 <link rel="icon" type="image/webp" href="assets/avatar.webp" />
 <link rel="apple-touch-icon" href="assets/avatar.webp" />
+<link rel="preload" href="assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
 <title>Jack Ye</title>
 <script>
   (function () {
@@ -21,6 +23,7 @@
     };
     var requestedArticle = new URLSearchParams(window.location.search).get('article');
     var initialView = window.location.hash.slice(1);
+    var storedTheme = null;
 
     if ('scrollRestoration' in window.history) window.history.scrollRestoration = 'manual';
     if (!validViews[initialView]) initialView = validArticles[requestedArticle] ? 'articles' : 'home';
@@ -28,74 +31,137 @@
     if (initialView === 'articles' && validArticles[requestedArticle]) {
       root.setAttribute('data-initial-article', requestedArticle);
     }
+    if (window.matchMedia && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) root.classList.add('motion');
 
     try {
       var initialLanguage = localStorage.getItem('jye-lang') === 'zh' ? 'zh' : 'en';
-      if (localStorage.getItem('jye-theme') === 'dark') root.setAttribute('data-theme', 'dark');
+      storedTheme = localStorage.getItem('jye-theme');
       root.lang = initialLanguage === 'zh' ? 'zh-CN' : 'en';
       root.setAttribute('data-lang', initialLanguage);
     } catch (e) {}
+    if (storedTheme === 'dark' || (storedTheme !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      root.setAttribute('data-theme', 'dark');
+    }
   })();
 </script>
 <style>
+  @font-face {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url("assets/fonts/inter-latin-wght-normal.woff2") format("woff2");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg: #faf9f5;
-    --fg: #141413;
-    --surface: #f0eee6;
-    --muted-fg: #5e5d59;
-    --line: #d1cfc5;
-    --line-hover: #b0aea5;
-    --accent: #d97757;
-    --accent-strong: #c6613f;
-    --font-display: Arial, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
-    --font-body: Georgia, "Times New Roman", "Songti SC", SimSun, serif;
-    --hairline: 1px;
+    --bg: #fafaf9;
+    --bg-0: rgba(250, 250, 249, 0);
+    --bg-elevated: #ffffff;
+    --surface: #f1f1ef;
+    --surface-strong: #e8e8e5;
+    --fg: #161615;
+    --fg-soft: #3b3b38;
+    --muted: #6b6b66;
+    --faint: #a3a39d;
+    --line: rgba(22, 22, 21, 0.08);
+    --line-strong: rgba(22, 22, 21, 0.15);
+    --accent: #ea6a2a;
+    --accent-soft: rgba(234, 106, 42, 0.16);
+    --glass: rgba(255, 255, 255, 0.74);
+    --pill: #ffffff;
+    --pill-shadow: 0 1px 3px rgba(22, 22, 21, 0.1), 0 0 0 0.5px rgba(22, 22, 21, 0.08);
+    --scrim: rgba(250, 250, 249, 0.96);
+    --shadow-sm: 0 1px 2px rgba(22, 22, 21, 0.05);
+    --shadow-md: 0 1px 2px rgba(22, 22, 21, 0.04), 0 10px 28px -8px rgba(22, 22, 21, 0.14);
+    --shadow-lg: 0 2px 8px rgba(22, 22, 21, 0.06), 0 28px 72px -18px rgba(22, 22, 21, 0.3);
+    --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    --font-zh: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Source Han Sans SC", "Microsoft YaHei", "Inter", -apple-system, sans-serif;
+    --font-mono: ui-monospace, "SF Mono", SFMono-Regular, "JetBrains Mono", Menlo, Consolas, monospace;
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+    --ease-spring: cubic-bezier(0.3, 1.3, 0.5, 1);
+    --tracking-display: -0.035em;
+    --tracking-title: -0.022em;
+    --page: 720px;
+    --gutter: 24px;
+    --header-h: 72px;
     color-scheme: light;
   }
 
   html[data-theme="dark"] {
-    --bg: #141413;
-    --fg: #faf9f5;
-    --surface: #252523;
-    --muted-fg: #b0aea5;
-    --line: #3d3d3a;
-    --line-hover: #5e5d59;
-    --accent: #d97757;
-    --accent-strong: #e48a6a;
+    --bg: #0b0b0a;
+    --bg-0: rgba(11, 11, 10, 0);
+    --bg-elevated: #141413;
+    --surface: #191918;
+    --surface-strong: #242422;
+    --fg: #ededea;
+    --fg-soft: #c9c9c4;
+    --muted: #96968f;
+    --faint: #5e5e59;
+    --line: rgba(237, 237, 234, 0.08);
+    --line-strong: rgba(237, 237, 234, 0.16);
+    --accent: #ff8b52;
+    --accent-soft: rgba(255, 139, 82, 0.22);
+    --glass: rgba(26, 26, 25, 0.72);
+    --pill: rgba(255, 255, 255, 0.11);
+    --pill-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.4);
+    --scrim: rgba(11, 11, 10, 0.96);
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 28px -8px rgba(0, 0, 0, 0.6);
+    --shadow-lg: 0 0 0 1px rgba(255, 255, 255, 0.06), 0 28px 72px -18px rgba(0, 0, 0, 0.8);
     color-scheme: dark;
   }
 
-  html, body {
-    min-height: 100%;
+  html[data-lang="zh"] {
+    --tracking-display: 0;
+    --tracking-title: 0;
+  }
+
+  html {
     background: var(--bg);
-    color: var(--fg);
-    font-family: var(--font-body);
+    scrollbar-gutter: stable;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
   }
 
   body {
-    padding: 86px 22px 72px;
-    line-height: 1.5;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    padding: calc(var(--header-h) + 48px) var(--gutter) 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
 
-  a { color: inherit; }
+  html[data-lang="zh"] body { font-family: var(--font-zh); }
 
-  button {
-    border-radius: 8px;
-    font-family: var(--font-display);
-  }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+  img { display: block; max-width: 100%; }
+  time, .tabular { font-variant-numeric: tabular-nums; }
 
-  h1, h2, h3, h4 {
-    font-family: var(--font-display);
-    font-weight: 600;
-    letter-spacing: 0;
-  }
+  h1, h2, h3, h4 { font-weight: 600; text-wrap: balance; }
+  p, dd, figcaption { text-wrap: pretty; }
 
-  ::selection {
-    background: var(--accent);
-    color: #141413;
+  ::selection { background: var(--accent-soft); color: var(--fg); }
+
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  .icon {
+    width: 16px;
+    height: 16px;
+    flex: none;
   }
 
   .i18n-en { display: inline; }
@@ -103,592 +169,568 @@
   html[data-lang="zh"] .i18n-en { display: none; }
   html[data-lang="zh"] .i18n-zh { display: inline; }
 
-  .theme-label { display: none; }
-  html[data-lang="en"]:not([data-theme="dark"]) .theme-dark-en,
-  html[data-lang="en"][data-theme="dark"] .theme-light-en,
-  html[data-lang="zh"]:not([data-theme="dark"]) .theme-dark-zh,
-  html[data-lang="zh"][data-theme="dark"] .theme-light-zh { display: inline; }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
 
+  /* Header */
   .topbar {
     position: fixed;
-    inset: 12px 12px auto;
-    z-index: 20;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 12px;
+    inset: 0 0 auto;
+    z-index: 30;
     pointer-events: none;
   }
 
-  .nav-links, .toolbar {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 7px;
-    pointer-events: auto;
+  .topbar::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 -28px;
+    background: linear-gradient(to bottom, var(--bg) 0%, var(--bg) 30%, var(--bg-0) 100%);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    -webkit-mask-image: linear-gradient(to bottom, #000 45%, transparent);
+    mask-image: linear-gradient(to bottom, #000 45%, transparent);
+    opacity: 0;
+    transition: opacity 400ms var(--ease-out);
   }
 
-  .toolbar { flex-shrink: 0; }
+  .topbar.is-scrolled::before { opacity: 1; }
 
-  .private-entry { letter-spacing: .18em; }
-  .private-entry[data-unlocked] { letter-spacing: 0; }
-  .private-entry[aria-expanded="true"] { border-color: var(--accent); }
-  .private-dialog { width: min(380px, calc(100vw - 40px)); padding: 30px; color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 14px; }
-  .private-dialog::backdrop { background: #14141366; backdrop-filter: blur(5px); }
-  .private-dialog h2 { margin: 0 0 12px; font: 400 26px var(--font-display); }
-  .private-dialog p { color: var(--muted); font-size: 14px; line-height: 1.6; }
-  .private-dialog label { display: block; font-size: 13px; margin: 22px 0 8px; }
-  .private-dialog input { box-sizing: border-box; width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 7px; background: var(--surface); color: var(--fg); font: 20px var(--font-display); letter-spacing: .24em; }
-  .private-dialog input:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
-  .private-dialog .private-error { min-height: 22px; margin: 10px 0 16px; color: var(--accent); font-size: 12px; }
-  .private-dialog-actions { display: flex; justify-content: flex-end; gap: 9px; }
-  .private-action { padding: 9px 16px; border: 1px solid var(--line); border-radius: 7px; background: var(--bg); color: var(--fg); cursor: pointer; font: inherit; font-size: 13px; }
-  .private-action.primary { background: var(--fg); color: var(--bg); border-color: var(--fg); }
-  .private-action:disabled { opacity: .5; cursor: wait; }
-  .private-panel { position: fixed; z-index: 19; inset: 60px 12px 12px; background: var(--bg); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
-  .private-panel[hidden] { display: none; }
-  .private-panel-head { display: flex; align-items: center; gap: 10px; padding: 12px 20px; border-bottom: 1px solid var(--line); }
-  .private-panel-head strong { flex: 1; font-size: 15px; font-weight: 500; }
-  .private-panel iframe { flex: 1; width: 100%; min-height: 0; border: 0; background: #f4f1e9; }
-  .private-open { overflow: hidden; }
-  @media(max-width:680px) { .private-panel { inset: 104px 8px 8px; } .private-panel-head { padding: 10px 12px; } }
+  .topbar-inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 12px;
+    height: var(--header-h);
+    padding: 0 20px;
+  }
 
-  .nav-link, .toolbar button {
-    width: 108px;
-    height: 32px;
-    padding: 0 8px;
-    border: var(--hairline) solid var(--line);
-    border-radius: 8px;
-    background: var(--bg);
-    color: var(--fg);
-    font: 500 13px/1.2 var(--font-display);
-    text-decoration: none;
-    cursor: pointer;
+  .topbar-inner > * { pointer-events: auto; }
+  .topbar-start { justify-self: start; }
+  .toolbar { justify-self: end; display: flex; gap: 8px; }
+
+  .nav,
+  .icon-button,
+  .private-entry {
+    border: 1px solid var(--line);
+    background: var(--glass);
+    box-shadow: var(--shadow-sm);
+    -webkit-backdrop-filter: saturate(1.8) blur(18px);
+    backdrop-filter: saturate(1.8) blur(18px);
+  }
+
+  .nav {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 3px;
+    border-radius: 999px;
+  }
+
+  .nav-link {
+    position: relative;
+    z-index: 1;
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
-    -webkit-tap-highlight-color: transparent;
+    height: 32px;
+    padding: 0 14px;
+    border-radius: 999px;
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: -0.006em;
+    white-space: nowrap;
+    transition: color 350ms var(--ease-out);
   }
 
-  .toolbar button {
-    width: 62px;
-    background: var(--bg);
-    color: var(--fg);
-  }
-
+  .nav-link:hover,
   .nav-link[aria-current="page"],
   html[data-initial-view="home"] .nav-link[data-view="home"],
   html[data-initial-view="skills"] .nav-link[data-view="skills"],
   html[data-initial-view="projects"] .nav-link[data-view="projects"],
   html[data-initial-view="articles"] .nav-link[data-view="articles"],
   html[data-initial-view="travel"] .nav-link[data-view="travel"] {
-    background: var(--bg);
     color: var(--fg);
-    border-color: var(--fg);
-    box-shadow: inset 0 -2px 0 var(--fg);
   }
 
-  .nav-link:hover, .nav-link:focus-visible {
+  html[data-initial-view="home"] .nav-link[data-view="home"],
+  html[data-initial-view="skills"] .nav-link[data-view="skills"],
+  html[data-initial-view="projects"] .nav-link[data-view="projects"],
+  html[data-initial-view="articles"] .nav-link[data-view="articles"],
+  html[data-initial-view="travel"] .nav-link[data-view="travel"] {
+    background: var(--pill);
+    box-shadow: var(--pill-shadow);
+  }
+
+  .nav-link:focus-visible { outline-offset: -2px; }
+
+  .nav-indicator {
+    position: absolute;
+    top: 3px;
+    left: 0;
+    width: 0;
+    height: 32px;
+    border-radius: 999px;
+    background: var(--pill);
+    box-shadow: var(--pill-shadow);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 560ms var(--ease-spring), width 560ms var(--ease-spring), opacity 250ms ease;
+  }
+
+  .nav-indicator.is-instant { transition: none; }
+
+  .icon-button {
+    display: inline-grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    color: var(--fg);
+    font-size: 13px;
+    font-weight: 600;
+    transition: background-color 250ms ease, border-color 250ms ease, transform 300ms var(--ease-out);
+  }
+
+  .icon-button .icon { width: 18px; height: 18px; }
+
+  .private-entry {
+    height: 40px;
+    padding: 0 calc(16px - 0.3em) 0 16px;
+    border-radius: 999px;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    white-space: nowrap;
+    transition: color 250ms ease, background-color 250ms ease, border-color 250ms ease, transform 300ms var(--ease-out);
+  }
+
+  .private-entry[data-unlocked] { padding: 0 16px; color: var(--fg); font-size: 13px; letter-spacing: 0; }
+  .private-entry[aria-expanded="true"] { border-color: var(--accent); color: var(--fg); }
+
+  @media (hover: hover) {
+    .icon-button:hover,
+    .private-entry:hover { background: var(--bg-elevated); border-color: var(--line-strong); color: var(--fg); }
+  }
+
+  .icon-button:active,
+  .private-entry:active { transform: scale(0.93); }
+
+  .theme-icon .sun-core,
+  .theme-icon .sun-rays,
+  .theme-icon .moon-cut {
+    transform-box: view-box;
+    transform-origin: 12px 12px;
+    transition: transform 650ms var(--ease-out), opacity 400ms var(--ease-out);
+  }
+
+  html:not([data-theme="dark"]) .theme-icon .sun-core { transform: scale(1.65); }
+  html:not([data-theme="dark"]) .theme-icon .sun-rays { opacity: 0; transform: rotate(-90deg) scale(0.4); }
+  html:not([data-theme="dark"]) .theme-icon .moon-cut { transform: translate(-10px, 5px); }
+
+  .read-progress {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 40;
+    height: 2px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 300ms ease;
+  }
+
+  .read-progress span {
+    display: block;
+    height: 100%;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+  }
+
+  body.article-reader .read-progress { opacity: 1; }
+
+  /* Private access */
+  .private-dialog {
+    width: min(400px, calc(100vw - 32px));
+    margin: auto;
+    padding: 32px 28px 24px;
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    background: var(--bg-elevated);
+    color: var(--fg);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .private-dialog[open] { animation: dialog-in 420ms var(--ease-out); }
+  .private-dialog::backdrop { background: rgba(10, 10, 9, 0.32); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+  .private-dialog[open]::backdrop { animation: fade-in 300ms ease; }
+  .private-dialog h2 { margin-bottom: 8px; font-size: 22px; font-weight: 600; }
+  .private-dialog p { color: var(--muted); font-size: 14px; line-height: 1.6; }
+  .private-dialog label { display: block; margin: 24px 0 8px; color: var(--muted); font-size: 13px; }
+
+  .private-dialog input {
+    width: 100%;
+    height: 56px;
+    padding: 0 16px;
+    border: 1px solid var(--line-strong);
+    border-radius: 14px;
     background: var(--surface);
     color: var(--fg);
-    border-color: var(--fg);
-    box-shadow: none;
+    font: 500 22px/1 var(--font-mono);
+    letter-spacing: 0.5em;
+    text-align: center;
+    transition: border-color 200ms ease, box-shadow 200ms ease;
   }
 
-  .toolbar button:hover, .toolbar button:focus-visible {
-    background: var(--surface);
+  .private-dialog input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+  .private-dialog .private-error { min-height: 22px; margin: 10px 0 14px; color: var(--accent); font-size: 13px; }
+  .private-dialog-actions { display: flex; justify-content: flex-end; gap: 8px; }
+
+  .private-action {
+    height: 38px;
+    padding: 0 18px;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    background: transparent;
     color: var(--fg);
-    border-color: var(--fg);
-    box-shadow: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 200ms ease, transform 250ms var(--ease-out), opacity 200ms ease;
   }
 
-  .nav-link:focus-visible,
-  .toolbar button:focus-visible {
-    outline: 2px solid var(--fg);
-    outline-offset: 2px;
+  .private-action:hover { background: var(--surface); }
+  .private-action:active { transform: scale(0.96); }
+  .private-action.primary { border-color: var(--fg); background: var(--fg); color: var(--bg); }
+  .private-action.primary:hover { opacity: 0.88; }
+  .private-action:disabled { opacity: 0.5; cursor: wait; }
+
+  .private-panel {
+    position: fixed;
+    z-index: 29;
+    inset: 84px 16px 16px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    background: var(--bg-elevated);
+    box-shadow: var(--shadow-lg);
+    animation: panel-in 520ms var(--ease-out);
   }
 
-  .nav-link:active,
-  .toolbar button:active {
-    background: var(--bg);
-    color: var(--fg);
-    border-color: var(--fg);
-    box-shadow: none;
-  }
+  .private-panel[hidden] { display: none; }
+  .private-panel-head { display: flex; align-items: center; gap: 8px; padding: 10px 12px 10px 20px; border-bottom: 1px solid var(--line); }
+  .private-panel-head strong { flex: 1; font-size: 15px; font-weight: 600; }
+  .private-panel-head .private-action { height: 34px; padding: 0 14px; font-size: 13px; }
+  .private-panel iframe { flex: 1; width: 100%; min-height: 0; border: 0; background: #f4f1e9; }
+  .private-open { overflow: hidden; }
 
-  .nav-link[aria-current="page"]:hover,
-  .nav-link[aria-current="page"]:focus-visible {
-    background: var(--bg);
-    color: var(--fg);
-    border-color: var(--fg);
-    box-shadow: inset 0 -2px 0 var(--fg);
-  }
-
-  .platform-link:focus-visible,
-  .article-read-link:focus-visible,
-  .article-back-link:focus-visible,
-  .project-link:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
-
+  /* Layout */
   main {
-    width: min(100%, 980px);
+    flex: 1;
+    width: 100%;
+    max-width: var(--page);
     margin: 0 auto;
   }
 
   .view[hidden] { display: none; }
+  html[data-initial-view] .view { display: none; }
 
-  html[data-initial-view] .view {
-    display: none;
-  }
-
-  html[data-initial-view="home"] #home,
-  html[data-initial-view="skills"] #skills,
-  html[data-initial-view="projects"] #projects,
-  html[data-initial-view="articles"] #articles,
-  html[data-initial-view="travel"] #travel {
+  html[data-initial-view="home"] #view-home,
+  html[data-initial-view="skills"] #view-skills,
+  html[data-initial-view="projects"] #view-projects,
+  html[data-initial-view="articles"] #view-articles,
+  html[data-initial-view="travel"] #view-travel {
     display: block;
   }
+
+  .page-head { margin-bottom: 56px; }
 
   .page-title {
-    margin-bottom: 34px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--line);
-    font-family: var(--font-display);
-    font-size: clamp(24px, 5vw, 42px);
-    font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: 0;
+    font-size: clamp(36px, 3.2vw + 18px, 52px);
+    font-weight: 650;
+    line-height: 1.05;
+    letter-spacing: var(--tracking-display);
   }
+
+  .page-lede {
+    max-width: 32em;
+    margin-top: 16px;
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1.55;
+    letter-spacing: -0.011em;
+  }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 32px;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .section-label::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+
+  /* Motion */
+  html.motion .reveal {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+
+  html.motion .reveal.is-revealed {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 900ms var(--ease-out) var(--reveal-delay, 0ms),
+      transform 1000ms var(--ease-out) var(--reveal-delay, 0ms);
+  }
+
+  html.vt-theme::view-transition-old(root),
+  html.vt-theme::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
+
+  html.vt-lang::view-transition-old(root),
+  html.vt-lang::view-transition-new(root) {
+    animation-duration: 320ms;
+    animation-timing-function: var(--ease-out);
+  }
+
+  html.no-transitions *:not(.theme-icon, .theme-icon *),
+  html.no-transitions *::before,
+  html.no-transitions *::after {
+    transition: none !important;
+  }
+
+  @keyframes fade-in { from { opacity: 0; } }
+  @keyframes dialog-in { from { opacity: 0; transform: translateY(14px) scale(0.97); } }
+  @keyframes panel-in { from { opacity: 0; transform: translateY(16px) scale(0.985); } }
 
   /* Home */
-  .profile {
-    width: min(76.923%, 680px);
-    margin: 0 auto;
-    text-align: center;
-    transform: scale(1.3);
-    transform-origin: top center;
+  .home {
+    min-height: calc(100vh - var(--header-h) - 260px);
+    min-height: calc(100svh - var(--header-h) - 260px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 32px;
   }
 
-  .avatar-frame {
-    width: min(42vw, 160px);
-    aspect-ratio: 1;
-    margin: 0 auto 12px;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    background: var(--surface);
+  .hero-avatar {
+    width: 88px;
+    height: 88px;
+    margin-bottom: 32px;
     overflow: hidden;
+    border-radius: 26px;
+    background: var(--surface);
+    box-shadow: 0 0 0 1px var(--line), var(--shadow-md);
   }
 
-  .avatar-frame img {
-    display: block;
+  .hero-avatar img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 700ms var(--ease-spring);
   }
 
-  .profile-name {
-    margin-bottom: 10px;
-    font-family: var(--font-display);
-    font-size: clamp(30px, 6vw, 44px);
-    font-weight: 700;
-    line-height: 1;
-    letter-spacing: 0;
+  @media (hover: hover) {
+    .hero-avatar:hover img { transform: scale(1.08) rotate(-4deg); }
   }
 
-  .profile-links {
+  .hero-name {
+    font-size: clamp(52px, 5vw + 28px, 80px);
+    font-weight: 650;
+    line-height: 0.95;
+    letter-spacing: -0.045em;
+  }
+
+  .hero-lede {
+    max-width: 28em;
+    margin-top: 22px;
+    color: var(--muted);
+    font-size: clamp(18px, 0.5vw + 15px, 21px);
+    line-height: 1.5;
+    letter-spacing: -0.012em;
+  }
+
+  .hero-lede em { color: var(--fg); font-style: normal; font-weight: 500; }
+
+  .hero-links {
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 16px;
+    gap: 10px;
+    margin-top: 32px;
   }
 
-  .platform-link {
-    width: 88px;
-    height: 27px;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    background: var(--bg);
-    color: var(--fg);
-    font-family: var(--font-display);
-    font-size: 12px;
-    font-weight: 600;
-    line-height: 1;
-    text-decoration: none;
+  .chip-link,
+  .button-ghost {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    gap: 6px;
+    gap: 8px;
+    height: 40px;
+    padding: 0 16px 0 14px;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    color: var(--fg);
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: background-color 300ms var(--ease-out), border-color 300ms var(--ease-out), color 300ms var(--ease-out), transform 300ms var(--ease-out);
   }
 
-  .platform-link:hover,
-  .platform-link:focus-visible {
-    border-color: var(--fg);
-    background: var(--surface);
-  }
+  .chip-link .brand-icon,
+  .button-ghost .brand-icon { width: 16px; height: 16px; fill: currentColor; }
 
-  .platform-logo {
+  .chip-link .icon-arrow-up-right,
+  .button-ghost .icon-arrow-up-right {
     width: 14px;
     height: 14px;
-    flex: 0 0 14px;
-    fill: currentColor;
+    margin-left: -2px;
+    color: var(--faint);
+    transition: transform 350ms var(--ease-out), color 300ms ease;
   }
 
-  .profile-grid {
-    width: max-content;
-    max-width: 100%;
-    margin: 0 auto;
+  @media (hover: hover) {
+    .chip-link:hover,
+    .button-ghost:hover { border-color: var(--fg); background: var(--fg); color: var(--bg); }
+    .chip-link:hover .icon-arrow-up-right,
+    .button-ghost:hover .icon-arrow-up-right { color: currentColor; transform: translate(2px, -2px); }
+  }
+
+  .chip-link:active,
+  .button-ghost:active { transform: scale(0.96); }
+
+  .facts {
     display: grid;
-    grid-template-columns: repeat(2, max-content);
-    column-gap: 32px;
-    text-align: left;
-    justify-items: stretch;
-  }
-
-  .profile-item {
-    min-width: 0;
-    min-height: 22px;
-    padding: 4px 0;
-    display: flex;
-    align-items: baseline;
-    gap: 4px;
-  }
-
-  .profile-label {
-    flex: 0 0 auto;
-    color: var(--muted-fg);
-    font-family: var(--font-display);
-    font-size: 11px;
-    font-weight: 600;
-    text-align: left;
-  }
-
-  .profile-label::after { content: ":"; }
-
-  .profile-value {
-    min-width: 0;
-    overflow-wrap: anywhere;
-    font-family: var(--font-body);
-    font-size: 14px;
-    font-weight: 400;
-  }
-
-  /* Experience */
-  .work-history-title {
-    margin-bottom: 24px;
-    font-family: var(--font-display);
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 1.3;
-  }
-
-  .work-list {
-    display: grid;
-    gap: 30px;
-  }
-
-  .work-entry {
-    display: grid;
-    grid-template-columns: 150px minmax(0, 1fr);
-    gap: 28px;
-  }
-
-  .work-period {
-    padding-top: 3px;
-    color: var(--muted-fg);
-    font-family: var(--font-body);
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 1.45;
-  }
-
-  .work-body {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(160px, 36%);
-    gap: 2px 28px;
-    align-items: start;
-  }
-
-  .work-company {
-    grid-column: 1;
-    grid-row: 1;
-    font-family: var(--font-display);
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 1.35;
-  }
-
-  .work-company-alt {
-    grid-column: 1;
-    grid-row: 2;
-    color: var(--muted-fg);
-    font-size: 12px;
-    line-height: 1.45;
-  }
-
-  .work-role {
-    grid-column: 2;
-    grid-row: 1;
-    padding-top: 3px;
-    font-family: var(--font-display);
-    font-size: 13px;
-    font-weight: 600;
-    line-height: 1.5;
-    text-align: right;
-  }
-
-  .work-location {
-    grid-column: 2;
-    grid-row: 2;
-    color: var(--muted-fg);
-    font-family: var(--font-display);
-    font-size: 12px;
-    line-height: 1.45;
-    text-align: right;
-  }
-
-  /* Empty sections */
-  .empty-state {
-    min-height: 55vh;
-    display: grid;
-    place-items: center;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    background: var(--surface);
-    color: var(--muted-fg);
-    text-align: center;
-    font-size: 14px;
-  }
-
-  /* Articles */
-  .article-list { display: block; }
-
-  .article-entry + .article-entry {
-    margin-top: 32px;
-    padding-top: 32px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 26px 32px;
+    margin-top: 64px;
+    padding-top: 30px;
     border-top: 1px solid var(--line);
   }
 
-  .article-header {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
+  .fact dt {
+    margin-bottom: 4px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .fact dd {
+    color: var(--fg);
+    font-size: 15px;
+    font-weight: 500;
+    overflow-wrap: anywhere;
+  }
+
+  .fact a {
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+    transition: background-size 400ms var(--ease-out);
+  }
+
+  .fact a:hover { background-size: 100% 1px; }
+
+  /* Experience */
+  .timeline {
+    position: relative;
+    list-style: none;
+  }
+
+  .timeline::before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    left: 5px;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--line-strong), var(--line) 85%, transparent);
+  }
+
+  html.motion .timeline::before {
+    transform: scaleY(0);
+    transform-origin: 50% 0;
+  }
+
+  html.motion .timeline:has(.timeline-item.is-revealed)::before {
+    transform: none;
+    transition: transform 1400ms var(--ease-out) 120ms;
+  }
+
+  .timeline-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 2px 24px;
+    padding: 0 0 44px 36px;
+  }
+
+  .timeline-item:last-child { padding-bottom: 0; }
+
+  .timeline-item::before {
+    content: "";
+    position: absolute;
+    top: 6px;
+    left: 0;
+    width: 11px;
+    height: 11px;
+    border: 2px solid var(--faint);
+    border-radius: 50%;
+    background: var(--bg);
+  }
+
+  .timeline-item.is-current::before {
+    border-color: var(--accent);
+    background: var(--accent);
+    box-shadow: 0 0 0 5px var(--accent-soft);
+  }
+
+  .timeline-period {
+    grid-column: 1 / -1;
+    margin-bottom: 6px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .timeline-company {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: var(--tracking-title);
+  }
+
+  .timeline-alt { margin-top: 2px; color: var(--muted); font-size: 14px; }
+
+  .timeline-meta { text-align: right; }
+  .timeline-role { font-size: 15px; font-weight: 500; line-height: 1.5; }
+  .timeline-location { margin-top: 2px; color: var(--muted); font-size: 14px; }
+
+  /* Projects */
+  .project-list {
+    display: grid;
     gap: 20px;
   }
 
-  .article-header h2 {
-    font-family: var(--font-display);
-    font-size: clamp(20px, 4vw, 30px);
-    font-weight: 600;
-    line-height: 1.25;
-    overflow-wrap: anywhere;
-  }
-
-  .article-header time {
-    flex-shrink: 0;
-    color: var(--muted-fg);
-    font-family: var(--font-display);
-    font-size: 12px;
-  }
-
-  .article-preview {
-    padding-top: 14px;
-  }
-
-  .article-preview p {
-    max-width: 760px;
-    margin-bottom: 16px;
-    font-size: 15px;
-    line-height: 1.65;
-  }
-
-  .article-read-link,
-  .article-back-link {
-    width: max-content;
-    background: var(--bg);
-    color: var(--fg);
-    font-family: var(--font-display);
-    font-size: 12px;
-    font-weight: 600;
-    text-decoration: underline;
-    text-decoration-color: var(--accent);
-    text-decoration-thickness: 1px;
-    text-underline-offset: 4px;
-    display: inline-flex;
-    align-items: center;
-    transition: color 160ms ease, text-decoration-color 160ms ease;
-  }
-
-  .article-read-link { font-size: 14px; }
-
-  .article-read-link:hover,
-  .article-read-link:focus-visible,
-  .article-back-link:hover,
-  .article-back-link:focus-visible {
-    color: var(--accent-strong);
-    text-decoration-color: currentColor;
-    text-decoration-thickness: 2px;
-  }
-
-  .article-back-link {
-    display: none;
-    width: max-content;
-    margin-bottom: 24px;
-  }
-
-  .article-content {
-    display: none;
-    padding: 24px 0 30px;
-    font-family: var(--font-body);
-    font-size: 15px;
-    line-height: 1.7;
-  }
-
-  body.article-reader #articles > .page-title,
-  body.article-reader .article-preview {
-    display: none;
-  }
-
-  body.article-reader #articles .article-list > .article-entry { display: none; }
-  body.article-reader #articles .article-list > .article-entry.is-active-article {
-    display: block;
-    margin: 0;
-    padding: 0;
-    border: 0;
-  }
-  body.article-reader .article-list { gap: 0; }
-  body.article-reader .article-back-link { display: inline-flex; }
-  body.article-reader .article-content { display: block; }
-  body.article-reader .article-content[data-article-lang] { display: none; }
-  html[data-lang="en"] body.article-reader .article-content[data-article-lang="en"],
-  html[data-lang="zh"] body.article-reader .article-content[data-article-lang="zh"] { display: block; }
-
-  html[data-initial-article] #articles > .page-title,
-  html[data-initial-article] #articles .article-preview { display: none; }
-
-  html[data-initial-article] #articles .article-list > .article-entry {
-    display: none;
-    margin: 0;
-    padding: 0;
-    border: 0;
-  }
-
-  html[data-initial-article="investment-psychology"] #articles .article-entry[data-article="investment-psychology"],
-  html[data-initial-article="scarce-skills"] #articles .article-entry[data-article="scarce-skills"],
-  html[data-initial-article="what-is-bitcoin"] #articles .article-entry[data-article="what-is-bitcoin"],
-  html[data-initial-article="focus-experiment"] #articles .article-entry[data-article="focus-experiment"],
-  html[data-initial-article="ielts-guide"] #articles .article-entry[data-article="ielts-guide"] {
-    display: block;
-  }
-
-  html[data-initial-article] #articles .article-back-link { display: inline-flex; }
-  html[data-initial-article] #articles .article-content { display: none; }
-  html[data-initial-article][data-lang="en"] #articles .article-content[data-article-lang="en"],
-  html[data-initial-article][data-lang="zh"] #articles .article-content[data-article-lang="zh"] { display: block; }
-
-  .article-content h3 {
-    margin: 30px 0 12px;
-    padding-bottom: 6px;
-    border-bottom: 1px solid var(--line);
-    font-family: var(--font-display);
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 1.35;
-  }
-
-  .article-content h4 {
-    margin: 22px 0 8px;
-    font-family: var(--font-display);
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 1.4;
-  }
-
-  .article-content p { margin-bottom: 14px; }
-
-  .article-content blockquote {
-    margin-bottom: 24px;
-    padding: 14px 18px;
-    border-left: 3px solid var(--accent);
-    background: var(--surface);
-    font-weight: 400;
-  }
-
-  .article-content ul,
-  .article-content ol {
-    margin: 0 0 18px;
-    padding-left: 28px;
-  }
-
-  .article-content li + li { margin-top: 6px; }
-
-  .article-table-wrap {
-    max-width: 100%;
-    margin-bottom: 20px;
-    overflow-x: auto;
-  }
-
-  .article-content table {
-    width: 100%;
-    border-top: 1px solid var(--line);
-    border-collapse: collapse;
-    font-size: 13px;
-  }
-
-  .article-content th,
-  .article-content td {
-    padding: 9px 10px;
-    border: 0;
-    border-bottom: 1px solid var(--line);
-    text-align: left;
-  }
-
-  .article-content th {
-    background: var(--surface);
-    font-family: var(--font-display);
-    font-weight: 600;
-  }
-
-  .article-content a {
-    font-weight: 600;
-    text-decoration-color: var(--accent);
-    text-underline-offset: 3px;
-  }
-
-  .article-figure {
-    margin: 24px 0 26px;
-  }
-
-  .article-figure img {
-    display: block;
-    width: 100%;
-    height: auto;
+  .project {
+    padding: 32px;
     border: 1px solid var(--line);
-    border-radius: 8px;
-    background: var(--surface);
-  }
-
-  .article-figure figcaption {
-    margin-top: 8px;
-    color: var(--muted-fg);
-    font-family: var(--font-display);
-    font-size: 11px;
-    line-height: 1.5;
-  }
-
-  /* Projects */
-  .project-list { display: block; }
-
-  .project-entry + .project-entry {
-    margin-top: 36px;
-    padding-top: 36px;
-    border-top: 1px solid var(--line);
-  }
-
-  .project-body {
-    min-width: 0;
+    border-radius: 24px;
+    background: var(--bg-elevated);
+    box-shadow: var(--shadow-sm);
   }
 
   .project-head {
@@ -696,191 +738,662 @@
     align-items: flex-start;
     justify-content: space-between;
     gap: 20px;
-    margin-bottom: 14px;
   }
 
-  .project-kicker {
-    margin-bottom: 5px;
-    color: var(--muted-fg);
-    font-family: var(--font-display);
-    font-size: 11px;
-    font-weight: 600;
-  }
+  .project-kicker { margin-bottom: 8px; color: var(--muted); font-size: 13px; }
 
   .project-title {
-    font-family: var(--font-display);
-    font-size: clamp(26px, 5vw, 38px);
-    font-weight: 600;
-    line-height: 1.05;
+    font-size: clamp(26px, 1.6vw + 18px, 34px);
+    font-weight: 650;
+    line-height: 1.1;
+    letter-spacing: var(--tracking-title);
     overflow-wrap: anywhere;
   }
 
-  .project-link {
-    flex: 0 0 auto;
-    background: var(--bg);
-    color: var(--fg);
-    font-family: var(--font-display);
-    font-size: 12px;
-    font-weight: 600;
-    text-decoration: underline;
-    text-decoration-color: var(--accent);
-    text-underline-offset: 4px;
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-  }
-
-  .project-link:hover,
-  .project-link:focus-visible {
-    color: var(--accent-strong);
-    text-decoration-color: currentColor;
-    text-decoration-thickness: 2px;
-  }
+  .button-ghost { flex: none; height: 36px; padding: 0 14px 0 12px; font-size: 13px; }
 
   .project-summary {
-    max-width: 780px;
-    margin-bottom: 22px;
-    font-family: var(--font-body);
-    font-size: 16px;
-    font-weight: 400;
+    max-width: 36em;
+    margin-top: 18px;
+    color: var(--fg-soft);
+    font-size: 17px;
     line-height: 1.6;
   }
 
   .project-highlights {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px 32px;
+    gap: 24px 32px;
+    margin-top: 28px;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+    counter-reset: highlight;
   }
 
-  .project-highlight {
-    min-width: 0;
-  }
-
-  .project-highlight strong {
-    display: block;
-    margin-bottom: 5px;
-    color: var(--muted-fg);
-    font-family: var(--font-display);
-    font-size: 11px;
+  .project-highlight dt {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 6px;
+    font-size: 15px;
     font-weight: 600;
+    letter-spacing: -0.01em;
   }
 
-  .project-highlight p {
-    font-family: var(--font-body);
-    font-size: 14px;
-    line-height: 1.6;
+  .project-highlight dt::before {
+    counter-increment: highlight;
+    content: counter(highlight, decimal-leading-zero);
+    color: var(--faint);
+    font: 500 11px/1 var(--font-mono);
+    letter-spacing: 0;
   }
+
+  .project-highlight dd { color: var(--muted); font-size: 14.5px; line-height: 1.6; }
 
   .project-stack {
-    margin-top: 22px;
-    color: var(--muted-fg);
-    font-family: var(--font-display);
-    font-size: 11px;
-    font-weight: 500;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 28px;
+    list-style: none;
+  }
+
+  .project-stack li {
+    padding: 4px 10px;
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--fg-soft);
+    font: 500 12px/1.5 var(--font-mono);
+  }
+
+  /* Blog */
+  .article-list {
+    display: grid;
+    gap: 4px;
+    margin-inline: -20px;
+  }
+
+  .article-entry {
+    position: relative;
+    padding: 24px 20px;
+    border-radius: 20px;
+    transition: background-color 350ms var(--ease-out);
+  }
+
+  @media (hover: hover) {
+    body:not(.article-reader) .article-entry:hover { background: var(--surface); }
+    body:not(.article-reader) .article-entry:hover .article-read-link .icon { transform: translateX(4px); }
+  }
+
+  .article-entry:has(.article-read-link:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .article-read-link:focus-visible { outline: none; }
+
+  .article-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .article-meta > * + *::before { content: "·"; margin-right: 8px; color: var(--faint); }
+  .article-reading-time:empty { display: none; }
+
+  .article-title {
+    margin-top: 6px;
+    font-size: clamp(20px, 0.6vw + 17px, 24px);
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: var(--tracking-title);
     overflow-wrap: anywhere;
   }
 
-  /* Trips */
-  .trip-group { margin-bottom: 58px; }
+  .article-preview p {
+    max-width: 38em;
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 15.5px;
+    line-height: 1.6;
+  }
+
+  .article-read-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 14px;
+    color: var(--fg);
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .article-read-link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+
+  .article-read-link .icon { transition: transform 400ms var(--ease-out); }
+
+  .article-back-link {
+    display: none;
+    align-items: center;
+    gap: 6px;
+    width: max-content;
+    height: 34px;
+    margin-bottom: 40px;
+    padding: 0 14px 0 10px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 250ms ease, border-color 250ms ease, background-color 250ms ease;
+  }
+
+  .article-back-link .icon { transition: transform 400ms var(--ease-out); }
+
+  @media (hover: hover) {
+    .article-back-link:hover { border-color: var(--line-strong); background: var(--surface); color: var(--fg); }
+    .article-back-link:hover .icon { transform: translateX(-3px); }
+  }
+
+  .article-content,
+  .article-end {
+    display: none;
+  }
+
+  body.article-reader #view-articles > .page-head,
+  body.article-reader .article-preview,
+  html[data-initial-article] #view-articles > .page-head,
+  html[data-initial-article] #view-articles .article-preview {
+    display: none;
+  }
+
+  body.article-reader .article-list,
+  html[data-initial-article] #view-articles .article-list { margin-inline: 0; }
+
+  body.article-reader #view-articles .article-list > .article-entry { display: none; }
+
+  body.article-reader #view-articles .article-list > .article-entry.is-active-article {
+    display: block;
+    padding: 0;
+    background: none;
+  }
+
+  body.article-reader .article-back-link { display: inline-flex; }
+  body.article-reader .article-content[data-article-lang] { display: none; }
+  html[data-lang="en"] body.article-reader .article-content[data-article-lang="en"],
+  html[data-lang="zh"] body.article-reader .article-content[data-article-lang="zh"] { display: block; }
+  body.article-reader .article-end { display: block; }
+
+  html[data-initial-article] #view-articles .article-list > .article-entry {
+    display: none;
+    padding: 0;
+  }
+
+  html[data-initial-article="investment-psychology"] #view-articles .article-entry[data-article="investment-psychology"],
+  html[data-initial-article="scarce-skills"] #view-articles .article-entry[data-article="scarce-skills"],
+  html[data-initial-article="what-is-bitcoin"] #view-articles .article-entry[data-article="what-is-bitcoin"],
+  html[data-initial-article="focus-experiment"] #view-articles .article-entry[data-article="focus-experiment"],
+  html[data-initial-article="ielts-guide"] #view-articles .article-entry[data-article="ielts-guide"] {
+    display: block;
+  }
+
+  html[data-initial-article] #view-articles .article-back-link { display: inline-flex; }
+  html[data-initial-article][data-lang="en"] #view-articles .article-content[data-article-lang="en"],
+  html[data-initial-article][data-lang="zh"] #view-articles .article-content[data-article-lang="zh"] { display: block; }
+
+  body.article-reader .article-header,
+  html[data-initial-article] #view-articles .article-header {
+    margin-bottom: 44px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  body.article-reader .article-title,
+  html[data-initial-article] #view-articles .article-title {
+    margin-top: 12px;
+    font-size: clamp(32px, 2.6vw + 20px, 46px);
+    font-weight: 650;
+    line-height: 1.12;
+    letter-spacing: var(--tracking-display);
+  }
+
+  .article-content {
+    color: var(--fg-soft);
+    font-size: 17.5px;
+    line-height: 1.78;
+    letter-spacing: -0.006em;
+  }
+
+  .article-content[data-article-lang="zh"] {
+    font-size: 17px;
+    line-height: 1.9;
+    letter-spacing: 0.01em;
+  }
+
+  .article-content p { margin-bottom: 1.3em; }
+
+  .article-content h3 {
+    margin: 2.3em 0 0.75em;
+    color: var(--fg);
+    font-size: 1.3em;
+    font-weight: 650;
+    line-height: 1.35;
+    letter-spacing: var(--tracking-title);
+  }
+
+  .article-content h4 {
+    margin: 1.9em 0 0.5em;
+    color: var(--fg);
+    font-size: 1.06em;
+    font-weight: 600;
+    line-height: 1.45;
+  }
+
+  .article-content strong { color: var(--fg); font-weight: 600; }
+
+  .article-content a {
+    color: var(--fg);
+    text-decoration: underline;
+    text-decoration-color: var(--line-strong);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: text-decoration-color 200ms ease;
+  }
+
+  .article-content a:hover { text-decoration-color: var(--accent); }
+
+  .article-content blockquote {
+    margin: 2em 0;
+    padding: 2px 0 2px 22px;
+    border-left: 2px solid var(--accent);
+    color: var(--fg);
+    font-size: 1.04em;
+  }
+
+  .article-content blockquote p:last-child { margin-bottom: 0; }
+
+  .article-content ul,
+  .article-content ol { margin: 0 0 1.4em; padding-left: 1.35em; }
+
+  .article-content li { padding-left: 0.3em; }
+  .article-content li + li { margin-top: 0.5em; }
+  .article-content li::marker { color: var(--faint); }
+
+  .article-table-wrap {
+    max-width: 100%;
+    margin: 1.8em 0 2em;
+    overflow-x: auto;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+  }
+
+  .article-content table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+
+  .article-content th,
+  .article-content td {
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .article-content tr:last-child td { border-bottom: 0; }
+  .article-content th { background: var(--surface); color: var(--fg); font-weight: 600; }
+
+  .article-figure { margin: 2.2em 0 2.4em; }
+
+  .article-figure img {
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: var(--surface);
+  }
+
+  html[data-theme="dark"] .article-figure img { filter: brightness(0.9); }
+
+  .article-figure figcaption {
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: 13.5px;
+    line-height: 1.55;
+  }
+
+  .article-end {
+    margin-top: 64px;
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+  }
+
+  .article-next {
+    display: block;
+    padding: 22px 24px;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    transition: background-color 300ms var(--ease-out), border-color 300ms var(--ease-out);
+  }
+
+  .article-next-label { color: var(--muted); font-size: 13px; }
+
+  .article-next-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 4px;
+    font-size: 19px;
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: var(--tracking-title);
+  }
+
+  .article-next .icon { width: 18px; height: 18px; color: var(--muted); transition: transform 400ms var(--ease-out), color 300ms ease; }
+
+  @media (hover: hover) {
+    .article-next:hover { border-color: transparent; background: var(--surface); }
+    .article-next:hover .icon { color: var(--fg); transform: translateX(4px); }
+  }
+
+  /* Travel */
+  .trip-list {
+    display: grid;
+    gap: 64px;
+  }
 
   .trip-header {
     display: flex;
     align-items: baseline;
-    justify-content: space-between;
-    gap: 20px;
-    margin-bottom: 14px;
-    padding-bottom: 8px;
+    gap: 12px;
+    margin-bottom: 18px;
   }
+
+  .trip-index { color: var(--faint); font: 500 12px/1 var(--font-mono); }
 
   .trip-header h2 {
-    font-family: var(--font-display);
-    font-size: clamp(20px, 4vw, 30px);
+    font-size: 22px;
     font-weight: 600;
+    letter-spacing: var(--tracking-title);
   }
 
-  .trip-header time {
-    flex-shrink: 0;
-    color: var(--muted-fg);
-    font-family: var(--font-display);
-    font-size: 12px;
+  .trip-header time { margin-left: auto; color: var(--muted); font-size: 13px; }
+
+  .photo-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
   }
 
-  .photo-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 8px;
-  }
-
-  .photo-grid figure {
-    aspect-ratio: 4 / 3;
-    border-radius: 8px;
-    background: var(--surface);
+  .photo {
+    position: relative;
+    flex: var(--r) 1 0;
+    min-width: 0;
+    aspect-ratio: var(--r);
     overflow: hidden;
+    border-radius: 14px;
+    background: var(--surface);
+    cursor: zoom-in;
   }
 
-  .photo-grid img {
-    display: block;
+  .photo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 1px var(--line);
+    pointer-events: none;
+  }
+
+  .photo img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 180ms ease;
+    transition: transform 1100ms var(--ease-out), opacity 700ms ease;
   }
 
-  .photo-grid img:hover { transform: scale(1.025); }
+  html.motion .photo img { opacity: 0; }
+  html.motion .photo img.is-loaded { opacity: 1; }
+  .photo.is-lifted { visibility: hidden; }
 
-  @media (max-width: 680px) {
-    body { padding: 128px 14px 48px; }
-    .topbar { flex-direction: column; }
-    .nav-links { display: grid; grid-template-columns: repeat(3, minmax(0, min(112px, calc((100vw - 53px) / 3)))); width: 100%; }
-    .nav-link { width: 100%; text-align: center; }
-    .toolbar { align-self: flex-end; }
-    .profile { margin-top: 0; }
-    .profile-grid { grid-template-columns: 1fr; }
-    .work-entry { grid-template-columns: 1fr; gap: 6px; }
-    .work-period { padding-top: 0; }
-    .work-body { grid-template-columns: minmax(0, 1fr) minmax(112px, 40%); gap: 2px 14px; }
-    .article-header {
-      align-items: flex-start;
-      flex-direction: column;
-      gap: 6px;
+  @media (hover: hover) {
+    .photo:hover img { transform: scale(1.04); }
+  }
+
+  .photo:focus-visible { outline-offset: 2px; }
+
+  /* Lightbox */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    background: transparent;
+    color: var(--fg);
+    outline: none;
+  }
+
+  .lightbox::backdrop { background: transparent; }
+
+  .lightbox-scrim {
+    position: absolute;
+    inset: 0;
+    background: var(--scrim);
+    opacity: 0;
+    transition: opacity 450ms var(--ease-out);
+  }
+
+  .lightbox-stage {
+    position: absolute;
+    inset: 0;
+    touch-action: none;
+    cursor: zoom-out;
+  }
+
+  .lightbox-img {
+    position: fixed;
+    top: 0;
+    left: 0;
+    border-radius: 10px;
+    box-shadow: var(--shadow-lg);
+    transform-origin: 0 0;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+    will-change: transform;
+  }
+
+  .lightbox-ui {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 250ms ease;
+  }
+
+  .lightbox.is-active .lightbox-scrim { opacity: 1; }
+  .lightbox.is-active .lightbox-ui { opacity: 1; transition-delay: 180ms; }
+
+  .lightbox-button {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--glass);
+    color: var(--fg);
+    box-shadow: var(--shadow-sm);
+    pointer-events: auto;
+    transition: background-color 250ms ease, transform 300ms var(--ease-out);
+  }
+
+  .lightbox-button .icon { width: 20px; height: 20px; }
+  .lightbox-button:hover { background: var(--bg-elevated); }
+  .lightbox-button:active { transform: scale(0.92); }
+  .lightbox-close { top: 16px; right: 16px; }
+  .lightbox-prev { top: calc(50% - 22px); left: 24px; }
+  .lightbox-next { top: calc(50% - 22px); right: 24px; }
+
+  .lightbox-caption {
+    position: absolute;
+    right: 0;
+    bottom: 22px;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  .lightbox-caption strong { color: var(--fg); font-weight: 600; }
+  .lightbox-open { overflow: hidden; }
+
+  /* Footer */
+  .site-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    max-width: var(--page);
+    margin: 0 auto;
+    padding: 96px 0 40px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .to-top {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--muted);
+    transition: color 250ms ease;
+  }
+
+  .to-top .icon { width: 14px; height: 14px; transition: transform 400ms var(--ease-out); }
+  .to-top:hover { color: var(--fg); }
+  body[data-view="home"] .to-top { visibility: hidden; }
+  .to-top:hover .icon { transform: translateY(-2px); }
+
+  @media (max-width: 720px) {
+    :root {
+      --gutter: 20px;
+      --header-h: 60px;
     }
-    .article-preview { padding-top: 14px; }
-    .article-back-link { margin-bottom: 22px; }
-    .article-content { padding: 18px 0 22px; }
-    .article-content h3 { font-size: 18px; }
-    .project-head {
-      flex-direction: column;
-      gap: 12px;
+
+    body { padding-top: calc(var(--header-h) + 28px); }
+    .topbar-inner { grid-template-columns: 1fr auto; padding: 0 16px; }
+
+    .nav {
+      position: fixed;
+      bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+      left: 50%;
+      max-width: calc(100vw - 24px);
+      overflow-x: auto;
+      scrollbar-width: none;
+      box-shadow: var(--shadow-md);
+      transform: translateX(-50%);
+      transition: transform 500ms var(--ease-out);
     }
-    .project-highlights { grid-template-columns: 1fr; }
-    .photo-grid { grid-template-columns: 1fr; gap: 12px; }
-    .photo-grid figure { aspect-ratio: 4 / 3; }
+
+    .nav::-webkit-scrollbar { display: none; }
+    .topbar.nav-hidden .nav { transform: translate(-50%, calc(100% + 40px)); }
+    .nav-link { height: 38px; padding: 0 11px; font-size: 13px; }
+    .nav-indicator { height: 38px; }
+
+    .private-panel { inset: 72px 8px calc(78px + env(safe-area-inset-bottom, 0px)); border-radius: 18px; }
+    .private-panel-head { padding: 8px 8px 8px 14px; }
+
+    .page-head { margin-bottom: 40px; }
+    .page-lede { font-size: 17px; }
+    .home { min-height: 0; padding: 12px 0 0; }
+    .hero-avatar { width: 76px; height: 76px; margin-bottom: 26px; border-radius: 22px; }
+    .hero-links { gap: 8px; }
+    .chip-link { padding: 0 14px 0 12px; }
+    .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 20px; margin-top: 48px; }
+
+    .timeline-item { grid-template-columns: minmax(0, 1fr); padding-left: 30px; }
+    .timeline-meta { margin-top: 10px; text-align: left; }
+    .timeline-role, .timeline-location { display: inline; }
+    .timeline-location::before { content: " · "; color: var(--faint); }
+
+    .project { padding: 24px 20px; border-radius: 20px; }
+    .project-head { flex-direction: column; gap: 16px; }
+    .project-highlights { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+
+    .article-list { margin-inline: -12px; }
+    .article-entry { padding: 20px 12px; border-radius: 16px; }
+    .article-content { font-size: 17px; }
+
+    .trip-list { gap: 52px; }
+    .photo-row { flex-wrap: wrap; gap: 8px; }
+    .photo:first-child { flex-basis: 100%; }
+    .photo { border-radius: 12px; }
+
+    .lightbox-prev, .lightbox-next { display: none; }
+    .lightbox-close { top: 12px; right: 12px; }
+    .lightbox-caption { bottom: calc(26px + env(safe-area-inset-bottom, 0px)); }
+
+    .site-footer { padding: 72px 0 calc(100px + env(safe-area-inset-bottom, 0px)); }
+  }
+
+  @media (max-width: 380px) {
+    .topbar-inner { padding: 0 12px; }
+    .nav-link { padding: 0 9px; font-size: 12.5px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { animation: none !important; transition: none !important; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      transition-delay: 0ms !important;
+    }
   }
 
   @media print {
-    .topbar { display: none; }
+    .topbar, .read-progress, .site-footer, .article-back-link, .article-end { display: none !important; }
     body { padding: 20px; }
     .view[hidden] { display: none !important; }
+    html.motion .reveal { opacity: 1; transform: none; }
   }
 </style>
 </head>
 <body>
+<div class="read-progress" aria-hidden="true"><span></span></div>
 <header class="topbar">
-  <nav class="nav-links" aria-label="Site sections">
-    <button class="nav-link private-entry" id="private-entry" type="button" aria-label="解锁访问" aria-expanded="false" aria-controls="private-panel">••••••</button>
-    <a class="nav-link" href="#home" data-view="home" data-en="Home" data-zh="主页"><span class="i18n-en" lang="en">Home</span><span class="i18n-zh" lang="zh-CN">主页</span></a>
-    <a class="nav-link" href="#skills" data-view="skills" data-en="Experience" data-zh="履历"><span class="i18n-en" lang="en">Experience</span><span class="i18n-zh" lang="zh-CN">履历</span></a>
-    <a class="nav-link" href="#projects" data-view="projects" data-en="My Projects" data-zh="我的项目"><span class="i18n-en" lang="en">My Projects</span><span class="i18n-zh" lang="zh-CN">我的项目</span></a>
-    <a class="nav-link" href="#articles" data-view="articles" data-en="Blog" data-zh="博客"><span class="i18n-en" lang="en">Blog</span><span class="i18n-zh" lang="zh-CN">博客</span></a>
-    <a class="nav-link" href="#travel" data-view="travel" data-en="Solo Trip" data-zh="个人旅行"><span class="i18n-en" lang="en">Solo Trip</span><span class="i18n-zh" lang="zh-CN">个人旅行</span></a>
-  </nav>
-  <div class="toolbar">
-    <button id="lang-toggle" type="button" aria-label="Switch language"><span class="i18n-en" lang="zh-CN">中</span><span class="i18n-zh" lang="en">EN</span></button>
-    <button id="theme-toggle" type="button" aria-label="Switch theme"><span class="theme-label theme-dark-en" lang="en">Dark</span><span class="theme-label theme-light-en" lang="en">Light</span><span class="theme-label theme-dark-zh" lang="zh-CN">黑</span><span class="theme-label theme-light-zh" lang="zh-CN">白</span></button>
+  <div class="topbar-inner">
+    <div class="topbar-start">
+      <button class="private-entry" id="private-entry" type="button" aria-label="解锁访问" aria-expanded="false" aria-controls="private-panel">••••••</button>
+    </div>
+    <nav class="nav" aria-label="Site sections">
+      <span class="nav-indicator" aria-hidden="true"></span>
+      <a class="nav-link" href="#home" data-view="home" data-route><span class="i18n-en" lang="en">Home</span><span class="i18n-zh" lang="zh-CN">主页</span></a>
+      <a class="nav-link" href="#skills" data-view="skills" data-route><span class="i18n-en" lang="en">Experience</span><span class="i18n-zh" lang="zh-CN">履历</span></a>
+      <a class="nav-link" href="#projects" data-view="projects" data-route><span class="i18n-en" lang="en">Projects</span><span class="i18n-zh" lang="zh-CN">项目</span></a>
+      <a class="nav-link" href="#articles" data-view="articles" data-route><span class="i18n-en" lang="en">Blog</span><span class="i18n-zh" lang="zh-CN">博客</span></a>
+      <a class="nav-link" href="#travel" data-view="travel" data-route><span class="i18n-en" lang="en">Travel</span><span class="i18n-zh" lang="zh-CN">旅行</span></a>
+    </nav>
+    <div class="toolbar">
+      <button class="icon-button" id="lang-toggle" type="button" aria-label="Switch language"><span class="i18n-en" lang="zh-CN">中</span><span class="i18n-zh" lang="en">EN</span></button>
+      <button class="icon-button" id="theme-toggle" type="button" aria-label="Switch theme"><svg class="icon theme-icon" viewBox="0 0 24 24" aria-hidden="true"><defs><mask id="theme-moon-mask"><rect width="24" height="24" fill="#fff"/><circle class="moon-cut" cx="27" cy="3" r="7" fill="#000"/></mask></defs><g mask="url(#theme-moon-mask)"><circle class="sun-core" cx="12" cy="12" r="5" fill="currentColor"/></g><g class="sun-rays" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 2.5v2M12 19.5v2M5.28 5.28l1.41 1.41M17.31 17.31l1.41 1.41M2.5 12h2M19.5 12h2M5.28 18.72l1.41-1.41M17.31 6.69l1.41-1.41"/></g></svg></button>
+    </div>
   </div>
 </header>
 
@@ -899,178 +1412,133 @@
 </section>
 
 <main>
-  <section class="view" id="home" aria-labelledby="home-name">
-    <div class="profile">
-      <div class="avatar-frame">
+  <section class="view" id="view-home" aria-labelledby="home-name">
+    <div class="home">
+      <div class="hero-avatar reveal">
         <img src="data:image/webp;base64,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" alt="Jack Ye avatar" width="512" height="512" loading="eager" decoding="sync" fetchpriority="high" />
       </div>
-      <h1 class="profile-name" id="home-name">Jack Ye</h1>
-      <div class="profile-links" aria-label="Platform links">
-        <a class="platform-link" href="https://github.com/0xJackYe" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-          <svg class="platform-logo" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg>
-          <span>GitHub</span>
-        </a>
-        <a class="platform-link" href="https://www.zhihu.com/people/buendia-39" target="_blank" rel="noopener noreferrer" aria-label="知乎">
-          <svg class="platform-logo" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.721 0C2.251 0 0 2.25 0 5.719V18.28C0 21.751 2.252 24 5.721 24h12.56C21.751 24 24 21.75 24 18.281V5.72C24 2.249 21.75 0 18.281 0zm1.964 4.078c-.271.73-.5 1.434-.68 2.11h4.587c.545-.006.445 1.168.445 1.171H9.384a58.104 58.104 0 01-.112 3.797h2.712c.388.023.393 1.251.393 1.266H9.183a9.223 9.223 0 01-.408 2.102l.757-.604c.452.456 1.512 1.712 1.906 2.177.473.681.063 2.081.063 2.081l-2.794-3.382c-.653 2.518-1.845 3.607-1.845 3.607-.523.468-1.58.82-2.64.516 2.218-1.73 3.44-3.917 3.667-6.497H4.491c0-.015.197-1.243.806-1.266h2.71c.024-.32.086-3.254.086-3.797H6.598c-.136.406-.158.447-.268.753-.594 1.095-1.603 1.122-1.907 1.155.906-1.821 1.416-3.6 1.591-4.064.425-1.124 1.671-1.125 1.671-1.125zM13.078 6h6.377v11.33h-2.573l-2.184 1.373-.401-1.373h-1.219zm1.313 1.219v8.86h.623l.263.937 1.455-.938h1.456v-8.86z" /></svg>
-          <span>知乎</span>
-        </a>
+      <h1 class="hero-name reveal" id="home-name">Jack Ye</h1>
+      <p class="hero-lede reveal"><span class="i18n-en" lang="en"><em>IT engineer</em> based in Nanjing. I build AI-powered apps, write about investing and learning, and travel solo.</span><span class="i18n-zh" lang="zh-CN">现居南京的 <em>IT 工程师</em>。我开发 AI 应用，写关于投资与学习的文章，也会一个人去旅行。</span></p>
+      <div class="hero-links reveal" aria-label="Platform links">
+        <a class="chip-link" href="https://github.com/0xJackYe" target="_blank" rel="noopener noreferrer"><svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg><span>GitHub</span><svg class="icon icon-arrow-up-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+        <a class="chip-link" href="https://www.zhihu.com/people/buendia-39" target="_blank" rel="noopener noreferrer"><svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.721 0C2.251 0 0 2.25 0 5.719V18.28C0 21.751 2.252 24 5.721 24h12.56C21.751 24 24 21.75 24 18.281V5.72C24 2.249 21.75 0 18.281 0zm1.964 4.078c-.271.73-.5 1.434-.68 2.11h4.587c.545-.006.445 1.168.445 1.171H9.384a58.104 58.104 0 01-.112 3.797h2.712c.388.023.393 1.251.393 1.266H9.183a9.223 9.223 0 01-.408 2.102l.757-.604c.452.456 1.512 1.712 1.906 2.177.473.681.063 2.081.063 2.081l-2.794-3.382c-.653 2.518-1.845 3.607-1.845 3.607-.523.468-1.58.82-2.64.516 2.218-1.73 3.44-3.917 3.667-6.497H4.491c0-.015.197-1.243.806-1.266h2.71c.024-.32.086-3.254.086-3.797H6.598c-.136.406-.158.447-.268.753-.594 1.095-1.603 1.122-1.907 1.155.906-1.821 1.416-3.6 1.591-4.064.425-1.124 1.671-1.125 1.671-1.125zM13.078 6h6.377v11.33h-2.573l-2.184 1.373-.401-1.373h-1.219zm1.313 1.219v8.86h.623l.263.937 1.455-.938h1.456v-8.86z" /></svg><span>知乎</span><svg class="icon icon-arrow-up-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+        <a class="chip-link" href="mailto:oxjackye@qq.com"><svg class="icon icon-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7.5 8 5.5 8-5.5"/></svg><span class="i18n-en" lang="en">Email</span><span class="i18n-zh" lang="zh-CN">邮件</span></a>
       </div>
-      <div class="profile-grid">
-        <div class="profile-item">
-          <span class="profile-label" data-en="Birthday" data-zh="出生年月日"><span class="i18n-en" lang="en">Birthday</span><span class="i18n-zh" lang="zh-CN">出生年月日</span></span>
-          <span class="profile-value">20040501</span>
-        </div>
-        <div class="profile-item">
-          <span class="profile-label" data-en="Gender" data-zh="性别"><span class="i18n-en" lang="en">Gender</span><span class="i18n-zh" lang="zh-CN">性别</span></span>
-          <span class="profile-value" data-en="Male" data-zh="男"><span class="i18n-en" lang="en">Male</span><span class="i18n-zh" lang="zh-CN">男</span></span>
-        </div>
-        <div class="profile-item">
-          <span class="profile-label" data-en="Profession" data-zh="职业"><span class="i18n-en" lang="en">Profession</span><span class="i18n-zh" lang="zh-CN">职业</span></span>
-          <span class="profile-value" data-en="IT Engineer" data-zh="IT工程师"><span class="i18n-en" lang="en">IT Engineer</span><span class="i18n-zh" lang="zh-CN">IT工程师</span></span>
-        </div>
-        <div class="profile-item">
-          <span class="profile-label" data-en="Email" data-zh="邮箱"><span class="i18n-en" lang="en">Email</span><span class="i18n-zh" lang="zh-CN">邮箱</span></span>
-          <a class="profile-value" href="mailto:oxjackye@qq.com">oxjackye@qq.com</a>
-        </div>
-        <div class="profile-item">
-          <span class="profile-label" data-en="Languages" data-zh="语言"><span class="i18n-en" lang="en">Languages</span><span class="i18n-zh" lang="zh-CN">语言</span></span>
-          <span class="profile-value" data-en="English, Chinese" data-zh="英文、中文"><span class="i18n-en" lang="en">English, Chinese</span><span class="i18n-zh" lang="zh-CN">英文、中文</span></span>
-        </div>
-        <div class="profile-item">
-          <span class="profile-label" data-en="Education" data-zh="学历"><span class="i18n-en" lang="en">Education</span><span class="i18n-zh" lang="zh-CN">学历</span></span>
-          <span class="profile-value" data-en="B.Sc. in Computer Science" data-zh="计算机科学本科"><span class="i18n-en" lang="en">B.Sc. in Computer Science</span><span class="i18n-zh" lang="zh-CN">计算机科学本科</span></span>
-        </div>
-      </div>
+      <dl class="facts reveal">
+        <div class="fact"><dt><span class="i18n-en" lang="en">Birthday</span><span class="i18n-zh" lang="zh-CN">出生日期</span></dt><dd><time datetime="2004-05-01">2004.05.01</time></dd></div>
+        <div class="fact"><dt><span class="i18n-en" lang="en">Gender</span><span class="i18n-zh" lang="zh-CN">性别</span></dt><dd><span class="i18n-en" lang="en">Male</span><span class="i18n-zh" lang="zh-CN">男</span></dd></div>
+        <div class="fact"><dt><span class="i18n-en" lang="en">Profession</span><span class="i18n-zh" lang="zh-CN">职业</span></dt><dd><span class="i18n-en" lang="en">IT Engineer</span><span class="i18n-zh" lang="zh-CN">IT 工程师</span></dd></div>
+        <div class="fact"><dt><span class="i18n-en" lang="en">Email</span><span class="i18n-zh" lang="zh-CN">邮箱</span></dt><dd><a href="mailto:oxjackye@qq.com">oxjackye@qq.com</a></dd></div>
+        <div class="fact"><dt><span class="i18n-en" lang="en">Languages</span><span class="i18n-zh" lang="zh-CN">语言</span></dt><dd><span class="i18n-en" lang="en">English, Chinese</span><span class="i18n-zh" lang="zh-CN">英文、中文</span></dd></div>
+        <div class="fact"><dt><span class="i18n-en" lang="en">Education</span><span class="i18n-zh" lang="zh-CN">学历</span></dt><dd><span class="i18n-en" lang="en">B.Sc. in Computer Science</span><span class="i18n-zh" lang="zh-CN">计算机科学本科</span></dd></div>
+      </dl>
     </div>
   </section>
 
-  <section class="view" id="skills" aria-labelledby="skills-title">
-    <h1 class="page-title" id="skills-title" data-en="Experience" data-zh="履历"><span class="i18n-en" lang="en">Experience</span><span class="i18n-zh" lang="zh-CN">履历</span></h1>
+  <section class="view" id="view-skills" aria-labelledby="skills-title">
+    <header class="page-head reveal">
+      <h1 class="page-title" id="skills-title"><span class="i18n-en" lang="en">Experience</span><span class="i18n-zh" lang="zh-CN">履历</span></h1>
+      <p class="page-lede"><span class="i18n-en" lang="en">Where I&#8217;ve worked so far.</span><span class="i18n-zh" lang="zh-CN">目前为止的工作经历。</span></p>
+    </header>
 
     <section class="work-history" aria-labelledby="work-history-title">
-      <h2 class="work-history-title" id="work-history-title" data-en="Work Experience" data-zh="工作经历"><span class="i18n-en" lang="en">Work Experience</span><span class="i18n-zh" lang="zh-CN">工作经历</span></h2>
-      <div class="work-list">
-        <article class="work-entry">
-          <time class="work-period" datetime="2026-09" data-en="2026.09 - Present" data-zh="2026.09 - 至今"><span class="i18n-en" lang="en">2026.09 - Present</span><span class="i18n-zh" lang="zh-CN">2026.09 - 至今</span></time>
-          <div class="work-body">
-            <h3 class="work-company" data-en="DSV Air &amp; Sea Co., Ltd." data-zh="得斯威国际货运有限公司"><span class="i18n-en" lang="en">DSV Air &amp; Sea Co., Ltd.</span><span class="i18n-zh" lang="zh-CN">得斯威国际货运有限公司</span></h3>
-            <p class="work-company-alt" data-en="得斯威国际货运有限公司" data-zh="DSV Air &amp; Sea Co., Ltd."><span class="i18n-en" lang="en">得斯威国际货运有限公司</span><span class="i18n-zh" lang="zh-CN">DSV Air &amp; Sea Co., Ltd.</span></p>
-            <p class="work-role" data-en="IT Engineer" data-zh="IT工程师"><span class="i18n-en" lang="en">IT Engineer</span><span class="i18n-zh" lang="zh-CN">IT工程师</span></p>
-            <p class="work-location" data-en="Nanjing" data-zh="南京"><span class="i18n-en" lang="en">Nanjing</span><span class="i18n-zh" lang="zh-CN">南京</span></p>
+      <h2 class="section-label reveal" id="work-history-title"><span class="i18n-en" lang="en">Work Experience</span><span class="i18n-zh" lang="zh-CN">工作经历</span></h2>
+      <ol class="timeline">
+        <li class="timeline-item reveal is-current">
+          <time class="timeline-period" datetime="2026-09"><span class="i18n-en" lang="en">2026.09 — Present</span><span class="i18n-zh" lang="zh-CN">2026.09 — 至今</span></time>
+          <div class="timeline-body">
+            <h3 class="timeline-company"><span class="i18n-en" lang="en">DSV Air &amp; Sea Co., Ltd.</span><span class="i18n-zh" lang="zh-CN">得斯威国际货运有限公司</span></h3>
+            <p class="timeline-alt"><span class="i18n-en" lang="en">得斯威国际货运有限公司</span><span class="i18n-zh" lang="zh-CN">DSV Air &amp; Sea Co., Ltd.</span></p>
           </div>
-        </article>
-
-        <article class="work-entry">
-          <time class="work-period" data-en="2026.02 - 2026.04" data-zh="2026.02 - 2026.04"><span class="i18n-en" lang="en">2026.02 - 2026.04</span><span class="i18n-zh" lang="zh-CN">2026.02 - 2026.04</span></time>
-          <div class="work-body">
-            <h3 class="work-company" data-en="Beijing Rongda Technology Co., Ltd." data-zh="北京荣大科技股份有限公司"><span class="i18n-en" lang="en">Beijing Rongda Technology Co., Ltd.</span><span class="i18n-zh" lang="zh-CN">北京荣大科技股份有限公司</span></h3>
-            <p class="work-company-alt" data-en="北京荣大科技股份有限公司" data-zh="Beijing Rongda Technology Co., Ltd."><span class="i18n-en" lang="en">北京荣大科技股份有限公司</span><span class="i18n-zh" lang="zh-CN">Beijing Rongda Technology Co., Ltd.</span></p>
-            <p class="work-role" data-en="Project Assistant Intern" data-zh="项目助理实习生"><span class="i18n-en" lang="en">Project Assistant Intern</span><span class="i18n-zh" lang="zh-CN">项目助理实习生</span></p>
-            <p class="work-location" data-en="Shenzhen" data-zh="深圳"><span class="i18n-en" lang="en">Shenzhen</span><span class="i18n-zh" lang="zh-CN">深圳</span></p>
+          <div class="timeline-meta">
+            <p class="timeline-role"><span class="i18n-en" lang="en">IT Engineer</span><span class="i18n-zh" lang="zh-CN">IT工程师</span></p>
+            <p class="timeline-location"><span class="i18n-en" lang="en">Nanjing</span><span class="i18n-zh" lang="zh-CN">南京</span></p>
           </div>
-        </article>
-
-        <article class="work-entry">
-          <time class="work-period" data-en="2025.05 - 2025.10" data-zh="2025.05 - 2025.10"><span class="i18n-en" lang="en">2025.05 - 2025.10</span><span class="i18n-zh" lang="zh-CN">2025.05 - 2025.10</span></time>
-          <div class="work-body">
-            <h3 class="work-company" data-en="Z.AI Co., Ltd." data-zh="北京智谱华章科技股份有限公司"><span class="i18n-en" lang="en">Z.AI Co., Ltd.</span><span class="i18n-zh" lang="zh-CN">北京智谱华章科技股份有限公司</span></h3>
-            <p class="work-company-alt" data-en="北京智谱华章科技股份有限公司" data-zh="Z.AI Co., Ltd."><span class="i18n-en" lang="en">北京智谱华章科技股份有限公司</span><span class="i18n-zh" lang="zh-CN">Z.AI Co., Ltd.</span></p>
-            <p class="work-role" data-en="Software Development Assistant Intern" data-zh="软件开发助理实习生"><span class="i18n-en" lang="en">Software Development Assistant Intern</span><span class="i18n-zh" lang="zh-CN">软件开发助理实习生</span></p>
-            <p class="work-location" data-en="Beijing" data-zh="北京"><span class="i18n-en" lang="en">Beijing</span><span class="i18n-zh" lang="zh-CN">北京</span></p>
+        </li>
+        <li class="timeline-item reveal">
+          <time class="timeline-period" datetime="2026-02"><span class="i18n-en" lang="en">2026.02 — 2026.04</span><span class="i18n-zh" lang="zh-CN">2026.02 — 2026.04</span></time>
+          <div class="timeline-body">
+            <h3 class="timeline-company"><span class="i18n-en" lang="en">Beijing Rongda Technology Co., Ltd.</span><span class="i18n-zh" lang="zh-CN">北京荣大科技股份有限公司</span></h3>
+            <p class="timeline-alt"><span class="i18n-en" lang="en">北京荣大科技股份有限公司</span><span class="i18n-zh" lang="zh-CN">Beijing Rongda Technology Co., Ltd.</span></p>
           </div>
-        </article>
-      </div>
+          <div class="timeline-meta">
+            <p class="timeline-role"><span class="i18n-en" lang="en">Project Assistant Intern</span><span class="i18n-zh" lang="zh-CN">项目助理实习生</span></p>
+            <p class="timeline-location"><span class="i18n-en" lang="en">Shenzhen</span><span class="i18n-zh" lang="zh-CN">深圳</span></p>
+          </div>
+        </li>
+        <li class="timeline-item reveal">
+          <time class="timeline-period" datetime="2025-05"><span class="i18n-en" lang="en">2025.05 — 2025.10</span><span class="i18n-zh" lang="zh-CN">2025.05 — 2025.10</span></time>
+          <div class="timeline-body">
+            <h3 class="timeline-company"><span class="i18n-en" lang="en">Z.AI Co., Ltd.</span><span class="i18n-zh" lang="zh-CN">北京智谱华章科技股份有限公司</span></h3>
+            <p class="timeline-alt"><span class="i18n-en" lang="en">北京智谱华章科技股份有限公司</span><span class="i18n-zh" lang="zh-CN">Z.AI Co., Ltd.</span></p>
+          </div>
+          <div class="timeline-meta">
+            <p class="timeline-role"><span class="i18n-en" lang="en">Software Development Assistant Intern</span><span class="i18n-zh" lang="zh-CN">软件开发助理实习生</span></p>
+            <p class="timeline-location"><span class="i18n-en" lang="en">Beijing</span><span class="i18n-zh" lang="zh-CN">北京</span></p>
+          </div>
+        </li>
+      </ol>
     </section>
-
   </section>
 
-  <section class="view" id="projects" aria-labelledby="projects-title">
-    <h1 class="page-title" id="projects-title" data-en="My Projects" data-zh="我的项目"><span class="i18n-en" lang="en">My Projects</span><span class="i18n-zh" lang="zh-CN">我的项目</span></h1>
+  <section class="view" id="view-projects" aria-labelledby="projects-title">
+    <header class="page-head reveal">
+      <h1 class="page-title" id="projects-title"><span class="i18n-en" lang="en">Projects</span><span class="i18n-zh" lang="zh-CN">项目</span></h1>
+      <p class="page-lede"><span class="i18n-en" lang="en">Two full-stack projects that put language models to practical use.</span><span class="i18n-zh" lang="zh-CN">两个把大模型用在实际问题上的全栈项目。</span></p>
+    </header>
     <div class="project-list">
-      <article class="project-entry">
-        <div class="project-body">
-          <header class="project-head">
-            <div>
-              <p class="project-kicker" data-en="AI travel planning / Full stack" data-zh="AI 旅行规划 / 全栈项目"><span class="i18n-en" lang="en">AI travel planning / Full stack</span><span class="i18n-zh" lang="zh-CN">AI 旅行规划 / 全栈项目</span></p>
-              <h2 class="project-title" data-en="AItour" data-zh="AI旅游助手"><span class="i18n-en" lang="en">AItour</span><span class="i18n-zh" lang="zh-CN">AI旅游助手</span></h2>
-            </div>
-            <a class="project-link" href="https://github.com/JustaNewer/AItour" target="_blank" rel="noopener noreferrer" aria-label="View AItour on GitHub">
-              <svg class="platform-logo" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg>
-              <span>GitHub</span>
-            </a>
-          </header>
-          <p class="project-summary" data-en="An AI travel planner that turns an open-ended request into a geographically verified, route-aware itinerary ready to use on a real map." data-zh="把一句模糊的旅行愿望，变成经过地理校验、带有路线规划并能在真实地图上执行的结构化行程。"><span class="i18n-en" lang="en">An AI travel planner that turns an open-ended request into a geographically verified, route-aware itinerary ready to use on a real map.</span><span class="i18n-zh" lang="zh-CN">把一句模糊的旅行愿望，变成经过地理校验、带有路线规划并能在真实地图上执行的结构化行程。</span></p>
-          <div class="project-highlights">
-            <div class="project-highlight">
-              <strong data-en="Self-review loop" data-zh="生成后自检"><span class="i18n-en" lang="en">Self-review loop</span><span class="i18n-zh" lang="zh-CN">生成后自检</span></strong>
-              <p data-en="DeepSeek reviews its own itinerary and triggers one controlled regeneration when it finds a serious flaw." data-zh="DeepSeek 会复核自己生成的行程，发现严重问题时触发一次受控重生成。"><span class="i18n-en" lang="en">DeepSeek reviews its own itinerary and triggers one controlled regeneration when it finds a serious flaw.</span><span class="i18n-zh" lang="zh-CN">DeepSeek 会复核自己生成的行程，发现严重问题时触发一次受控重生成。</span></p>
-            </div>
-            <div class="project-highlight">
-              <strong data-en="Long-trip resilience" data-zh="长行程稳定性"><span class="i18n-en" lang="en">Long-trip resilience</span><span class="i18n-zh" lang="zh-CN">长行程稳定性</span></strong>
-              <p data-en="Trips of 12+ days use a complete skeleton and seven-day detail chunks to avoid truncated JSON." data-zh="12 天以上行程采用完整骨架与每 7 天分段生成，避免长 JSON 被截断。"><span class="i18n-en" lang="en">Trips of 12+ days use a complete skeleton and seven-day detail chunks to avoid truncated JSON.</span><span class="i18n-zh" lang="zh-CN">12 天以上行程采用完整骨架与每 7 天分段生成，避免长 JSON 被截断。</span></p>
-            </div>
-            <div class="project-highlight">
-              <strong data-en="Geographic guardrails" data-zh="地理真实性校验"><span class="i18n-en" lang="en">Geographic guardrails</span><span class="i18n-zh" lang="zh-CN">地理真实性校验</span></strong>
-              <p data-en="Country, city viewport, administrative area and place name are cross-checked to block same-name attractions in the wrong city." data-zh="交叉验证国家、城市视口、行政区和地点名称，拦截位于错误城市的同名景点。"><span class="i18n-en" lang="en">Country, city viewport, administrative area and place name are cross-checked to block same-name attractions in the wrong city.</span><span class="i18n-zh" lang="zh-CN">交叉验证国家、城市视口、行政区和地点名称，拦截位于错误城市的同名景点。</span></p>
-            </div>
-            <div class="project-highlight">
-              <strong data-en="Local-first history" data-zh="本地优先记录"><span class="i18n-en" lang="en">Local-first history</span><span class="i18n-zh" lang="zh-CN">本地优先记录</span></strong>
-              <p data-en="Generated plans are kept in IndexedDB, preserving user history without adding a project database." data-zh="生成记录保存在 IndexedDB，无需额外搭建项目数据库也能保留用户历史。"><span class="i18n-en" lang="en">Generated plans are kept in IndexedDB, preserving user history without adding a project database.</span><span class="i18n-zh" lang="zh-CN">生成记录保存在 IndexedDB，无需额外搭建项目数据库也能保留用户历史。</span></p>
-            </div>
+      <article class="project reveal">
+        <header class="project-head">
+          <div>
+            <p class="project-kicker"><span class="i18n-en" lang="en">AI travel planning · Full stack</span><span class="i18n-zh" lang="zh-CN">AI 旅行规划 · 全栈项目</span></p>
+            <h2 class="project-title"><span class="i18n-en" lang="en">AItour</span><span class="i18n-zh" lang="zh-CN">AI旅游助手</span></h2>
           </div>
-          <p class="project-stack"><span data-en="STACK / REACT 18 / VITE 5 / NODE.JS / DEEPSEEK / GOOGLE MAPS / INDEXEDDB" data-zh="技术栈 / REACT 18 / VITE 5 / NODE.JS / DEEPSEEK / GOOGLE MAPS / INDEXEDDB"><span class="i18n-en" lang="en">STACK / REACT 18 / VITE 5 / NODE.JS / DEEPSEEK / GOOGLE MAPS / INDEXEDDB</span><span class="i18n-zh" lang="zh-CN">技术栈 / REACT 18 / VITE 5 / NODE.JS / DEEPSEEK / GOOGLE MAPS / INDEXEDDB</span></span></p>
-        </div>
+          <a class="button-ghost" href="https://github.com/JustaNewer/AItour" target="_blank" rel="noopener noreferrer" aria-label="View AItour on GitHub"><svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg><span>GitHub</span><svg class="icon icon-arrow-up-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+        </header>
+        <p class="project-summary"><span class="i18n-en" lang="en">An AI travel planner that turns an open-ended request into a geographically verified, route-aware itinerary ready to use on a real map.</span><span class="i18n-zh" lang="zh-CN">把一句模糊的旅行愿望，变成经过地理校验、带有路线规划并能在真实地图上执行的结构化行程。</span></p>
+        <dl class="project-highlights">
+            <div class="project-highlight"><dt><span class="i18n-en" lang="en">Self-review loop</span><span class="i18n-zh" lang="zh-CN">生成后自检</span></dt><dd><span class="i18n-en" lang="en">DeepSeek reviews its own itinerary and triggers one controlled regeneration when it finds a serious flaw.</span><span class="i18n-zh" lang="zh-CN">DeepSeek 会复核自己生成的行程，发现严重问题时触发一次受控重生成。</span></dd></div>
+            <div class="project-highlight"><dt><span class="i18n-en" lang="en">Long-trip resilience</span><span class="i18n-zh" lang="zh-CN">长行程稳定性</span></dt><dd><span class="i18n-en" lang="en">Trips of 12+ days use a complete skeleton and seven-day detail chunks to avoid truncated JSON.</span><span class="i18n-zh" lang="zh-CN">12 天以上行程采用完整骨架与每 7 天分段生成，避免长 JSON 被截断。</span></dd></div>
+            <div class="project-highlight"><dt><span class="i18n-en" lang="en">Geographic guardrails</span><span class="i18n-zh" lang="zh-CN">地理真实性校验</span></dt><dd><span class="i18n-en" lang="en">Country, city viewport, administrative area and place name are cross-checked to block same-name attractions in the wrong city.</span><span class="i18n-zh" lang="zh-CN">交叉验证国家、城市视口、行政区和地点名称，拦截位于错误城市的同名景点。</span></dd></div>
+            <div class="project-highlight"><dt><span class="i18n-en" lang="en">Local-first history</span><span class="i18n-zh" lang="zh-CN">本地优先记录</span></dt><dd><span class="i18n-en" lang="en">Generated plans are kept in IndexedDB, preserving user history without adding a project database.</span><span class="i18n-zh" lang="zh-CN">生成记录保存在 IndexedDB，无需额外搭建项目数据库也能保留用户历史。</span></dd></div>
+        </dl>
+        <ul class="project-stack" aria-label="Tech stack"><li>React 18</li><li>Vite 5</li><li>Node.js</li><li>DeepSeek</li><li>Google Maps</li><li>IndexedDB</li></ul>
       </article>
-
-      <article class="project-entry">
-        <div class="project-body">
-          <header class="project-head">
-            <div>
-              <p class="project-kicker" data-en="AI matching / Full stack" data-zh="AI 智能匹配 / 全栈项目"><span class="i18n-en" lang="en">AI matching / Full stack</span><span class="i18n-zh" lang="zh-CN">AI 智能匹配 / 全栈项目</span></p>
-              <h2 class="project-title" data-en="RoommateDistributor" data-zh="智能舍友分配系统"><span class="i18n-en" lang="en">RoommateDistributor</span><span class="i18n-zh" lang="zh-CN">智能舍友分配系统</span></h2>
-            </div>
-            <a class="project-link" href="https://github.com/JustaNewer/RoommateDistributor" target="_blank" rel="noopener noreferrer" aria-label="View RoommateDistributor on GitHub">
-              <svg class="platform-logo" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg>
-              <span>GitHub</span>
-            </a>
-          </header>
-          <p class="project-summary" data-en="A full-stack dormitory operating system that combines deterministic personality modeling, hard schedule constraints and LLM reasoning to form more compatible rooms." data-zh="不是让大模型直接“拍脑袋分宿舍”，而是以作息硬约束收敛解空间，再用 OCEAN 性格模型和 DeepSeek 优化组合，形成更契合的宿舍。"><span class="i18n-en" lang="en">A full-stack dormitory operating system that combines deterministic personality modeling, hard schedule constraints and LLM reasoning to form more compatible rooms.</span><span class="i18n-zh" lang="zh-CN">不是让大模型直接“拍脑袋分宿舍”，而是以作息硬约束收敛解空间，再用 OCEAN 性格模型和 DeepSeek 优化组合，形成更契合的宿舍。</span></p>
-          <div class="project-highlights">
-            <div class="project-highlight">
-              <strong data-en="9D to OCEAN" data-zh="9 维性格建模"><span class="i18n-en" lang="en">9D to OCEAN</span><span class="i18n-zh" lang="zh-CN">9 维性格建模</span></strong>
-              <p data-en="Nine Likert dimensions are converted into a deterministic Big Five profile, so identical inputs always receive a consistent interpretation." data-zh="将 9 维李克特量表转化为确定性的五大人格画像，相同输入始终获得一致解释。"><span class="i18n-en" lang="en">Nine Likert dimensions are converted into a deterministic Big Five profile, so identical inputs always receive a consistent interpretation.</span><span class="i18n-zh" lang="zh-CN">将 9 维李克特量表转化为确定性的五大人格画像，相同输入始终获得一致解释。</span></p>
-            </div>
-            <div class="project-highlight">
-              <strong data-en="Three-layer allocation" data-zh="三层分配架构"><span class="i18n-en" lang="en">Three-layer allocation</span><span class="i18n-zh" lang="zh-CN">三层分配架构</span></strong>
-              <p data-en="Schedule clustering narrows the solution space, AI optimizes personality compatibility, then each room receives an explainable report." data-zh="先按作息聚类缩小解空间，再由 AI 优化性格兼容度，最后为每间宿舍生成可解释报告。"><span class="i18n-en" lang="en">Schedule clustering narrows the solution space, AI optimizes personality compatibility, then each room receives an explainable report.</span><span class="i18n-zh" lang="zh-CN">先按作息聚类缩小解空间，再由 AI 优化性格兼容度，最后为每间宿舍生成可解释报告。</span></p>
-            </div>
-            <div class="project-highlight">
-              <strong data-en="Safe fallback" data-zh="可靠降级机制"><span class="i18n-en" lang="en">Safe fallback</span><span class="i18n-zh" lang="zh-CN">可靠降级机制</span></strong>
-              <p data-en="If the AI service fails, the system preserves the deterministic schedule-based allocation instead of blocking the workflow." data-zh="AI 服务失败时保留基于作息的确定性分配结果，不让核心流程因外部模型而中断。"><span class="i18n-en" lang="en">If the AI service fails, the system preserves the deterministic schedule-based allocation instead of blocking the workflow.</span><span class="i18n-zh" lang="zh-CN">AI 服务失败时保留基于作息的确定性分配结果，不让核心流程因外部模型而中断。</span></p>
-            </div>
-            <div class="project-highlight">
-              <strong data-en="Operations interface" data-zh="宿舍运营界面"><span class="i18n-en" lang="en">Operations interface</span><span class="i18n-zh" lang="zh-CN">宿舍运营界面</span></strong>
-              <p data-en="Administrators can inspect floors, rooms and beds, review compatibility, and drag, swap or remove occupants manually." data-zh="管理员可查看楼层、房间和床位，检查兼容性，并通过拖拽、交换或移除完成手动调整。"><span class="i18n-en" lang="en">Administrators can inspect floors, rooms and beds, review compatibility, and drag, swap or remove occupants manually.</span><span class="i18n-zh" lang="zh-CN">管理员可查看楼层、房间和床位，检查兼容性，并通过拖拽、交换或移除完成手动调整。</span></p>
-            </div>
+      <article class="project reveal">
+        <header class="project-head">
+          <div>
+            <p class="project-kicker"><span class="i18n-en" lang="en">AI matching · Full stack</span><span class="i18n-zh" lang="zh-CN">AI 智能匹配 · 全栈项目</span></p>
+            <h2 class="project-title"><span class="i18n-en" lang="en">RoommateDistributor</span><span class="i18n-zh" lang="zh-CN">智能舍友分配系统</span></h2>
           </div>
-          <p class="project-stack"><span data-en="STACK / VUE 3 / NODE.JS / EXPRESS / MYSQL 8 / DEEPSEEK / ALIYUN OSS" data-zh="技术栈 / VUE 3 / NODE.JS / EXPRESS / MYSQL 8 / DEEPSEEK / 阿里云 OSS"><span class="i18n-en" lang="en">STACK / VUE 3 / NODE.JS / EXPRESS / MYSQL 8 / DEEPSEEK / ALIYUN OSS</span><span class="i18n-zh" lang="zh-CN">技术栈 / VUE 3 / NODE.JS / EXPRESS / MYSQL 8 / DEEPSEEK / 阿里云 OSS</span></span></p>
-        </div>
+          <a class="button-ghost" href="https://github.com/JustaNewer/RoommateDistributor" target="_blank" rel="noopener noreferrer" aria-label="View RoommateDistributor on GitHub"><svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg><span>GitHub</span><svg class="icon icon-arrow-up-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+        </header>
+        <p class="project-summary"><span class="i18n-en" lang="en">A full-stack dormitory operating system that combines deterministic personality modeling, hard schedule constraints and LLM reasoning to form more compatible rooms.</span><span class="i18n-zh" lang="zh-CN">不是让大模型直接“拍脑袋分宿舍”，而是以作息硬约束收敛解空间，再用 OCEAN 性格模型和 DeepSeek 优化组合，形成更契合的宿舍。</span></p>
+        <dl class="project-highlights">
+            <div class="project-highlight"><dt><span class="i18n-en" lang="en">9D to OCEAN</span><span class="i18n-zh" lang="zh-CN">9 维性格建模</span></dt><dd><span class="i18n-en" lang="en">Nine Likert dimensions are converted into a deterministic Big Five profile, so identical inputs always receive a consistent interpretation.</span><span class="i18n-zh" lang="zh-CN">将 9 维李克特量表转化为确定性的五大人格画像，相同输入始终获得一致解释。</span></dd></div>
+            <div class="project-highlight"><dt><span class="i18n-en" lang="en">Three-layer allocation</span><span class="i18n-zh" lang="zh-CN">三层分配架构</span></dt><dd><span class="i18n-en" lang="en">Schedule clustering narrows the solution space, AI optimizes personality compatibility, then each room receives an explainable report.</span><span class="i18n-zh" lang="zh-CN">先按作息聚类缩小解空间，再由 AI 优化性格兼容度，最后为每间宿舍生成可解释报告。</span></dd></div>
+            <div class="project-highlight"><dt><span class="i18n-en" lang="en">Safe fallback</span><span class="i18n-zh" lang="zh-CN">可靠降级机制</span></dt><dd><span class="i18n-en" lang="en">If the AI service fails, the system preserves the deterministic schedule-based allocation instead of blocking the workflow.</span><span class="i18n-zh" lang="zh-CN">AI 服务失败时保留基于作息的确定性分配结果，不让核心流程因外部模型而中断。</span></dd></div>
+            <div class="project-highlight"><dt><span class="i18n-en" lang="en">Operations interface</span><span class="i18n-zh" lang="zh-CN">宿舍运营界面</span></dt><dd><span class="i18n-en" lang="en">Administrators can inspect floors, rooms and beds, review compatibility, and drag, swap or remove occupants manually.</span><span class="i18n-zh" lang="zh-CN">管理员可查看楼层、房间和床位，检查兼容性，并通过拖拽、交换或移除完成手动调整。</span></dd></div>
+        </dl>
+        <ul class="project-stack" aria-label="Tech stack"><li>Vue 3</li><li>Node.js</li><li>Express</li><li>MySQL 8</li><li>DeepSeek</li><li><span class="i18n-en" lang="en">Aliyun OSS</span><span class="i18n-zh" lang="zh-CN">阿里云 OSS</span></li></ul>
       </article>
     </div>
   </section>
 
-  <section class="view" id="articles" aria-labelledby="articles-title">
-    <h1 class="page-title" id="articles-title" data-en="Blog" data-zh="博客"><span class="i18n-en" lang="en">Blog</span><span class="i18n-zh" lang="zh-CN">博客</span></h1>
+  <section class="view" id="view-articles" aria-labelledby="articles-title">
+    <header class="page-head reveal">
+      <h1 class="page-title" id="articles-title"><span class="i18n-en" lang="en">Blog</span><span class="i18n-zh" lang="zh-CN">博客</span></h1>
+      <p class="page-lede"><span class="i18n-en" lang="en">Essays on investing, learning and the occasional self-experiment.</span><span class="i18n-zh" lang="zh-CN">关于投资、学习与自我实验的随笔。</span></p>
+    </header>
     <div class="article-list">
-      <article class="article-entry" data-article="investment-psychology">
-        <a class="article-back-link" href="./#articles" data-en="Back to articles" data-zh="返回文章列表"><span class="i18n-en" lang="en">Back to articles</span><span class="i18n-zh" lang="zh-CN">返回文章列表</span></a>
+      <article class="article-entry reveal" data-article="investment-psychology">
+        <a class="article-back-link" href="./#articles" data-route><svg class="icon icon-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg><span class="i18n-en" lang="en">All posts</span><span class="i18n-zh" lang="zh-CN">全部文章</span></a>
         <header class="article-header">
-          <h2 data-en="The Psychology of Investing" data-zh="关于投资的心理学"><span class="i18n-en" lang="en">The Psychology of Investing</span><span class="i18n-zh" lang="zh-CN">关于投资的心理学</span></h2>
-          <time datetime="2026-08-08">2026.08.08</time>
+          <p class="article-meta"><time datetime="2026-08-08">2026.08.08</time><span class="article-reading-time"></span></p>
+          <h2 class="article-title"><span class="i18n-en" lang="en">The Psychology of Investing</span><span class="i18n-zh" lang="zh-CN">关于投资的心理学</span></h2>
         </header>
         <div class="article-preview">
-          <p data-en="Prices shape emotions, and emotions filter evidence. In investing, your real opponent is often yourself." data-zh="价格会改变情绪，情绪又会筛选证据。投资中真正的对手往往是自己。"><span class="i18n-en" lang="en">Prices shape emotions, and emotions filter evidence. In investing, your real opponent is often yourself.</span><span class="i18n-zh" lang="zh-CN">价格会改变情绪，情绪又会筛选证据。投资中真正的对手往往是自己。</span></p>
-          <a class="article-read-link" href="?article=investment-psychology#articles" data-en="Read full article" data-zh="阅读全文"><span class="i18n-en" lang="en">Read full article</span><span class="i18n-zh" lang="zh-CN">阅读全文</span></a>
+          <p><span class="i18n-en" lang="en">Prices shape emotions, and emotions filter evidence. In investing, your real opponent is often yourself.</span><span class="i18n-zh" lang="zh-CN">价格会改变情绪，情绪又会筛选证据。投资中真正的对手往往是自己。</span></p>
+          <a class="article-read-link" href="?article=investment-psychology#articles" data-route><span class="i18n-en" lang="en">Read article</span><span class="i18n-zh" lang="zh-CN">阅读全文</span><svg class="icon icon-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </div>
         <div class="article-content" data-article-lang="en" lang="en">
           <p>There is something strange about investing. If an item in a supermarket drops from 100 yuan to 70, most people see it as cheaper and become more willing to buy, as long as the product itself has not changed. Financial markets often work in exactly the opposite way. An asset rises from 100 to 150, and people begin to think it is worth buying. At 200, more people start talking about it. At 300, even those who were never interested begin doing research. Only when everyone seems to be making money do many finally convince themselves: “This thing really is good.” The reverse is also true. They like it at 100, begin to doubt it at 90, revisit all the risks at 70, suddenly find problems everywhere at 50, and finally sell at the moment of greatest pessimism.</p>
@@ -1248,15 +1716,15 @@
         </div>
       </article>
 
-      <article class="article-entry" data-article="scarce-skills">
-        <a class="article-back-link" href="./#articles" data-en="Back to articles" data-zh="返回文章列表"><span class="i18n-en" lang="en">Back to articles</span><span class="i18n-zh" lang="zh-CN">返回文章列表</span></a>
+      <article class="article-entry reveal" data-article="scarce-skills">
+        <a class="article-back-link" href="./#articles" data-route><svg class="icon icon-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg><span class="i18n-en" lang="en">All posts</span><span class="i18n-zh" lang="zh-CN">全部文章</span></a>
         <header class="article-header">
-          <h2 data-en="What Makes a Skill Scarce?" data-zh="什么是稀缺的技能"><span class="i18n-en" lang="en">What Makes a Skill Scarce?</span><span class="i18n-zh" lang="zh-CN">什么是稀缺的技能</span></h2>
-          <time datetime="2026-08-08">2026.08.08</time>
+          <p class="article-meta"><time datetime="2026-08-08">2026.08.08</time><span class="article-reading-time"></span></p>
+          <h2 class="article-title"><span class="i18n-en" lang="en">What Makes a Skill Scarce?</span><span class="i18n-zh" lang="zh-CN">什么是稀缺的技能</span></h2>
         </header>
         <div class="article-preview">
-          <p data-en="A difficult skill is not necessarily a scarce one. What makes a skill genuinely scarce and valuable?" data-zh="困难的技能不等于稀缺。什么样的技能才是真正有价值的稀缺能力？"><span class="i18n-en" lang="en">A difficult skill is not necessarily a scarce one. What makes a skill genuinely scarce and valuable?</span><span class="i18n-zh" lang="zh-CN">困难的技能不等于稀缺。什么样的技能才是真正有价值的稀缺能力？</span></p>
-          <a class="article-read-link" href="?article=scarce-skills#articles" data-en="Read full article" data-zh="阅读全文"><span class="i18n-en" lang="en">Read full article</span><span class="i18n-zh" lang="zh-CN">阅读全文</span></a>
+          <p><span class="i18n-en" lang="en">A difficult skill is not necessarily a scarce one. What makes a skill genuinely scarce and valuable?</span><span class="i18n-zh" lang="zh-CN">困难的技能不等于稀缺。什么样的技能才是真正有价值的稀缺能力？</span></p>
+          <a class="article-read-link" href="?article=scarce-skills#articles" data-route><span class="i18n-en" lang="en">Read article</span><span class="i18n-zh" lang="zh-CN">阅读全文</span><svg class="icon icon-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </div>
         <div class="article-content" data-article-lang="en" lang="en">
           <p>While looking for work recently, one fact has become harder and harder to ignore: people who know how to do useful work are no longer scarce. Open a job app and pick any half-decent position, and hundreds of applications are no longer unusual. A new graduate can use Office, edit videos, make PowerPoint slides, write a little Python and Java, pass China’s CET-4 or CET-6 English exam, and use ChatGPT to help write code. Ten or fifteen years ago, that person might have counted as a capable university graduate. Today, they are simply an entirely ordinary one.</p>
@@ -1506,15 +1974,15 @@
         </div>
       </article>
 
-      <article class="article-entry" data-article="what-is-bitcoin">
-        <a class="article-back-link" href="./#articles" data-en="Back to articles" data-zh="返回文章列表"><span class="i18n-en" lang="en">Back to articles</span><span class="i18n-zh" lang="zh-CN">返回文章列表</span></a>
+      <article class="article-entry reveal" data-article="what-is-bitcoin">
+        <a class="article-back-link" href="./#articles" data-route><svg class="icon icon-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg><span class="i18n-en" lang="en">All posts</span><span class="i18n-zh" lang="zh-CN">全部文章</span></a>
         <header class="article-header">
-          <h2 data-en="What Is Bitcoin?" data-zh="什么是比特币？"><span class="i18n-en" lang="en">What Is Bitcoin?</span><span class="i18n-zh" lang="zh-CN">什么是比特币？</span></h2>
-          <time datetime="2026-08-01">2026.08.01</time>
+          <p class="article-meta"><time datetime="2026-08-01">2026.08.01</time><span class="article-reading-time"></span></p>
+          <h2 class="article-title"><span class="i18n-en" lang="en">What Is Bitcoin?</span><span class="i18n-zh" lang="zh-CN">什么是比特币？</span></h2>
         </header>
         <div class="article-preview">
-          <p data-en="A plain-language explanation of Bitcoin as a distributed ledger, how mining and confirmations work, how miners, developers and users keep one another in check, and why scarcity, self-custody and volatility matter." data-zh="从分布式账本、区块与挖矿，到矿工、开发者和用户之间的权力制衡，解释比特币为何安全、稀缺、难以冻结，以及应如何看待它的价格波动。"><span class="i18n-en" lang="en">A plain-language explanation of Bitcoin as a distributed ledger, how mining and confirmations work, how miners, developers and users keep one another in check, and why scarcity, self-custody and volatility matter.</span><span class="i18n-zh" lang="zh-CN">从分布式账本、区块与挖矿，到矿工、开发者和用户之间的权力制衡，解释比特币为何安全、稀缺、难以冻结，以及应如何看待它的价格波动。</span></p>
-          <a class="article-read-link" href="?article=what-is-bitcoin#articles" data-en="Read full article" data-zh="阅读全文"><span class="i18n-en" lang="en">Read full article</span><span class="i18n-zh" lang="zh-CN">阅读全文</span></a>
+          <p><span class="i18n-en" lang="en">A plain-language explanation of Bitcoin as a distributed ledger, how mining and confirmations work, how miners, developers and users keep one another in check, and why scarcity, self-custody and volatility matter.</span><span class="i18n-zh" lang="zh-CN">从分布式账本、区块与挖矿，到矿工、开发者和用户之间的权力制衡，解释比特币为何安全、稀缺、难以冻结，以及应如何看待它的价格波动。</span></p>
+          <a class="article-read-link" href="?article=what-is-bitcoin#articles" data-route><span class="i18n-en" lang="en">Read article</span><span class="i18n-zh" lang="zh-CN">阅读全文</span><svg class="icon icon-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </div>
         <div class="article-content" data-article-lang="en" lang="en">
           <p>Bitcoin can seem mysterious. One bitcoin is already worth tens of thousands of dollars, and it is familiar to many institutions and investors, yet very few people understand how it actually works. Most people are still puzzled by why it costs so much. Some even think it was invented as a scam or a Ponzi scheme. I see it as a utopian company created by a vast number of equal "employees." It offers a one-of-a-kind currency and an entirely new way to save. I believe that even a complete beginner can understand what Bitcoin really is after reading this article.</p>
@@ -1586,15 +2054,15 @@
         </div>
       </article>
 
-      <article class="article-entry" data-article="focus-experiment">
-        <a class="article-back-link" href="./#articles" data-en="Back to articles" data-zh="返回文章列表"><span class="i18n-en" lang="en">Back to articles</span><span class="i18n-zh" lang="zh-CN">返回文章列表</span></a>
+      <article class="article-entry reveal" data-article="focus-experiment">
+        <a class="article-back-link" href="./#articles" data-route><svg class="icon icon-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg><span class="i18n-en" lang="en">All posts</span><span class="i18n-zh" lang="zh-CN">全部文章</span></a>
         <header class="article-header">
-          <h2 data-en="An Unorthodox Focus Hack: L-Theanine and Caffeine for IELTS" data-zh="邪修提升专注力：茶氨酸与咖啡因在雅思场景中的个人观察"><span class="i18n-en" lang="en">An Unorthodox Focus Hack: L-Theanine and Caffeine for IELTS</span><span class="i18n-zh" lang="zh-CN">邪修提升专注力：茶氨酸与咖啡因在雅思场景中的个人观察</span></h2>
-          <time datetime="2026-07-21">2026.07.21</time>
+          <p class="article-meta"><time datetime="2026-07-21">2026.07.21</time><span class="article-reading-time"></span></p>
+          <h2 class="article-title"><span class="i18n-en" lang="en">An Unorthodox Focus Hack: L-Theanine and Caffeine for IELTS</span><span class="i18n-zh" lang="zh-CN">邪修提升专注力：茶氨酸与咖啡因在雅思场景中的个人观察</span></h2>
         </header>
         <div class="article-preview">
-          <p data-en="Seven IELTS listening and reading sessions, one L-theanine-caffeine combination, and a careful look at the results, limits, and safety considerations." data-zh="记录 7 次雅思听力与阅读表现，对比茶氨酸—咖啡因组合与未服用状态，并结合随机对照研究讨论可能收益、实验局限和安全边界。"><span class="i18n-en" lang="en">Seven IELTS listening and reading sessions, one L-theanine-caffeine combination, and a careful look at the results, limits, and safety considerations.</span><span class="i18n-zh" lang="zh-CN">记录 7 次雅思听力与阅读表现，对比茶氨酸—咖啡因组合与未服用状态，并结合随机对照研究讨论可能收益、实验局限和安全边界。</span></p>
-          <a class="article-read-link" href="?article=focus-experiment#articles" data-en="Read full article" data-zh="阅读全文"><span class="i18n-en" lang="en">Read full article</span><span class="i18n-zh" lang="zh-CN">阅读全文</span></a>
+          <p><span class="i18n-en" lang="en">Seven IELTS listening and reading sessions, one L-theanine-caffeine combination, and a careful look at the results, limits, and safety considerations.</span><span class="i18n-zh" lang="zh-CN">记录 7 次雅思听力与阅读表现，对比茶氨酸—咖啡因组合与未服用状态，并结合随机对照研究讨论可能收益、实验局限和安全边界。</span></p>
+          <a class="article-read-link" href="?article=focus-experiment#articles" data-route><span class="i18n-en" lang="en">Read article</span><span class="i18n-zh" lang="zh-CN">阅读全文</span><svg class="icon icon-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </div>
         <div class="article-content" data-article-lang="en" lang="en">
           <blockquote>
@@ -1784,15 +2252,15 @@
         </div>
       </article>
 
-      <article class="article-entry" data-article="ielts-guide">
-        <a class="article-back-link" href="./#articles" data-en="Back to articles" data-zh="返回文章列表"><span class="i18n-en" lang="en">Back to articles</span><span class="i18n-zh" lang="zh-CN">返回文章列表</span></a>
+      <article class="article-entry reveal" data-article="ielts-guide">
+        <a class="article-back-link" href="./#articles" data-route><svg class="icon icon-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg><span class="i18n-en" lang="en">All posts</span><span class="i18n-zh" lang="zh-CN">全部文章</span></a>
         <header class="article-header">
-          <h2 data-en="IELTS on a Budget: A Zero-Cost Self-Study Guide" data-zh="平民雅思备考指南：0 成本学雅思教程"><span class="i18n-en" lang="en">IELTS on a Budget: A Zero-Cost Self-Study Guide</span><span class="i18n-zh" lang="zh-CN">平民雅思备考指南：0 成本学雅思教程</span></h2>
-          <time datetime="2026-07-17">2026.07.17</time>
+          <p class="article-meta"><time datetime="2026-07-17">2026.07.17</time><span class="article-reading-time"></span></p>
+          <h2 class="article-title"><span class="i18n-en" lang="en">IELTS on a Budget: A Zero-Cost Self-Study Guide</span><span class="i18n-zh" lang="zh-CN">平民雅思备考指南：0 成本学雅思教程</span></h2>
         </header>
         <div class="article-preview">
-          <p data-en="How I prepared for IELTS at no cost and scored 7.0 on my first attempt: vocabulary, grammar, all four sections, free tools, and a practical study timeline." data-zh="从零成本备考到首考雅思 7.0：这篇文章整理了词汇、语法、听说读写、免费工具与考前时间规划，给出一套可以直接执行的自学路线。"><span class="i18n-en" lang="en">How I prepared for IELTS at no cost and scored 7.0 on my first attempt: vocabulary, grammar, all four sections, free tools, and a practical study timeline.</span><span class="i18n-zh" lang="zh-CN">从零成本备考到首考雅思 7.0：这篇文章整理了词汇、语法、听说读写、免费工具与考前时间规划，给出一套可以直接执行的自学路线。</span></p>
-          <a class="article-read-link" href="?article=ielts-guide#articles" data-en="Read full article" data-zh="阅读全文"><span class="i18n-en" lang="en">Read full article</span><span class="i18n-zh" lang="zh-CN">阅读全文</span></a>
+          <p><span class="i18n-en" lang="en">How I prepared for IELTS at no cost and scored 7.0 on my first attempt: vocabulary, grammar, all four sections, free tools, and a practical study timeline.</span><span class="i18n-zh" lang="zh-CN">从零成本备考到首考雅思 7.0：这篇文章整理了词汇、语法、听说读写、免费工具与考前时间规划，给出一套可以直接执行的自学路线。</span></p>
+          <a class="article-read-link" href="?article=ielts-guide#articles" data-route><span class="i18n-en" lang="en">Read article</span><span class="i18n-zh" lang="zh-CN">阅读全文</span><svg class="icon icon-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </div>
         <div class="article-content" data-article-lang="en" lang="en">
           <blockquote>
@@ -2127,77 +2595,113 @@
     </div>
   </section>
 
-  <section class="view" id="travel" aria-labelledby="travel-title">
-    <h1 class="page-title" id="travel-title" data-en="Solo Trip" data-zh="个人旅行"><span class="i18n-en" lang="en">Solo Trip</span><span class="i18n-zh" lang="zh-CN">个人旅行</span></h1>
-
-    <article class="trip-group">
-      <header class="trip-header"><h2 data-en="Singapore" data-zh="新加坡"><span class="i18n-en" lang="en">Singapore</span><span class="i18n-zh" lang="zh-CN">新加坡</span></h2><time datetime="2025-09-16">2025.09.16</time></header>
-      <div class="photo-grid">
-        <figure><img src="trip%20photos/sng1-800.webp" srcset="trip%20photos/sng1-640.webp 640w, trip%20photos/sng1-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Singapore trip photo 1" width="800" height="600" loading="lazy" decoding="async" fetchpriority="low" /></figure>
-        <figure><img src="trip%20photos/sng2-800.webp" srcset="trip%20photos/sng2-640.webp 640w, trip%20photos/sng2-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Singapore trip photo 2" width="600" height="800" loading="lazy" decoding="async" fetchpriority="low" /></figure>
-        <figure><img src="trip%20photos/sng3-800.webp" srcset="trip%20photos/sng3-640.webp 640w, trip%20photos/sng3-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Singapore trip photo 3" width="600" height="800" loading="lazy" decoding="async" fetchpriority="low" /></figure>
+  <section class="view" id="view-travel" aria-labelledby="travel-title">
+    <header class="page-head reveal">
+      <h1 class="page-title" id="travel-title"><span class="i18n-en" lang="en">Solo Trip</span><span class="i18n-zh" lang="zh-CN">个人旅行</span></h1>
+      <p class="page-lede"><span class="i18n-en" lang="en">Singapore and Japan in 2025 — five stops, travelling alone.</span><span class="i18n-zh" lang="zh-CN">2025 年，一个人走过新加坡与日本的五个地方。</span></p>
+    </header>
+    <div class="trip-list">
+    <article class="trip reveal">
+      <header class="trip-header"><span class="trip-index">01</span><h2><span class="i18n-en" lang="en">Singapore</span><span class="i18n-zh" lang="zh-CN">新加坡</span></h2><time datetime="2025-09-16">2025.09.16</time></header>
+      <div class="photo-row">
+        <a class="photo" href="trip%20photos/sng1-1600.webp" style="--r: 1.3333" aria-label="Singapore trip photo 1"><img src="trip%20photos/sng1-800.webp" srcset="trip%20photos/sng1-640.webp 640w, trip%20photos/sng1-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="Singapore trip photo 1" width="800" height="600" loading="lazy" decoding="async" fetchpriority="low" /></a>
+        <a class="photo" href="trip%20photos/sng2-1600.webp" style="--r: 0.75" aria-label="Singapore trip photo 2"><img src="trip%20photos/sng2-800.webp" srcset="trip%20photos/sng2-640.webp 640w, trip%20photos/sng2-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="Singapore trip photo 2" width="600" height="800" loading="lazy" decoding="async" fetchpriority="low" /></a>
+        <a class="photo" href="trip%20photos/sng3-1600.webp" style="--r: 0.75" aria-label="Singapore trip photo 3"><img src="trip%20photos/sng3-800.webp" srcset="trip%20photos/sng3-640.webp 640w, trip%20photos/sng3-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="Singapore trip photo 3" width="600" height="800" loading="lazy" decoding="async" fetchpriority="low" /></a>
       </div>
     </article>
-
-    <article class="trip-group">
-      <header class="trip-header"><h2 data-en="Osaka" data-zh="大阪"><span class="i18n-en" lang="en">Osaka</span><span class="i18n-zh" lang="zh-CN">大阪</span></h2><time datetime="2025-11-03">2025.11.03</time></header>
-      <div class="photo-grid">
-        <figure><img src="trip%20photos/osaka1-800.webp" srcset="trip%20photos/osaka1-640.webp 640w, trip%20photos/osaka1-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Osaka trip photo 1" width="600" height="800" loading="lazy" decoding="async" fetchpriority="low" /></figure>
-        <figure><img src="trip%20photos/osaka2-800.webp" srcset="trip%20photos/osaka2-640.webp 640w, trip%20photos/osaka2-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Osaka trip photo 2" width="800" height="600" loading="lazy" decoding="async" fetchpriority="low" /></figure>
-        <figure><img src="trip%20photos/osaka3-800.webp" srcset="trip%20photos/osaka3-640.webp 640w, trip%20photos/osaka3-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Osaka trip photo 3" width="800" height="600" loading="lazy" decoding="async" fetchpriority="low" /></figure>
+    <article class="trip reveal">
+      <header class="trip-header"><span class="trip-index">02</span><h2><span class="i18n-en" lang="en">Osaka</span><span class="i18n-zh" lang="zh-CN">大阪</span></h2><time datetime="2025-11-03">2025.11.03</time></header>
+      <div class="photo-row">
+        <a class="photo" href="trip%20photos/osaka1-1600.webp" style="--r: 0.75" aria-label="Osaka trip photo 1"><img src="trip%20photos/osaka1-800.webp" srcset="trip%20photos/osaka1-640.webp 640w, trip%20photos/osaka1-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="Osaka trip photo 1" width="600" height="800" loading="lazy" decoding="async" fetchpriority="low" /></a>
+        <a class="photo" href="trip%20photos/osaka2-1600.webp" style="--r: 1.3333" aria-label="Osaka trip photo 2"><img src="trip%20photos/osaka2-800.webp" srcset="trip%20photos/osaka2-640.webp 640w, trip%20photos/osaka2-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="Osaka trip photo 2" width="800" height="600" loading="lazy" decoding="async" fetchpriority="low" /></a>
+        <a class="photo" href="trip%20photos/osaka3-1600.webp" style="--r: 1.3333" aria-label="Osaka trip photo 3"><img src="trip%20photos/osaka3-800.webp" srcset="trip%20photos/osaka3-640.webp 640w, trip%20photos/osaka3-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="Osaka trip photo 3" width="800" height="600" loading="lazy" decoding="async" fetchpriority="low" /></a>
       </div>
     </article>
-
-    <article class="trip-group">
-      <header class="trip-header"><h2 data-en="Kyoto" data-zh="京都"><span class="i18n-en" lang="en">Kyoto</span><span class="i18n-zh" lang="zh-CN">京都</span></h2><time datetime="2025-11-07">2025.11.07</time></header>
-      <div class="photo-grid">
-        <figure><img src="trip%20photos/kyoto1-800.webp" srcset="trip%20photos/kyoto1-640.webp 640w, trip%20photos/kyoto1-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Kyoto trip photo 1" width="800" height="800" loading="lazy" decoding="async" fetchpriority="low" /></figure>
-        <figure><img src="trip%20photos/kyoto2-800.webp" srcset="trip%20photos/kyoto2-640.webp 640w, trip%20photos/kyoto2-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Kyoto trip photo 2" width="800" height="600" loading="lazy" decoding="async" fetchpriority="low" /></figure>
-        <figure><img src="trip%20photos/kyoto3-800.webp" srcset="trip%20photos/kyoto3-640.webp 640w, trip%20photos/kyoto3-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Kyoto trip photo 3" width="800" height="600" loading="lazy" decoding="async" fetchpriority="low" /></figure>
+    <article class="trip reveal">
+      <header class="trip-header"><span class="trip-index">03</span><h2><span class="i18n-en" lang="en">Kyoto</span><span class="i18n-zh" lang="zh-CN">京都</span></h2><time datetime="2025-11-07">2025.11.07</time></header>
+      <div class="photo-row">
+        <a class="photo" href="trip%20photos/kyoto1-1600.webp" style="--r: 1" aria-label="Kyoto trip photo 1"><img src="trip%20photos/kyoto1-800.webp" srcset="trip%20photos/kyoto1-640.webp 640w, trip%20photos/kyoto1-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="Kyoto trip photo 1" width="800" height="800" loading="lazy" decoding="async" fetchpriority="low" /></a>
+        <a class="photo" href="trip%20photos/kyoto2-1600.webp" style="--r: 1.3333" aria-label="Kyoto trip photo 2"><img src="trip%20photos/kyoto2-800.webp" srcset="trip%20photos/kyoto2-640.webp 640w, trip%20photos/kyoto2-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="Kyoto trip photo 2" width="800" height="600" loading="lazy" decoding="async" fetchpriority="low" /></a>
+        <a class="photo" href="trip%20photos/kyoto3-1600.webp" style="--r: 1.3333" aria-label="Kyoto trip photo 3"><img src="trip%20photos/kyoto3-800.webp" srcset="trip%20photos/kyoto3-640.webp 640w, trip%20photos/kyoto3-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="Kyoto trip photo 3" width="800" height="600" loading="lazy" decoding="async" fetchpriority="low" /></a>
       </div>
     </article>
-
-    <article class="trip-group">
-      <header class="trip-header"><h2 data-en="Mount Fuji" data-zh="富士山"><span class="i18n-en" lang="en">Mount Fuji</span><span class="i18n-zh" lang="zh-CN">富士山</span></h2><time datetime="2025-11-10">2025.11.10</time></header>
-      <div class="photo-grid">
-        <figure><img src="trip%20photos/fuji1-800.webp" srcset="trip%20photos/fuji1-640.webp 640w, trip%20photos/fuji1-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Mount Fuji trip photo 1" width="800" height="800" loading="lazy" decoding="async" fetchpriority="low" /></figure>
-        <figure><img src="trip%20photos/fuji2-800.webp" srcset="trip%20photos/fuji2-640.webp 640w, trip%20photos/fuji2-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Mount Fuji trip photo 2" width="600" height="800" loading="lazy" decoding="async" fetchpriority="low" /></figure>
-        <figure><img src="trip%20photos/fuji3-800.webp" srcset="trip%20photos/fuji3-640.webp 640w, trip%20photos/fuji3-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Mount Fuji trip photo 3" width="600" height="800" loading="lazy" decoding="async" fetchpriority="low" /></figure>
+    <article class="trip reveal">
+      <header class="trip-header"><span class="trip-index">04</span><h2><span class="i18n-en" lang="en">Mount Fuji</span><span class="i18n-zh" lang="zh-CN">富士山</span></h2><time datetime="2025-11-10">2025.11.10</time></header>
+      <div class="photo-row">
+        <a class="photo" href="trip%20photos/fuji1-1600.webp" style="--r: 1" aria-label="Mount Fuji trip photo 1"><img src="trip%20photos/fuji1-800.webp" srcset="trip%20photos/fuji1-640.webp 640w, trip%20photos/fuji1-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="Mount Fuji trip photo 1" width="800" height="800" loading="lazy" decoding="async" fetchpriority="low" /></a>
+        <a class="photo" href="trip%20photos/fuji2-1600.webp" style="--r: 0.75" aria-label="Mount Fuji trip photo 2"><img src="trip%20photos/fuji2-800.webp" srcset="trip%20photos/fuji2-640.webp 640w, trip%20photos/fuji2-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="Mount Fuji trip photo 2" width="600" height="800" loading="lazy" decoding="async" fetchpriority="low" /></a>
+        <a class="photo" href="trip%20photos/fuji3-1600.webp" style="--r: 0.75" aria-label="Mount Fuji trip photo 3"><img src="trip%20photos/fuji3-800.webp" srcset="trip%20photos/fuji3-640.webp 640w, trip%20photos/fuji3-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="Mount Fuji trip photo 3" width="600" height="800" loading="lazy" decoding="async" fetchpriority="low" /></a>
       </div>
     </article>
-
-    <article class="trip-group">
-      <header class="trip-header"><h2 data-en="Tokyo" data-zh="东京"><span class="i18n-en" lang="en">Tokyo</span><span class="i18n-zh" lang="zh-CN">东京</span></h2><time datetime="2025-11-12">2025.11.12</time></header>
-      <div class="photo-grid">
-        <figure><img src="trip%20photos/tokyo1-800.webp" srcset="trip%20photos/tokyo1-640.webp 640w, trip%20photos/tokyo1-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Tokyo trip photo 1" width="600" height="800" loading="lazy" decoding="async" fetchpriority="low" /></figure>
-        <figure><img src="trip%20photos/tokyo2-800.webp" srcset="trip%20photos/tokyo2-640.webp 640w, trip%20photos/tokyo2-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Tokyo trip photo 2" width="800" height="600" loading="lazy" decoding="async" fetchpriority="low" /></figure>
-        <figure><img src="trip%20photos/tokyo3-800.webp" srcset="trip%20photos/tokyo3-640.webp 640w, trip%20photos/tokyo3-800.webp 800w" sizes="(max-width: 680px) calc(100vw - 28px), 320px" alt="Tokyo trip photo 3" width="600" height="800" loading="lazy" decoding="async" fetchpriority="low" /></figure>
+    <article class="trip reveal">
+      <header class="trip-header"><span class="trip-index">05</span><h2><span class="i18n-en" lang="en">Tokyo</span><span class="i18n-zh" lang="zh-CN">东京</span></h2><time datetime="2025-11-12">2025.11.12</time></header>
+      <div class="photo-row">
+        <a class="photo" href="trip%20photos/tokyo1-1600.webp" style="--r: 0.75" aria-label="Tokyo trip photo 1"><img src="trip%20photos/tokyo1-800.webp" srcset="trip%20photos/tokyo1-640.webp 640w, trip%20photos/tokyo1-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="Tokyo trip photo 1" width="600" height="800" loading="lazy" decoding="async" fetchpriority="low" /></a>
+        <a class="photo" href="trip%20photos/tokyo2-1600.webp" style="--r: 1.3333" aria-label="Tokyo trip photo 2"><img src="trip%20photos/tokyo2-800.webp" srcset="trip%20photos/tokyo2-640.webp 640w, trip%20photos/tokyo2-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="Tokyo trip photo 2" width="800" height="600" loading="lazy" decoding="async" fetchpriority="low" /></a>
+        <a class="photo" href="trip%20photos/tokyo3-1600.webp" style="--r: 0.75" aria-label="Tokyo trip photo 3"><img src="trip%20photos/tokyo3-800.webp" srcset="trip%20photos/tokyo3-640.webp 640w, trip%20photos/tokyo3-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="Tokyo trip photo 3" width="600" height="800" loading="lazy" decoding="async" fetchpriority="low" /></a>
       </div>
     </article>
+    </div>
   </section>
 </main>
+
+<footer class="site-footer">
+  <p>&copy; <span id="year">2026</span> Jack Ye</p>
+  <button class="to-top" type="button"><span class="i18n-en" lang="en">Back to top</span><span class="i18n-zh" lang="zh-CN">回到顶部</span><svg class="icon icon-arrow-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></button>
+</footer>
+
+<dialog class="lightbox" id="lightbox" aria-label="Photo viewer">
+  <div class="lightbox-scrim"></div>
+  <div class="lightbox-stage"></div>
+  <div class="lightbox-ui">
+    <button class="lightbox-button lightbox-close" type="button" aria-label="Close"><svg class="icon icon-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <button class="lightbox-button lightbox-prev" type="button" aria-label="Previous photo"><svg class="icon icon-chevron-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
+    <button class="lightbox-button lightbox-next" type="button" aria-label="Next photo"><svg class="icon icon-chevron-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+    <p class="lightbox-caption" aria-live="polite"><strong class="lightbox-title"></strong><span class="lightbox-count tabular"></span></p>
+  </div>
+</dialog>
 
 <script>
 (function () {
   'use strict';
 
   var html = document.documentElement;
+  var body = document.body;
   var langButton = document.getElementById('lang-toggle');
   var themeButton = document.getElementById('theme-toggle');
+  var themeColorMeta = document.querySelector('meta[name="theme-color"]');
+  var topbar = document.querySelector('.topbar');
+  var nav = document.querySelector('.nav');
+  var navIndicator = document.querySelector('.nav-indicator');
   var navLinks = document.querySelectorAll('.nav-link[data-view]');
-  var articleRouteLinks = document.querySelectorAll('.article-read-link, .article-back-link');
   var views = document.querySelectorAll('.view');
+  var progressBar = document.querySelector('.read-progress span');
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var systemDark = window.matchMedia('(prefers-color-scheme: dark)');
+  var compactLayout = window.matchMedia('(max-width: 720px)');
   var lang = 'en';
   var theme = 'light';
+  var storedTheme = null;
+  var currentRoute = null;
+  var indicatorPlaced = false;
+  var revealObserver = null;
+  var lastScrollY = 0;
+  var scrollQueued = false;
   var mediaWarmers = [];
   var warmedArticleSources = {};
   var mediaWarmupStarted = false;
 
   var articleEntries = document.querySelectorAll('.article-entry[data-article]');
 
+  var arrowRight = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+
+  function bilingual(en, zh) {
+    return '<span class="i18n-en" lang="en">' + en + '</span><span class="i18n-zh" lang="zh-CN">' + zh + '</span>';
+  }
+
   function getWarmupSources() {
     var sources = [];
-    var travelImages = document.querySelectorAll('#travel img');
+    var travelImages = document.querySelectorAll('#view-travel img');
     var chartImages = document.querySelectorAll('.article-figure:not(.article-figure--agent) img');
 
     for (var travelIndex = 0; travelIndex < travelImages.length; travelIndex++) {
@@ -2247,7 +2751,7 @@
       return;
     }
     if (id !== 'travel') return;
-    var images = document.querySelectorAll('#travel img');
+    var images = document.querySelectorAll('#view-travel img');
     for (var imageIndex = 0; imageIndex < images.length; imageIndex++) {
       images[imageIndex].loading = 'eager';
       images[imageIndex].fetchPriority = imageIndex < 6 ? 'high' : 'auto';
@@ -2255,34 +2759,56 @@
     warmHeavyMedia();
   }
 
-  function applyArticleRoute() {
+  function resolveRoute() {
     var requestedArticle = new URLSearchParams(window.location.search).get('article');
-    var activeArticle = null;
+    var article = null;
+    for (var articleIndex = 0; articleIndex < articleEntries.length; articleIndex++) {
+      if (articleEntries[articleIndex].getAttribute('data-article') === requestedArticle) article = articleEntries[articleIndex];
+    }
+    var id = window.location.hash.slice(1);
+    var view = document.getElementById('view-' + id);
+    if (!view || !view.classList.contains('view')) id = article ? 'articles' : 'home';
+    return { id: id, article: article, key: id + '|' + (article ? requestedArticle : '') };
+  }
 
+  function applyArticleRoute(article) {
     document.body.classList.remove('article-reader');
     for (var articleIndex = 0; articleIndex < articleEntries.length; articleIndex++) {
       articleEntries[articleIndex].classList.remove('is-active-article');
-      if (articleEntries[articleIndex].getAttribute('data-article') === requestedArticle) {
-        activeArticle = articleEntries[articleIndex];
-      }
     }
-
-    if (activeArticle) {
+    if (article) {
       document.body.classList.add('article-reader');
-      activeArticle.classList.add('is-active-article');
+      article.classList.add('is-active-article');
     }
   }
 
-  try {
-    lang = localStorage.getItem('jye-lang') || 'en';
-    theme = localStorage.getItem('jye-theme') || 'light';
-  } catch (e) {}
+  function readPreferences() {
+    try {
+      lang = localStorage.getItem('jye-lang') === 'zh' ? 'zh' : 'en';
+      storedTheme = localStorage.getItem('jye-theme');
+    } catch (e) {}
+    if (storedTheme !== 'dark' && storedTheme !== 'light') storedTheme = null;
+    theme = storedTheme || (systemDark.matches ? 'dark' : 'light');
+  }
+
+  function textFor(element) {
+    var span = element && element.querySelector('.i18n-' + lang);
+    return span ? span.textContent : '';
+  }
+
+  function updateDocumentTitle() {
+    var route = resolveRoute();
+    var label = route.article ? textFor(route.article.querySelector('.article-title')) : (route.id === 'home' ? '' : textFor(nav.querySelector('.nav-link[data-view="' + route.id + '"]')));
+    document.title = label ? label + ' — Jack Ye' : 'Jack Ye';
+  }
 
   function applyLanguage() {
     html.lang = lang === 'zh' ? 'zh-CN' : 'en';
     html.setAttribute('data-lang', lang);
     langButton.setAttribute('aria-label', lang === 'zh' ? '切换到英文' : 'Switch to Chinese');
     updateThemeButton();
+    updateDocumentTitle();
+    moveIndicator(indicatorPlaced);
   }
 
   function updateThemeButton() {
@@ -2291,77 +2817,521 @@
   }
 
   function applyTheme() {
-    if (theme === 'dark') html.setAttribute('data-theme', 'dark');
-    else html.removeAttribute('data-theme');
+    html.setAttribute('data-theme', theme);
+    if (themeColorMeta) themeColorMeta.setAttribute('content', theme === 'dark' ? '#0b0b0a' : '#fafaf9');
     updateThemeButton();
   }
 
-  function showView() {
-    applyArticleRoute();
-    var id = window.location.hash.slice(1);
-    if (!document.getElementById(id) || !document.getElementById(id).classList.contains('view')) {
-      id = document.body.classList.contains('article-reader') ? 'articles' : 'home';
+  function withViewTransition(kind, update, onReady) {
+    if (typeof document.startViewTransition !== 'function' || reduceMotion.matches) {
+      html.classList.add('no-transitions');
+      update();
+      window.requestAnimationFrame(function () {
+        window.requestAnimationFrame(function () { html.classList.remove('no-transitions'); });
+      });
+      return;
     }
+    html.classList.add('vt-' + kind);
+    var transition = document.startViewTransition(update);
+    if (onReady) transition.ready.then(onReady).catch(function () {});
+    transition.finished.catch(function () {}).then(function () { html.classList.remove('vt-' + kind); });
+  }
 
-    prioritizeViewMedia(id);
-    for (var i = 0; i < views.length; i++) views[i].hidden = views[i].id !== id;
+  function moveIndicator(animate) {
+    if (!navIndicator) return;
+    var active = nav.querySelector('.nav-link[aria-current="page"]');
+    if (!active) {
+      navIndicator.style.opacity = '0';
+      return;
+    }
+    if (!animate) navIndicator.classList.add('is-instant');
+    navIndicator.style.width = active.offsetWidth + 'px';
+    navIndicator.style.transform = 'translateX(' + active.offsetLeft + 'px)';
+    navIndicator.style.opacity = '1';
+    if (!animate) {
+      void navIndicator.offsetWidth;
+      navIndicator.classList.remove('is-instant');
+    }
+    indicatorPlaced = true;
+    if (nav.scrollWidth > nav.clientWidth) {
+      var target = active.offsetLeft - (nav.clientWidth - active.offsetWidth) / 2;
+      nav.scrollTo({ left: Math.max(0, target), behavior: animate && !reduceMotion.matches ? 'smooth' : 'auto' });
+    }
+  }
+
+  function setupReveals() {
+    if (!html.classList.contains('motion')) return;
+    if (!('IntersectionObserver' in window)) {
+      html.classList.remove('motion');
+      return;
+    }
+    revealObserver = new IntersectionObserver(function (entries) {
+      var visible = [];
+      for (var entryIndex = 0; entryIndex < entries.length; entryIndex++) {
+        if (entries[entryIndex].isIntersecting) visible.push(entries[entryIndex]);
+      }
+      visible.sort(function (a, b) { return a.boundingClientRect.top - b.boundingClientRect.top; });
+      for (var visibleIndex = 0; visibleIndex < visible.length; visibleIndex++) {
+        var element = visible[visibleIndex].target;
+        element.style.setProperty('--reveal-delay', Math.min(visibleIndex, 6) * 70 + 'ms');
+        element.classList.add('is-revealed');
+        revealObserver.unobserve(element);
+      }
+    }, { rootMargin: '0px 0px -6% 0px' });
+  }
+
+  function replayReveals(view) {
+    if (!revealObserver) return;
+    var items = view.querySelectorAll('.reveal');
+    for (var itemIndex = 0; itemIndex < items.length; itemIndex++) {
+      items[itemIndex].classList.remove('is-revealed');
+      revealObserver.observe(items[itemIndex]);
+    }
+  }
+
+  function showView(restoreScrollY) {
+    var route = resolveRoute();
+    var changed = route.key !== currentRoute;
+    currentRoute = route.key;
+    applyArticleRoute(route.article);
+    body.setAttribute('data-view', route.id);
+
+    prioritizeViewMedia(route.id);
+    for (var i = 0; i < views.length; i++) views[i].hidden = views[i].id !== 'view-' + route.id;
     for (var j = 0; j < navLinks.length; j++) {
-      if (navLinks[j].getAttribute('data-view') === id) navLinks[j].setAttribute('aria-current', 'page');
+      if (navLinks[j].getAttribute('data-view') === route.id) navLinks[j].setAttribute('aria-current', 'page');
       else navLinks[j].removeAttribute('aria-current');
     }
     html.removeAttribute('data-initial-article');
     html.removeAttribute('data-initial-view');
-    window.scrollTo(0, 0);
-    window.requestAnimationFrame(function () { window.scrollTo(0, 0); });
+    moveIndicator(indicatorPlaced);
+    updateDocumentTitle();
+
+    if (typeof restoreScrollY === 'number') {
+      window.scrollTo(0, restoreScrollY);
+    } else {
+      window.scrollTo(0, 0);
+      window.requestAnimationFrame(function () { window.scrollTo(0, 0); });
+    }
+    if (changed) replayReveals(document.getElementById('view-' + route.id));
+    syncScrollState();
   }
 
   function navigateWithoutReload(target) {
     var nextUrl = new URL(target, window.location.href);
     var nextRoute = nextUrl.pathname + nextUrl.search + nextUrl.hash;
-    var currentRoute = window.location.pathname + window.location.search + window.location.hash;
+    var currentRouteUrl = window.location.pathname + window.location.search + window.location.hash;
 
-    if (currentRoute !== nextRoute) window.history.pushState(null, '', nextRoute);
+    if (currentRouteUrl === nextRoute) {
+      window.scrollTo({ top: 0, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+      return;
+    }
+    try { window.history.replaceState({ scrollY: window.scrollY }, ''); } catch (e) {}
+    window.history.pushState(null, '', nextRoute);
     showView();
   }
+
+  function syncScrollState() {
+    scrollQueued = false;
+    var y = window.scrollY;
+    var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    topbar.classList.toggle('is-scrolled', y > 4);
+
+    if (!compactLayout.matches || y < 120 || y >= maxScroll - 48 || body.classList.contains('private-open')) {
+      topbar.classList.remove('nav-hidden');
+      lastScrollY = y;
+    } else if (Math.abs(y - lastScrollY) > 10) {
+      topbar.classList.toggle('nav-hidden', y > lastScrollY);
+      lastScrollY = y;
+    }
+
+    if (progressBar) {
+      var progress = body.classList.contains('article-reader') && maxScroll > 0 ? Math.min(1, y / maxScroll) : 0;
+      progressBar.style.transform = 'scaleX(' + progress + ')';
+    }
+  }
+
+  function enhanceArticles() {
+    for (var entryIndex = 0; entryIndex < articleEntries.length; entryIndex++) {
+      var entry = articleEntries[entryIndex];
+      var readingTime = entry.querySelector('.article-reading-time');
+      var enBody = entry.querySelector('.article-content[data-article-lang="en"]');
+      var zhBody = entry.querySelector('.article-content[data-article-lang="zh"]');
+      if (readingTime && enBody && zhBody) {
+        var enMinutes = Math.max(1, Math.round(enBody.textContent.trim().split(/\s+/).length / 230));
+        var zhMinutes = Math.max(1, Math.round(zhBody.textContent.replace(/\s+/g, '').length / 420));
+        readingTime.innerHTML = bilingual(enMinutes + ' min read', '约 ' + zhMinutes + ' 分钟');
+      }
+
+      var next = articleEntries[(entryIndex + 1) % articleEntries.length];
+      var nextTitle = next.querySelector('.article-title');
+      if (next === entry || !nextTitle) continue;
+      var footer = document.createElement('footer');
+      footer.className = 'article-end';
+      var nextLink = document.createElement('a');
+      nextLink.className = 'article-next';
+      nextLink.href = '?article=' + next.getAttribute('data-article') + '#articles';
+      nextLink.setAttribute('data-route', '');
+      nextLink.innerHTML = '<span class="article-next-label">' + bilingual('Next post', '下一篇') + '</span><span class="article-next-title"><span>' + nextTitle.innerHTML + '</span>' + arrowRight + '</span>';
+      footer.appendChild(nextLink);
+      entry.appendChild(footer);
+    }
+  }
+
+  function setupPhotoFades() {
+    var images = document.querySelectorAll('.photo img');
+    function markLoaded() { this.classList.add('is-loaded'); }
+    for (var imageIndex = 0; imageIndex < images.length; imageIndex++) {
+      var image = images[imageIndex];
+      if (image.complete && image.naturalWidth) image.classList.add('is-loaded');
+      else {
+        image.addEventListener('load', markLoaded, { once: true });
+        image.addEventListener('error', markLoaded, { once: true });
+      }
+    }
+  }
+
+  function setupLightbox() {
+    var dialog = document.getElementById('lightbox');
+    var photos = Array.prototype.slice.call(document.querySelectorAll('#view-travel .photo'));
+    if (!dialog || !photos.length || typeof dialog.showModal !== 'function') return null;
+
+    var stage = dialog.querySelector('.lightbox-stage');
+    var scrim = dialog.querySelector('.lightbox-scrim');
+    var captionTitle = dialog.querySelector('.lightbox-title');
+    var captionCount = dialog.querySelector('.lightbox-count');
+    var easing = 'cubic-bezier(0.22, 1, 0.36, 1)';
+    var index = -1;
+    var image = null;
+    var busy = false;
+    var closing = false;
+    var drag = null;
+
+    function ratioOf(photo) {
+      return parseFloat(photo.style.getPropertyValue('--r')) || 1;
+    }
+
+    function frameFor(photo) {
+      var ratio = ratioOf(photo);
+      var compact = compactLayout.matches;
+      var sidePadding = compact ? 12 : 96;
+      var topPadding = compact ? 68 : 72;
+      var bottomPadding = compact ? 84 : 72;
+      var maxWidth = window.innerWidth - sidePadding * 2;
+      var maxHeight = window.innerHeight - topPadding - bottomPadding;
+      var width = Math.min(maxWidth, maxHeight * ratio, ratio >= 1 ? 1600 : 1600 * ratio);
+      var height = width / ratio;
+      return { left: (window.innerWidth - width) / 2, top: topPadding + (maxHeight - height) / 2, width: width, height: height };
+    }
+
+    function place(element, frame) {
+      element.style.left = frame.left + 'px';
+      element.style.top = frame.top + 'px';
+      element.style.width = frame.width + 'px';
+      element.style.height = frame.height + 'px';
+    }
+
+    function flipFrom(rect, frame) {
+      return 'translate(' + (rect.left - frame.left) + 'px, ' + (rect.top - frame.top) + 'px) scale(' + rect.width / frame.width + ')';
+    }
+
+    function createImage(photo) {
+      var thumb = photo.querySelector('img');
+      var element = document.createElement('img');
+      var fullSource = photo.getAttribute('href');
+      element.className = 'lightbox-img';
+      element.alt = thumb.alt;
+      element.draggable = false;
+      element.decoding = 'async';
+      element.src = thumb.currentSrc || thumb.src;
+      place(element, frameFor(photo));
+      stage.appendChild(element);
+      var full = new Image();
+      full.decoding = 'async';
+      full.src = fullSource;
+      var upgrade = function () { if (element.isConnected) element.src = fullSource; };
+      if (typeof full.decode === 'function') full.decode().then(upgrade, function () {});
+      else full.onload = upgrade;
+      return element;
+    }
+
+    function updateCaption() {
+      var photo = photos[index];
+      var trip = photo.closest('.trip');
+      var tripPhotos = trip.querySelectorAll('.photo');
+      captionTitle.innerHTML = trip.querySelector('h2').innerHTML;
+      captionCount.textContent = (Array.prototype.indexOf.call(tripPhotos, photo) + 1) + ' / ' + tripPhotos.length;
+    }
+
+    function lockFor(duration) {
+      busy = true;
+      window.setTimeout(function () { busy = false; }, duration);
+    }
+
+    function open(photoIndex) {
+      if (dialog.open) return;
+      index = photoIndex;
+      var photo = photos[index];
+      var rect = photo.getBoundingClientRect();
+      html.classList.add('lightbox-open');
+      dialog.showModal();
+      image = createImage(photo);
+      updateCaption();
+      photo.classList.add('is-lifted');
+      void dialog.offsetWidth;
+      dialog.classList.add('is-active');
+      if (reduceMotion.matches) return;
+      var frame = frameFor(photo);
+      var scale = rect.width / frame.width;
+      image.animate([
+        { transform: flipFrom(rect, frame), borderRadius: 14 / scale + 'px' },
+        { transform: 'none', borderRadius: '10px' }
+      ], { duration: 560, easing: easing });
+      lockFor(560);
+    }
+
+    function cleanup() {
+      for (var photoIndex = 0; photoIndex < photos.length; photoIndex++) photos[photoIndex].classList.remove('is-lifted');
+      stage.innerHTML = '';
+      image = null;
+      drag = null;
+      closing = false;
+      busy = false;
+      scrim.style.opacity = '';
+      dialog.classList.remove('is-active');
+      html.classList.remove('lightbox-open');
+    }
+
+    function close() {
+      if (!dialog.open || closing) return;
+      closing = true;
+      var photo = photos[index];
+      var finish = function () {
+        var focusTarget = photo;
+        if (dialog.open) dialog.close();
+        cleanup();
+        focusTarget.focus({ preventScroll: true });
+      };
+      dialog.classList.remove('is-active');
+      scrim.style.opacity = '';
+      if (reduceMotion.matches || !image) { finish(); return; }
+
+      var rect = photo.getBoundingClientRect();
+      if (rect.bottom < 0 || rect.top > window.innerHeight) {
+        photo.scrollIntoView({ block: 'center' });
+        rect = photo.getBoundingClientRect();
+      }
+      var frame = frameFor(photo);
+      var scale = rect.width / frame.width;
+      var animation = image.animate([
+        { transform: image.style.transform || 'none', borderRadius: '10px' },
+        { transform: flipFrom(rect, frame), borderRadius: 14 / scale + 'px' }
+      ], { duration: 460, easing: easing, fill: 'forwards' });
+      animation.onfinish = finish;
+      window.setTimeout(function () { if (closing) finish(); }, 700);
+    }
+
+    function go(step, startOffset) {
+      if (busy || closing || !image) return;
+      var previous = image;
+      var offset = startOffset || 0;
+      photos[index].classList.remove('is-lifted');
+      index = (index + step + photos.length) % photos.length;
+      photos[index].classList.add('is-lifted');
+      image = createImage(photos[index]);
+      updateCaption();
+      if (reduceMotion.matches) {
+        previous.remove();
+        return;
+      }
+      var distance = Math.min(window.innerWidth * 0.3, 180);
+      previous.style.transform = '';
+      var exit = previous.animate([
+        { transform: 'translateX(' + offset + 'px)', opacity: 1 },
+        { transform: 'translateX(' + (offset - step * distance) + 'px)', opacity: 0 }
+      ], { duration: 380, easing: easing, fill: 'forwards' });
+      exit.onfinish = function () { previous.remove(); };
+      image.animate([
+        { transform: 'translateX(' + step * distance + 'px)', opacity: 0 },
+        { transform: 'none', opacity: 1 }
+      ], { duration: 460, easing: easing });
+      lockFor(320);
+    }
+
+    function settle() {
+      var from = image.style.transform;
+      image.style.transform = '';
+      scrim.style.opacity = '';
+      if (from && !reduceMotion.matches) image.animate([{ transform: from }, { transform: 'none' }], { duration: 420, easing: easing });
+    }
+
+    stage.addEventListener('pointerdown', function (event) {
+      if (busy || closing || !image || event.button !== 0) return;
+      drag = { id: event.pointerId, x: event.clientX, y: event.clientY, dx: 0, dy: 0, axis: null, time: event.timeStamp };
+    });
+
+    stage.addEventListener('pointermove', function (event) {
+      if (!drag || event.pointerId !== drag.id) return;
+      drag.dx = event.clientX - drag.x;
+      drag.dy = event.clientY - drag.y;
+      if (!drag.axis) {
+        if (Math.abs(drag.dx) < 8 && Math.abs(drag.dy) < 8) return;
+        drag.axis = Math.abs(drag.dx) > Math.abs(drag.dy) ? 'x' : 'y';
+        try { stage.setPointerCapture(event.pointerId); } catch (e) {}
+      }
+      if (drag.axis === 'x') {
+        image.style.transform = 'translateX(' + drag.dx + 'px)';
+      } else {
+        var progress = Math.min(1, Math.abs(drag.dy) / 420);
+        image.style.transform = 'translate(' + drag.dx * 0.35 + 'px, ' + drag.dy + 'px) scale(' + (1 - progress * 0.18) + ')';
+        scrim.style.opacity = String(1 - progress * 0.85);
+      }
+    });
+
+    function endDrag(event) {
+      if (!drag || event.pointerId !== drag.id) return;
+      var current = drag;
+      drag = null;
+      var velocityX = current.dx / Math.max(1, event.timeStamp - current.time);
+      if (!current.axis) {
+        if (event.type === 'pointerup') close();
+        return;
+      }
+      if (current.axis === 'x' && (Math.abs(current.dx) > 70 || Math.abs(velocityX) > 0.5)) {
+        go(current.dx < 0 ? 1 : -1, current.dx);
+      } else if (current.axis === 'y' && Math.abs(current.dy) > 110) {
+        close();
+      } else {
+        settle();
+      }
+    }
+
+    stage.addEventListener('pointerup', endDrag);
+    stage.addEventListener('pointercancel', endDrag);
+
+    dialog.querySelector('.lightbox-close').addEventListener('click', close);
+    dialog.querySelector('.lightbox-prev').addEventListener('click', function () { go(-1); });
+    dialog.querySelector('.lightbox-next').addEventListener('click', function () { go(1); });
+    dialog.addEventListener('cancel', function (event) {
+      event.preventDefault();
+      close();
+    });
+    dialog.addEventListener('close', function () { if (!closing) cleanup(); });
+    dialog.addEventListener('keydown', function (event) {
+      if (event.key === 'ArrowRight') { event.preventDefault(); go(1); }
+      else if (event.key === 'ArrowLeft') { event.preventDefault(); go(-1); }
+    });
+
+    photos.forEach(function (photo, photoIndex) {
+      photo.addEventListener('click', function (event) {
+        if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        event.preventDefault();
+        open(photoIndex);
+      });
+    });
+
+    return {
+      relayout: function () {
+        if (dialog.open && image && !closing) place(image, frameFor(photos[index]));
+      },
+      refreshCaption: function () {
+        if (dialog.open) updateCaption();
+      }
+    };
+  }
+
+  var lightbox = null;
 
   langButton.addEventListener('click', function () {
     lang = lang === 'zh' ? 'en' : 'zh';
     try { localStorage.setItem('jye-lang', lang); } catch (e) {}
-    applyLanguage();
+    withViewTransition('lang', applyLanguage);
     if (document.body.classList.contains('article-reader')) prioritizeViewMedia('articles');
   });
 
   themeButton.addEventListener('click', function () {
-    theme = theme === 'dark' ? 'light' : 'dark';
-    try { localStorage.setItem('jye-theme', theme); } catch (e) {}
-    applyTheme();
+    var nextTheme = theme === 'dark' ? 'light' : 'dark';
+    var rect = themeButton.getBoundingClientRect();
+    var x = rect.left + rect.width / 2;
+    var y = rect.top + rect.height / 2;
+    var radius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
+    storedTheme = nextTheme;
+    try { localStorage.setItem('jye-theme', nextTheme); } catch (e) {}
+    withViewTransition('theme', function () {
+      theme = nextTheme;
+      applyTheme();
+    }, function () {
+      html.animate({
+        clipPath: ['circle(0px at ' + x + 'px ' + y + 'px)', 'circle(' + radius + 'px at ' + x + 'px ' + y + 'px)']
+      }, { duration: 680, easing: 'cubic-bezier(0.65, 0, 0.35, 1)', pseudoElement: '::view-transition-new(root)' });
+    });
   });
+
+  function onSystemThemeChange(event) {
+    if (storedTheme) return;
+    theme = event.matches ? 'dark' : 'light';
+    withViewTransition('lang', applyTheme);
+  }
+
+  if (systemDark.addEventListener) systemDark.addEventListener('change', onSystemThemeChange);
 
   for (var navIndex = 0; navIndex < navLinks.length; navIndex++) {
     if (navLinks[navIndex].getAttribute('data-view') === 'travel') {
       navLinks[navIndex].addEventListener('pointerenter', warmHeavyMedia, { once: true });
       navLinks[navIndex].addEventListener('focus', warmHeavyMedia, { once: true });
     }
-    navLinks[navIndex].addEventListener('click', function (event) {
-      event.preventDefault();
-      var nextHash = this.getAttribute('href');
-      navigateWithoutReload(window.location.pathname + nextHash);
-    });
   }
 
-  for (var articleLinkIndex = 0; articleLinkIndex < articleRouteLinks.length; articleLinkIndex++) {
-    articleRouteLinks[articleLinkIndex].addEventListener('click', function (event) {
-      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-      event.preventDefault();
-      navigateWithoutReload(this.getAttribute('href'));
+  document.addEventListener('click', function (event) {
+    var link = event.target.closest ? event.target.closest('a[data-route]') : null;
+    if (!link || event.defaultPrevented) return;
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    var href = link.getAttribute('href');
+    navigateWithoutReload(href.charAt(0) === '#' ? window.location.pathname + href : href);
+  });
+
+  document.querySelector('.to-top').addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+  });
+
+  window.addEventListener('hashchange', function () {
+    if (resolveRoute().key !== currentRoute) showView();
+  });
+  window.addEventListener('popstate', function (event) {
+    var state = event.state;
+    showView(state && typeof state.scrollY === 'number' ? state.scrollY : undefined);
+  });
+  window.addEventListener('scroll', function () {
+    if (scrollQueued) return;
+    scrollQueued = true;
+    window.requestAnimationFrame(syncScrollState);
+  }, { passive: true });
+  window.addEventListener('resize', function () {
+    window.requestAnimationFrame(function () {
+      moveIndicator(false);
+      if (lightbox) lightbox.relayout();
+      syncScrollState();
     });
+  });
+
+  try {
+    readPreferences();
+    applyTheme();
+    applyLanguage();
+    enhanceArticles();
+    setupPhotoFades();
+    setupReveals();
+    lightbox = setupLightbox();
+    showView();
+    document.getElementById('year').textContent = String(new Date().getFullYear());
+    langButton.addEventListener('click', function () { if (lightbox) lightbox.refreshCaption(); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { moveIndicator(false); });
+  } catch (error) {
+    html.classList.remove('motion');
+    throw error;
   }
 
-  window.addEventListener('hashchange', showView);
-  window.addEventListener('popstate', showView);
-  applyLanguage();
-  applyTheme();
-  showView();
   if ('requestIdleCallback' in window) window.requestIdleCallback(warmHeavyMedia, { timeout: 300 });
   else window.setTimeout(warmHeavyMedia, 0);
 })();
