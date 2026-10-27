@@ -3,13 +3,24 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<meta name="description" content="Jack Ye — IT engineer in Nanjing. Projects, writing and solo travel." />
+<meta name="description" content="Jack Ye — IT engineer. Work experience, AI projects, essays on investing and learning, and solo travel photography." />
+<meta property="og:type" content="profile" />
+<meta property="og:site_name" content="Jack Ye" />
+<meta property="og:title" content="Jack Ye" />
+<meta property="og:description" content="IT engineer. Experience, projects, essays and solo travel photography." />
+<meta property="og:url" content="https://0xjackye.github.io/my-site/" />
+<meta property="og:image" content="https://0xjackye.github.io/my-site/assets/social-card.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Jack Ye — IT Engineer" />
+<meta name="twitter:card" content="summary_large_image" />
 <meta name="color-scheme" content="light dark" />
 <meta name="theme-color" content="#fafaf9" />
 <link rel="icon" type="image/webp" href="assets/avatar.webp" />
-<link rel="apple-touch-icon" href="assets/avatar.webp" />
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
 <link rel="preload" href="assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
 <title>Jack Ye</title>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Person", "name": "Jack Ye", "url": "https://0xjackye.github.io/my-site/", "image": "https://0xjackye.github.io/my-site/assets/avatar.webp", "jobTitle": "IT Engineer", "email": "mailto:oxjackye@qq.com", "knowsLanguage": ["en", "zh"], "sameAs": ["https://github.com/0xJackYe", "https://www.zhihu.com/people/buendia-39"]}</script>
 <script>
   (function () {
     var root = document.documentElement;
@@ -33,12 +44,25 @@
     }
     if (window.matchMedia && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) root.classList.add('motion');
 
+    var storedLanguage = null;
     try {
-      var initialLanguage = localStorage.getItem('jye-lang') === 'zh' ? 'zh' : 'en';
+      storedLanguage = localStorage.getItem('jye-lang');
       storedTheme = localStorage.getItem('jye-theme');
-      root.lang = initialLanguage === 'zh' ? 'zh-CN' : 'en';
-      root.setAttribute('data-lang', initialLanguage);
     } catch (e) {}
+    // Until the visitor chooses, follow the browser: Chinese for zh-*, otherwise English.
+    var initialLanguage = storedLanguage === 'zh' || storedLanguage === 'en' ? storedLanguage : 'en';
+    if (!storedLanguage) {
+      var languages = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ''];
+      for (var languageIndex = 0; languageIndex < languages.length; languageIndex++) {
+        var code = String(languages[languageIndex]).toLowerCase();
+        if (code.indexOf('zh') === 0 || code.indexOf('en') === 0) {
+          initialLanguage = code.indexOf('zh') === 0 ? 'zh' : 'en';
+          break;
+        }
+      }
+    }
+    root.lang = initialLanguage === 'zh' ? 'zh-CN' : 'en';
+    root.setAttribute('data-lang', initialLanguage);
     if (storedTheme === 'dark' || (storedTheme !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
       root.setAttribute('data-theme', 'dark');
     }
@@ -212,6 +236,76 @@
   }
 
   .topbar-inner > * { pointer-events: auto; }
+
+  .brand {
+    grid-column: 1;
+    justify-self: start;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    height: 40px;
+    padding: 0 14px 0 4px;
+    border-radius: 999px;
+    color: var(--fg);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    transition: opacity 400ms var(--ease-out), transform 400ms var(--ease-out), background-color 250ms ease, visibility 0s;
+  }
+
+  .brand img { width: 32px; height: 32px; border-radius: 10px; box-shadow: 0 0 0 1px var(--line); }
+
+  @media (hover: hover) {
+    .brand:hover { background: var(--surface); }
+  }
+
+  /* Home already shows the name large, so the header mark steps aside there. */
+  html[data-initial-view="home"] .brand,
+  body[data-view="home"] .brand {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-6px);
+    transition: opacity 250ms ease, transform 250ms ease, visibility 0s 250ms;
+  }
+
+  .skip-link {
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    z-index: 60;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: var(--fg);
+    color: var(--bg);
+    font-size: 14px;
+    font-weight: 500;
+    transform: translateY(calc(-100% - 24px));
+    transition: transform 300ms var(--ease-out);
+  }
+
+  .skip-link:focus { transform: none; }
+
+  [tabindex="-1"]:focus { outline: none; }
+
+  .toast {
+    position: fixed;
+    bottom: calc(28px + env(safe-area-inset-bottom, 0px));
+    left: 50%;
+    z-index: 45;
+    padding: 10px 18px;
+    border-radius: 999px;
+    background: var(--fg);
+    color: var(--bg);
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: var(--shadow-lg);
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, 12px) scale(0.96);
+    transition: opacity 300ms var(--ease-out), transform 450ms var(--ease-spring);
+  }
+
+  .toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
   .nav { grid-column: 2; }
   .toolbar { grid-column: 3; justify-self: end; display: flex; gap: 8px; }
 
@@ -377,12 +471,19 @@
   }
 
   /* Motion */
-  html.motion .reveal {
+  /* The first screen paints with the HTML; JavaScript only holds back content below the fold or on later pages. */
+  html.motion main { animation: page-enter 700ms var(--ease-out) backwards; }
+
+  @keyframes page-enter {
+    from { opacity: 0; transform: translate3d(0, 10px, 0); }
+  }
+
+  html.motion .reveal.is-pending {
     opacity: 0;
     transform: translate3d(0, 18px, 0);
   }
 
-  html.motion .reveal.is-revealed {
+  html.motion .reveal.is-pending.is-revealed {
     opacity: 1;
     transform: none;
     transition:
@@ -543,14 +644,14 @@
     background: linear-gradient(to bottom, var(--line-strong), var(--line) 85%, transparent);
   }
 
-  html.motion .timeline::before {
-    transform: scaleY(0);
+  .timeline::before {
     transform-origin: 50% 0;
+    transition: transform 1400ms var(--ease-out) 120ms;
   }
 
-  html.motion .timeline:has(.timeline-item.is-revealed)::before {
-    transform: none;
-    transition: transform 1400ms var(--ease-out) 120ms;
+  html.motion .timeline:has(> .timeline-item:first-child.is-pending:not(.is-revealed))::before {
+    transform: scaleY(0);
+    transition: none;
   }
 
   .timeline-item {
@@ -614,6 +715,52 @@
     background: var(--bg-elevated);
     box-shadow: var(--shadow-sm);
   }
+
+  .project-cover {
+    height: 168px;
+    margin: -32px -32px 28px;
+    overflow: hidden;
+    border-bottom: 1px solid var(--line);
+    border-radius: 23px 23px 0 0;
+    background: var(--surface);
+  }
+
+  .project-cover svg { display: block; width: 100%; height: 100%; }
+  .cv-dot { fill: var(--line-strong); }
+  .cv-contour { fill: none; stroke: var(--line-strong); stroke-width: 1; }
+  .cv-route { fill: none; stroke: var(--fg-soft); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 0.012 0.014; }
+
+  .cv-route-mask {
+    fill: none;
+    stroke: #fff;
+    stroke-width: 14;
+    stroke-linecap: round;
+    stroke-dasharray: 1 1;
+    stroke-dashoffset: 1;
+    animation: cover-draw 1500ms var(--ease-in-out) 200ms forwards;
+  }
+
+  .cv-pin { fill: var(--bg-elevated); stroke: var(--fg-soft); stroke-width: 2; }
+  .cv-pin-accent { fill: var(--accent); }
+  .cv-halo { fill: var(--accent-soft); }
+  .cv-label { fill: var(--muted); font: 600 10px var(--font-mono); letter-spacing: 0.08em; text-anchor: middle; }
+  .cv-corridor { stroke: var(--line-strong); stroke-width: 1; stroke-dasharray: 3 5; }
+  .cv-room { fill: var(--bg-elevated); stroke: var(--line-strong); stroke-width: 1; }
+  .cv-room-accent { fill: var(--bg-elevated); stroke: var(--accent); stroke-width: 1.5; }
+  .cv-room-label { fill: var(--faint); font: 500 8px var(--font-mono); letter-spacing: 0.04em; }
+  .cv-pa { fill: var(--fg-soft); }
+  .cv-pb { fill: var(--faint); }
+  .cv-pc { fill: var(--accent); }
+
+  /* Each time the page is shown the cover redraws: the route traces itself, then the stops appear. */
+  .cv-pop {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: cover-pop 560ms var(--ease-spring) var(--d, 0ms) backwards;
+  }
+
+  @keyframes cover-draw { to { stroke-dashoffset: 0; } }
+  @keyframes cover-pop { from { opacity: 0; transform: scale(0.4); } }
 
   .project-head {
     display: flex;
@@ -867,6 +1014,8 @@
     letter-spacing: var(--tracking-title);
   }
 
+  .article-content h3 { scroll-margin-top: calc(var(--header-h) + 28px); }
+
   .article-content h4 {
     margin: 1.9em 0 0.5em;
     color: var(--fg);
@@ -942,6 +1091,7 @@
   }
 
   html[data-theme="dark"] .article-figure img { filter: brightness(0.9); }
+  html[data-theme="dark"] .article-figure--agent img[src$=".svg"] { filter: invert(0.9) hue-rotate(180deg) saturate(1.2); }
 
   .article-figure figcaption {
     margin-top: 12px;
@@ -985,6 +1135,40 @@
     .article-next:hover .icon { color: var(--fg); transform: translateX(4px); }
   }
 
+  .article-toc { display: none; }
+
+  @media (min-width: 1240px) {
+    body.article-reader .article-toc:not([hidden]) {
+      position: fixed;
+      top: calc(var(--header-h) + 72px);
+      left: calc(50% + var(--page) / 2 + 48px);
+      display: block;
+      width: min(220px, calc(50% - var(--page) / 2 - 72px));
+      max-height: calc(100vh - var(--header-h) - 140px);
+      overflow-y: auto;
+      animation: toc-in 600ms var(--ease-out) 200ms backwards;
+    }
+  }
+
+  @keyframes toc-in { from { opacity: 0; transform: translateX(8px); } }
+
+  .article-toc p { margin-bottom: 12px; color: var(--muted); font-size: 12px; font-weight: 500; letter-spacing: 0.02em; }
+  .article-toc ol { list-style: none; border-left: 1px solid var(--line); }
+
+  .article-toc a {
+    display: block;
+    margin-left: -1px;
+    padding: 5px 0 5px 14px;
+    border-left: 1px solid transparent;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.45;
+    transition: color 250ms ease, border-color 250ms ease;
+  }
+
+  .article-toc a:hover { color: var(--fg); }
+  .article-toc a[aria-current="true"] { color: var(--fg); box-shadow: inset 2px 0 0 var(--accent); }
+
   /* Travel */
   .trip-list {
     display: grid;
@@ -998,7 +1182,7 @@
     margin-bottom: 18px;
   }
 
-  .trip-index { color: var(--faint); font: 500 12px/1 var(--font-mono); }
+  .trip-index { color: var(--muted); font: 500 12px/1 var(--font-mono); }
 
   .trip-header h2 {
     font-size: 22px;
@@ -1041,8 +1225,7 @@
     transition: transform 1100ms var(--ease-out), opacity 700ms ease;
   }
 
-  html.motion .photo img { opacity: 0; }
-  html.motion .photo img.is-loaded { opacity: 1; }
+  html.motion .photo img.is-pending { opacity: 0; }
   .photo.is-lifted { visibility: hidden; }
 
   @media (hover: hover) {
@@ -1134,16 +1317,22 @@
   .lightbox-caption {
     position: absolute;
     right: 0;
-    bottom: 22px;
+    bottom: 24px;
     left: 0;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
+    gap: 4px 12px;
+    padding: 0 24px;
     color: var(--muted);
     font-size: 14px;
+    line-height: 1.5;
+    text-align: center;
   }
 
   .lightbox-caption strong { color: var(--fg); font-weight: 600; }
+  .lightbox-text { color: var(--fg-soft); }
+  .lightbox-count { color: var(--muted); }
   .lightbox-open { overflow: hidden; }
 
   /* Footer */
@@ -1226,6 +1415,7 @@
     .timeline-location::before { content: " · "; color: var(--faint); }
 
     .project { padding: 24px 20px; border-radius: 20px; }
+    .project-cover { height: 116px; margin: -24px -20px 22px; border-radius: 19px 19px 0 0; }
     .project-head { flex-direction: column; gap: 16px; }
     .project-highlights { grid-template-columns: minmax(0, 1fr); gap: 20px; }
 
@@ -1240,7 +1430,9 @@
 
     .lightbox-prev, .lightbox-next { display: none; }
     .lightbox-close { top: 12px; right: 12px; }
-    .lightbox-caption { bottom: calc(26px + env(safe-area-inset-bottom, 0px)); }
+    .lightbox-caption { bottom: calc(24px + env(safe-area-inset-bottom, 0px)); font-size: 13px; }
+    .lightbox-text { flex-basis: 100%; order: 3; }
+    .toast { bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
 
     .site-footer { padding: 72px 0 calc(100px + env(safe-area-inset-bottom, 0px)); }
   }
@@ -1286,14 +1478,17 @@
     .topbar, .read-progress, .site-footer, .article-back-link, .article-end { display: none !important; }
     body { padding: 20px; }
     .view[hidden] { display: none !important; }
-    html.motion .reveal { opacity: 1; transform: none; }
+    html.motion .reveal.is-pending { opacity: 1; transform: none; }
+    .brand, .skip-link, .toast, .article-toc, .project-cover { display: none !important; }
   }
 </style>
 </head>
 <body>
+<a class="skip-link" href="#main"><span class="i18n-en" lang="en">Skip to content</span><span class="i18n-zh" lang="zh-CN">跳到正文</span></a>
 <div class="read-progress" aria-hidden="true"><span></span></div>
 <header class="topbar">
   <div class="topbar-inner">
+    <a class="brand" href="#home" data-route aria-label="Jack Ye"><img src="assets/avatar-96.webp" alt="" width="32" height="32" decoding="async" /><span>Jack Ye</span></a>
     <nav class="nav" aria-label="Site sections">
       <span class="nav-indicator" aria-hidden="true"></span>
       <a class="nav-link" href="#home" data-view="home" data-route><span class="i18n-en" lang="en">Home</span><span class="i18n-zh" lang="zh-CN">主页</span></a>
@@ -1309,23 +1504,23 @@
   </div>
 </header>
 
-<main>
+<main id="main">
   <section class="view" id="view-home" aria-labelledby="home-name">
     <div class="home">
       <div class="hero-avatar reveal">
-        <img src="data:image/webp;base64,UklGRtopAABXRUJQVlA4IM4pAACQ7gCdASoAAgACPj0ci0QiIaEUOdzwIAPEs50/t8Mjs2Ml3Gd/wjnhP+QxKTwzR4Btfk5+BLKPy391/jf3R/G70x+Hnt/Tu/xeYvvv+9863lD/cf3392v8p82P9N/0fZz/pP9b7Av+I/uX+29rfo+/rPoN/pv9q/8f+o94//hftl7lf7T6gH81/qPrZf97//+6v/Qv/T7B38N/x//q9p3/uf+T/bfD//b/+n+1Hszf+P91u7Y6X/ln6x+mfmf15T9T99/df2t/LH7yf3X+i8i/5zuhfDNyd2g+YF7GfSv+P4rWqhgo/cD8buhZ+UeoL/Iv7L/1PtG+pj+v/9Phe+izvpoys492K+MV8YwZYAdottjiiUYwZX/OfmEb9fTyPyEUOS8dRczR+JucaAftM5E3wp9vgR321H8H7UvMwDjVG3hpddCKfcqhKTxs7QyCOuGjW+rGq8uRmdSLvQVd6m5tpsWWqvJL3/I9B8zqIxggLWMZIQ5Y7/fkjb3zcTpwBTGa23tVCutDdkgN1uyIBS2g46hYz4fhc1Ksjn5AAAi14nRoekScdBJZp/vBU79/visxTNqIwP83rbkRFgeo1AI1Laqb2z4X68rdeJzB2vhM+qu2UtE1sRJDUWFO5qe4rDjeYAd2LyGaH27ij0e/8h0E3tiW6ESo53+/TvAtHjplq5ubsa7mphxzQOK8TwWpwkQUeXAQmt7z8e10ATGK4/5slfmSsK2BNyCyrjO56UPy5rABOzBZRd/89+p4b40xE9hK1qPuI8ElLscWTehAnauUgyNTW7g052UMvzwOhoyVcawr/EaQD+yxKKbwHEheA7elsdaMvohml8cmQ85s2wWdnYN9sW4QW+87CAwIyYoQ5Z3mMlhiS4ttvSiR9lsOMim0Wq/ALFMNI3FRy9TQ9cOGOKApIKwHiTzDog5aSmKWG6upvtYNE4t8SQ3VFiCHnd6EfDjp9JaAmI5U1xa6sivFVUOUwMTv1GmttIC11zB2Hr1ZtMWkMVdPD1cj6XmnMcM1cPP8tr4epRaw9K70W6xkFAEIhBstnxFKZcN0Ws0C8wuLuY2R8p1u1esSSJSTvFPbVHXWbbSmvYSpE+A+XULeJPORmThy+l0X6CHfwsc3qEzHVdBBuxzsgdyDGmSKiD977jIE0UkRwBhN3559akK2u0OJL0XikowBMWfsKG5QuamyJCJsVV9cpPKcDnmpLNHwDXfNnCC8y+V5lqhBUP1fXG2yl/DOMMHpg1vu5TU/9u5m29mfsj3RKiRnYqnTcqlg6qOlxDom9hRMG03tmtt5Tys2syR5w9PlJ7qvD6GzM5P/BCAO67wBG2rfKaomGYFwkLbaVaeQs0iISlwoAx18xAJZ5Hwpm+RdktCL+hhrsDfpGseyRADqZq3f75yDzsHkgvcjF90z6G9xCP5qSlkHrluUKcuuArrHsA6OSZvTgUdTPA2MMlRHbzX7WtlrLiNvwrmEpvkGQOspmsmHcuRmXj1rJkpbeAANM0YDJBl0Sj8FCloJca5my9tjoZ3QP3T/+dVres9fbYWhjUhqpdKNp9INEkhF/Xgwf6Fbq+9uk5x3b9QTLiSGNxpC5Tf5VaV+fzpfH2MD74Mat9aq/EcuQ4r6NFzWsBZ7y+Ja+6dZ6KSHW0hG+jLwV6rqtt7ZrPRPNjpnTgTAZUR0sF6WrB+bYXTiZRZTcbiLGqanCUuRLvZX4uA4Rbgp2RR1wbTmevtcO6eHlAiktEyleI6M3OXVxRiagpkyOlrNoLuajfohvxRkCUYdtLu09gKJlUVQUPp/2caSWc8eb10aQmuuMAHK4fZm5QgzQRfstg2yueobJ+H9kDj8yHKZOsto4OQgsSoobdzubUNU3WnVeIOvanoliyfWtdiXuXDBlIX1wMPQU3w84vFaVKlu8Qu3LihWsU11WtDwmlbRoSxua4jyATwM6iEf9QDve6kl+c/83ww/r7WS8XcqtD1apJovgR3hghpQ+4gtTaMS1/KIIzz+Uh54+/I3962JmuHZeeWUSSfAHsPxw0swKDoGmzw473/8e8SkOzww5dnYVgbhmZwqw4Ep5N40dicpWQjq3xa9nBTy5P7qatV4vY9k59P73qEE7Ok6Ne5q/1pzV5m10M9nh4v8L3TjNt5LgSVvSSjv2mmQbiZptX6NFNeZEf9yOBA+JpoihWaEZU3sdqAqXIn0TxUlX0Ja0BH80wJZ4qJ9NI3fiUWoqgoWEOxx/tQPVRFn806l6sRxhUJsut+8L8lj8GQ2C3AlovhBXM6pCoiV/k2OLTXMt21prVNrdEaqpi/pdEAWwfVVBQvbXjOsI8V8KM5re8YAGSaxCSbH8jU+A01wam4ywNzWOoY2phrdv2I1CDBlVF5Tlr8qyFXhn1UNZSEFTOSL/HvGOw4seFP+UzVW3tloZDRBklkJ9kFaAE2GVizumC8PuDIgXJ2IAxh2881CXFJPgPrqE7T1pdiLHgd+RHgw/oHq/1U/S91CDdVPu/Fy1HwLv0gcnHBmoQkOpln86XkgdBJJu3OkuO2tBhVS5zw5kbbz7rroAUJkGAAA/u89b/+zc+dTzqfquf/6RhqMbkP0niESLROLiWMRoD5Q1cw10TzgNqDU0AV11Eq3OQWJaR/w77dpiR0cmm25vfmrtTm1Qe5D2AO4Fn3Y927DhwXiGVgNRN3kT0XlON708nSFdcZEQmotivKXYyRd39UnVaeIOw9Q5ij/X+306eRBtuFOJyzXUA0dLbgv817FDWGZBY2fZy+d2mcGsVFTDyDLwQVWrqV4AksRTmNGJwFLoGCooX12VcYOm8W9WuEOerm/yWSIZfKdKUPqgLGumVUS2nfvOdpUTJREn0Vy554i57GmwBMTzJ6YAFgmyUCCfC7uXF2wu3wBFd/zf8Mm15MfSyUikKu2Tc3YSHyoo2lDLrnTen0nMFksCZUZsATvtKubzNSj7EeDu+2j8gupmJ5rPaK6mqXXEk5OgQi6SLTe9bztySQ4hhw17bkoH/b36EEhpEKPAABg0DUraekmqLNELE6PK7/dt6diZ76oaLv3KsXmT3qrhHx0P+EBIwrtdxMUPMeVbFcAThQ8hA0vgPwhNSnvLvVBTUK8nCbGjAbpPdh6W42TkxSsyrzE6Zcupa0zuEbwpPi2ZKa4vw8Al7AQR7vvGTcSHqh694OfhKA2L/cAY4HX9hk0vCctzKbnxuBaw7CYDPYoB7SZkr1KXlNqq9HI9FOeOZhCrNSqVCapA72v4VoyQVYEzF2BEDrkaJt0axujMdF+luh1mEvKaGQ1ARZye/fKyduBVoBN5rTi6hR22+2XNTzbP5mZK/TUGfu7fNMEtz8ct+X8FZ+K3qjqWExqP2/naliDuMa49NOexkzWMsmN1EWUxs3BhqQrtg6TPgUpEEC9tM3DmPVNVn/d7vI26YMiodHvH80Ld3kRvbU4XGZp1CVWsp6Bgay59l/UPOZWTn3QO5w4OBNxZfGacwtnQyR03pzTxpv/dbGPEuiHoIE/hDhvmHY2VhdbefXvVZHlVz1L76NbqO1azQtexNosn5nxDT7xtuYDzE+M5NWnGBFqd9+IQrSoxrFPH1/BzBvZw4ydH4piKw/RQNFRwFe/eZ0Qk8rbEhY3COzJMCjp0OhZBarXdqwElvdWS/I34cCNHAZUG52hryo45kgPVyQpChLcaaIg/oyXHRJgPiYFyvefQ50wxu8BVv4KR0TPOBmLpMhW/+soUW9dPt4U/3yhFvCuWIuOq594AFlRuzv+OeIRu/tkuuRwIuXIXGhfAQ2xcnmC1PfiwO0gDZXtisuom2C0y26iIkCrpAm5HbEH/3Ot22tFfF4gbNjfXV6Bx+wRYlrS0r0IRqHGAKq3BlxvhDIepKmcv3xKhIJ16vcRaC3Pq5wg1bhRe/IGERk0ECdvcC4hx7tTw9QVyOuCd5qYl++Sha/CLzG82WLvYbSndYPGK4nVtH0xoljWNXLskHNm1bMJWu5G/ztD+Q9YKBvl5gciAr5HaepNZGiaRaAeGqVcX0fI+eqc1ap9YoV2CAxjEE9+bMSpksRRDb3yXTFQf7R7TG8FnM+4yGUJ81CFEo9bT8GvyYx8L71ZVmxeeQSqhAcn42TA5anZ5irgjr3Bai0ajl7eKcrLTGO0MrArRocNiounGpw590iiVM6s7zI3D//A0WwCFfCo8o+USj7W/M9HdyQIrcWaPLjubu5r+KZSjjG739SYtIs03OJEO9+vMliAi1wx1XrU1EXSyRWB+mCK/HQSIGo3Q1Rs6s2HaocjiGMeV+W3+ykI62H+Bibwr5A51jLqv9/SNR6ug4ywK16fmvzo5cRovSMHHlpVySlEh+c7e35UbZ7LsAoFYKlm9JIPBfLEkwfcu5XOq7gIv6x+BVaW96IxRrSicwtziBvpVj07S/tsGXe0bO/P4S7k/UloLrtXFoQQtKptuvui2EOuBXz/V3bu1h83E3teVvOodAFxbpHviIkcC0nY/+0vVO/mlL28YMwMmlWojtx6YBSIobMOeGT9RwY2QxRkmDrmXRf/E4boKd96LLf01E8NNGerN/IS2gyi10W2pymcAcjQNXa5h6eqr3zpg/M8TDRoQPx4fB18heBTDeiw9mcMg2PuGal8cHUBgliKSqJvR97vozv3DIZCKv82QpR05ja38+5KvwG+Ay1hqFOZEhh4yIXw0cE5gHPtA0B6iOTtJr2ujxCoo2GJk8FsmpS17YCXexq94YRBU/f/IEfeOKW3GY4XXTBUDp9lqzP2E3s8B0gfPIVX/tva11dbatwRGyUq0et0wTCjusC0CP93bI1WBtDgydkBRxRt6XF3/U+Oy/Llzsj2iNEkAAzaGZUXtc1MeNEiHSeVv7JGbePieMqPp6nNUtbAaHnJJyblFYFbPPG3bMFVGEcm7sUlPP6B03Q5rITfOnuplaSvB3An/B0BElgX86HUMZPn/YIjH+sn4fAt0R4xUhBzkY651eplg7XX5HLPzIjJOqbocekWHLWD3+sojceQv47pcXsbF6Su1WMUu4mQVfI4yevPWhbPIHP40S5yclTfTdVLanDLLeQ2eYNGLySkq7IVI4nTTJTschEe6oukur2nQIOwsjwWpqqwrKNYwWCxRBbMdqv9YfX4RdCDLrORE0bwXF3K2Inl9RAhjk7ZCwa/EM6vP7yDu/pkT0R18+dOVCVtCs2Puwf5Olvk6tSmBHMiVjZ+Wyvpx8vj9b59trgrNgmI+g8Y5sp/bb+1bPN1tCvnI+/4DJ7NIxhJzrP1UTlUmHdnCKwTGS4VHhr8srirs20f+258nEyd1pMhaCctVyjn2aPxB4s6wYLTdpv05Jv7wawGQ6OOEC/duUrwWLDirDh3fwUQJNOjeWwZVsY4uqUjfVcHNv3J1WokEoA2987sqp5APw7I+cH2BJc6MtZNP/Dnwv+g7ChGOiYLhv3Oe+sXgoqSKXNavJSyN8tUYmGf/FgVqqlLuoRwOxpNjUo5A6HdFzR3+ViTuozuyDG3hP3RhcFaL8AT+phcQsphFLd9MXOaEZBAgngjqlEmt7W/dftlFOKNWkpuItpud8++/S8fbeLfJgADVjQ+Y5uc61vXPBOTq+assVzGhjdybNqVzbZb0WOMBHvG3bOFaTLcCF6TmkPMkejtFPscwEdF/SO7Dh0ua7briili7zEjYKYYCEqIVnzDi/XV62miRcjUonGZAplPaDRTZQyEJ8ioc1AsMJL12rdG7p4Ls0aym18bRi/cWmNMptXfqsvSNl0hq0+8hZlIaoU7+VfOjBOOb3WeCmq6ShKICCZizPzCnm1olhIgWhsccWaZoqhx86H7wA5ZFz4g6b1YxNIp7UD2KXJ1mLjxA0YqI078yPwSBiiD3Dp/jdny8zvyMMYxynlHi3dPoYtkpM7ZgXsu/tzhs0ZYlYInB8U8e9ejGt8zrm4wVpv+SbtaJiY3C6WCBERlJBf4YfR5pN7INq3c3mxNuY2kk0JFurhtKycCoopbP/0UiZpmgzgPr2K0S50WrP8Q8/hftEI+WCntPgdzukIK/wYEGTEytsBwCIxmMD7mURwcjVRsCFYp0F60EOk5VODJkiMru7/YltCWA1ey6P31jL5grKD7xalk1Jah2302NuXa63HVouYsphevcRSlKgr/u17Bknej7pbmhk6I7MByML0WopZZgHthVLKEtHag5BDoNXgI05TGFqJ7n/l3WlonxmnyOCLzVs3AB/1n4RiOL/iWauqwPT8Uiv5l9W/hVm4BQbLHO1k1kDWQuwPPB/CZO2cdSeHyo8ZbxiZhxefghk+n8+/Im+ugcnPMy0GRxsnxzAtlv2cQ9ujcHWTg13qD/IAXUN+wfDX/nU1Ot8DZ6QEZaPh25O3CYQAf4iP+EeQre3IKHoZG2VqK/3j9FxLiEzcCABHaARGyDYsOAZtSME7mxDT48w42NqhghOoDoS7nBsrk+pV5HyaoGP0H+jUzyq3djNTnG3tcotZapGWKmS/mIi0ofAd5xNUriFEIgAtHnKLjA50185XzhxlMfW3Cy7Z5pbofqgN34kBa5wVwq7y+PNujYS0eh3izBrDJq7MtOicW23G7+PhkGHJR2kW6AJ/AMJp1wAHU7h7kq+Xj/npMDQ9rwPXmSMG2GE5XcIpXMS0xRXjY4ACj3iJBZgielu932rnhV8QpHa8MStvnekz/f9mbT/wmbiheHSSxczu+U38X000QrtiLhR2M0QNAPcXaUTXTze493xipHKetrIu8jwSWZe/H+Hd1hS6DkLuyio87xwb2Mph7xT6fHWHVlnvPorn/C4CPGe5yLSIOwVjPR1oNdfUyGjzeAdgtS3XPaE1Z0e88OCNR2QHuj5KVDO+sqgZ3jzH0W6DPOiyQfS/bXxCyQ0AaT7Y9WHupd1r7o3hbrrmQElmPv78wgwUvJJb42HWAFx+v7BNRhuWZdg+Eb//dNZ4QsWilPp3wovn5yg7IdtF4n1vDDCsuRtwfbFqU3gAikiiceUahLa3CmnE1L93t/U/7fii63rQy/7ScRbFGBOqmI+IntXapeNf5f1PfKVUsI6bqeDFQ8stHioZ5+vvOieNceqks3frjkwXkZzNEMAPM1WyO4WP+lzenWttOuXTX7xYodLodxh58ANGPn7ZIOFZL07C7neY+sqkPJKwqLLZ5FqnbzqwFwF6iy48/XlZtJGAJlrX3DSHU5SBFJ4tfeqUzpX9WsncKCp4U9HzWBM7noKXJN2EvqBn1AjAWPBXgL21ffKOVSVNYc8fGj3D/ui6p/GjiROCl8/h7GipmnkRpc4m398ixHk5b41EfVCIyUyYk37vZz+uhRvf2chYgz4UgIIWb096O+H4PxVG0aTHd0MQ96VfGI6n/QzA21uDO0zS+dtPDFfxrEUgh+ARlpKJZox2w9YjgrPvPny88pKtPlbRQ8rSdIrsk5RrbbqE3csWBgi0Xa0ZkLvoeezVp2Z6c3MsxVrLyD1rrgKav3jwRLon5SeppMqj9pDI0r8iwiOJqdNvvNCu8ZgBJUPWpJia+wYzV+xw2Brz3TEuCCRpTxrbUxneAsMduFRq9H3JPMn23CgIJl9gw5Dvl53L2lHYPITshDbAM9XZEzYvmYQBO54N7Jlh4JSJJYKdOPukBRZh58J+Ur1I6KxZMUmjkc9Jk/3hx/UNn7KysB3fOJOVWqtf9rr7bpX84ex4lBPD/PK9/kgZRqimGvunHyji2Vp1V0K+PT2Pd0PI0WrX3UWFaBG/DJPbp6bw3rziG2gO8oxPilZiHs4Wy8nkJTD62Hf5ptRrje4cW8j1frdcrLkIOaB1r2ST6f2Oh9sSCDg8X4oZ6+PW0p/jcm1Q1czH6XhK7rVkjQJQsWHDwT839LpfXgmyiYsYybpNPl6bCnvjy7FoQMXt9Q6pY8BL59sdnMODEwwBtqI4uBxI0rY29j9/GgrURGcLh3Wv1fdU/IYvup73vR65oE08rbSM2FaRbRsBws3i1SsXXBEdvVl+b0niMnPkVOPdjvT1f+cUH79gyoA0q9BwCotIC+XJJofxrbHij2mXL88aTYi8234SkcS7bL9o3XCozvAZAN5v84Tv2/2/4aT6/hSGU2ELLLelmXbRkE9vMgJ2C0jybBpHB7aL3AOxdfLtmM2MuUguYGjrCFWwgpSS+A2xSRhWKc3LJ/yNPtqNjMWE5dKO0o20OIu77A0vg9Jl/7TqePDLoZdpNSisSAK6FogAGxar78eI5EpSZVh3Zz6gTfDYnTMhJ9W3n0es5D8b8BsGi6ph/tS6ztX56UO/IR27njYdAxB7DGgX4tVsnU70gN4eiZ0cP9Tq39izVzvzBLGudThJjg0J0FfGuNmJP2P1BAYagYlQw5clmiwqHj0FfU2O1LHakA+I/Haw+nvpWRekL1ux//cjFjLYuL9zEXq6fFr1f2NuoyNByueGebRquuTES8McztbMHgv6uDm/BprvTMsZwCU0/rfCHEIiR6Yz59XfHNCEnu1DD/bbfT9hmQITZk4uHpoAL4nQEECy77hPhHRwRrAqbLJzNOLAA8Y7QvYOqsVVRO8ApT46OtDvGrOdwb5i8x7TaD3te5y6pp/jiSo/PFd0ktHssDoGnbOvskp6bht5VvaHVZhtSKPEyF1Mn+T/fPiR8EgZq0Z3Si2ChgAmO4YlPc3i2uZznoUYsal6lfpC/yDATUHRj94NHAz14JT/eYoDnI+p9M0NC/29FjUNUSpSjZ587TPn0UoU//O+x0DeKaps/CFiSESbzhHd0IPuk29/5RMuQSk9zNMNSGSKg2LmU3MbMdauGzM4UEslrVba5/ncBL9aPJRqzdaQckqL81jpGa60vnjhWFVO/yPrjujAMeaGTYzCcWP8GGdgw27DH/ZPt4zrDLyMwdlCveWbC19FHtwLTc7zmsPLtzVL3hni7dERPTLdxPpgQY09E4/eaUge8kQIeTKBafIdKrbri83c3MUNEAcHJUAO8imvxGnFlKBUWYo7iI/8t0pGXDE6cOV6gh8YZBtoyFTPEomksewZETFPWqdAPcTxw7MO8fA40T8Nh8uL0y1GN1nW3Qqaoj2e/v0ZHJDperArOYm05381bOZU6tH+4zEJG+VLXrNEsCvBWRsf9qm65F9RNExckWeV3vonLiUTZguO7L7Y3PAh3GzEXGNZW9t+sbLiLwqLCS2RDvYnybAFC88cNzpB1Qv2l4+fU4c8KyOY9+FlQux/xFk30gHH0PsLba33k9ZQe498UexSQh5ZeLsRc+GggQbO9xId1r+TZPGtBTY/g37ehHs2eweQeEDKJT3GHxyOdIYN9PmIYc64FLEkBfo3ty+frCvR4cbIC226vhWRrDaVlMDoJVj8pZ3o0Kd9JJjw+mYgx0N3H4L9p2EVB1TRewLv2tpIUsupjwqN+wLj/7N3zF48AP06FedVeYqOffN0NWLWZN8e/OnYC8JT3nE/nXchA4uWK7veUBBslWI4YjJ9bN5c9/W04sKKDxhmLfyC/4SIE0GlqoBzdKvxk9PAW7cYDYVQlBAKZ+iMYugk6Sx/UrwidWcVQyUSPdFfoVZB/H8/xHD9uKZtkX9HUxUVzSiZvJ5IjHWOzmatpG4D4l30KSQoUTCkS7kTfU1BLLEgwvSKwONkrBde/3co5lj7IJ+Tf745A43Siqs02VOhnX++SNq04V08lGH6rOXziJjpsumhnF+n2pfn3JmmnRGCC373GknTk5vsyd0mm0aJFjTpUMJMMDIUfTOBnjNRBqedDOY3f/oXICk/r+TsLgOjnpqkO5F502f9EfS4RYWXLnxpIn3upHCkABC4lynTwgamttKRxytUAUTHV1d2eIhDDVuuhhbEooDpm06VgGfyTCf88AAnWGZNpAQdEE/SIAtdx2DDUV/6EDT+VkrFZKcOuY3zjMlUjmDaRkoGiOoLQxnyo46Gm3c3EqLo+wYtxRr1IR68TZ6rmxlRGRFdZxuJpr5uhiMBX4q2RVjdqByu9VY8bIGzbp8xHbnmuYp4kzeii2SIHhEP/iw9nOMTUjTUut+ipxn/TRdhO2l/bLQ4uWDvRtVMYEXmwICSIxBTzReW+Slx9/zo+06TMqf1rZtkkAlObcqBxwgkP0ysJO8SXb82WoGKPAwnyUheOKHwLDFWIvRkFLzHGYa940LaxIgDS12x7wppqG4yihmHH9rxowom61hYrKLd41DRRuGD42Z8mh2GuVT22CeZCogzFbNBFGUwpK1Ea9Nnh4cSLcjWe00N4fw/JZu41OfyW3wWCNFAgP/uHwNMCv43Ua/MRy1pfLCnpDTrma1xT5MmIIzOh8lYFeuKaPfBvl1Gjobjb+VTgUBn51/aLYdcdPaGlUmiME7Zsuw7S0Of6Xnk/4cC/z9IdRAnoAdHT+FTpIPXxhz2ADEsjWzww9bGnnX3+30chBOzGXOvZi0UxHx6ce1dWX2bRpGrfTi7Fd6Njcli9UP9LTOf78dyuYZyz1VTnWcFAkMcp5Zq6nodUoDC8okjkS62fpgxjt8I1ERrUJQr6s4BxPSykbDgD2IaZ28vo+mjTvBuANNj/aa/z52Dhy38MjKX8Zz//dL5OEuhZegHSCaGsAMBclqKEwcE9AZe2LkjjxMUqq6vazrsBfKkXUM/XKFo0mvUg1sPuAm6q5+Rap2hQkyHqa1D6hxNPWk2HaRp2SaAKu3O57P8NxEWEdcH1I9aEhMLSmsSpOjmscwOSt6uiXJv7NJIrV/6AzTlT95FZqRryuYYuIz+sjdJ0wrLcBZdrVsnHvuKwdQQFuzxZ/3LQsHcY2Ivzthm7fBvDEj9BIAgs5OW1lTKfP9XcCHmK+lIki7il/l7dKSg4HFqddgSkgdT9aAtJPAGFpD9qa6/ilhnMLNnSTU281R5WCsn33bHDq3W9Lf01BRj8pMTFKIA4lUzsLf09Eob0oqRWPDjGrTOj++l1cyL83Ffxe2Wu63br3mtKkMpYTBZbeOwG246xvsoX7qj+evv2QxqMSYHznQQh75BYqC3osO/UIdwtHamcNrVbHoud779/2SfDFUI5onlTin8z6xGX2LyQXsiQBIefnkkuiJ6RV/GlQTwbR6T4AWOO5VRPE4brRunZhoCP8K+/qmGVTQN73S9Lp61tVlerX0iuJTXcyv5sb/SLGUtZMF5ZgpeOwwq0kYgltycXL5HWIHHA5pVoNEhRjbtuoGHtqxujjAimoTa6snzQJpnWFwnwTsxwPTp9hU2dW+E40h/uAv67vnCrOmeGHqjqUuY2YKJznC/eTl+rMyZC+K0BZUXh290GLGCHi3L/oE7UCkOHpOa/yJ4O0HjqLbEISJE5I8N/Zno7JwP2wzBo18QwWF6/ATY5XLTk7uvUnyLZWrSpfbEURVwcHNDCdPLb6n+OTj4jqV9mqfGMHgSL9fVMrmfurHbj2JlPc76jVrk55Gm9qNycHZlqGYj/BAUkeqfEe/6bJDRdlNAG1LzU5AG/JPGE/gc1RXysjB1jKjWfNVCP0IZgn1ZJ46TiVG4KyzyF+3WuGA7aedQKhZRGxGOEBtDkvuJHtPwM9fM29K0E1TLIgrShvAojxeWkC4g2oeuo2k+doK8TaYldHvjnGPqjfRtJdt4U6sgTbLtaSJ/f1UA9/hcx9ctm8+hxzzwmlEZ04IvtbKalklP0t/VZ/2Wch5dBdRP9ZDeC6DGiBaPy4C9B63ZeXWMD7TTptrQGCdyf9v691UihAuwlNrlq5q56bul/Coe6lLcVPHQoQjTyJMMxX7OXoXdYskiHispZCiMxt6iC7IIJ2jWouxM+SCV/+1oxp9HEv45zVCWXZbxyfdYawFaPvaO+3n/86wuKXT1qpUmq4Ux0mLDEVphOGCGHRex8y0nYPy8gpwQpAldeQ6EtLzZuMysUNnA5oKih73tVbmUvlNOcmoR30LRoBXhH40qgjNwDXLYdYZf3nlSEVlWpZGVDQzfD8tQ8iyjqF4VsGhFbhO0uD9OxppdyIlxhim047LnrjChtctsLvweZflYOz8A7kCcjkE6VUwyQLc7D2w9DSwaGPC2TtdS+gj2ZA3oBHT/UjxidNpBTXDrwSgdoIfJhLdbhC4TMiJ7msRJBvact9JzzhBHMyDTewRyrteZxwUFwUD3cS5Fty4vZu9fpkw1RUJEymz7317XCxQVN4JMKoYZLx93lobRedg+vEGI9KAmm1bupMOGkP9WVOP6BYQFtgw60yx4gxoJLrzcg+51idn5Sl+oiJyQY5qgDh7L6s3+qVQe2rHh/tYSaNtWrwM9Lr37Nmbf4wVY8LfYZOsXXNK20bYMSCAv6yNFVWEVt5bLSReP2Sz1p0qxz8sTsWUsbydq8VCmte0SuG6Avxj46bdbXX7UTVCRFcvV9BoQtXVWdFnJ+PZoykQmgpTOFJ9hXU2NyUn5nHtwI8rSmlWEtKDV/R+E3+ZOW+rcTYkLnb68IZTYrdPQ/VH01WY6nNwZnrLDo/S8y/hhez31Q38PHHJAzstcd5MuDBw+vbMmrQFFu58xbF7ZJZKYYitamXkGM+sIfleKQy63o+rtLZtOMDFnw2WV2lwkTxoXl67p6/e0LTn8ypQxsrJwTNzHpBxbK9oDL5v/Ny9Z0mAkMcZ+VAIBQPuFyGJKe0PA+0rINh3XuijE9b47Lr7k/58sflDqtRPsC3B26j2KzjEMlW+KY98yle8r5wrsoVVEMuvh2Trlgn7qpeOahWQBGYwerMQXeDWk8sOerecPZhliZ/LN4/6WKAQMUpBuTYXB9qwMwUkrrv1hXp52L1fExxfBjlzgu5MeLMrAVo6mkgI2lwOFU6g2bHc71wHbJUk7Xo21Kjv2u94YVfGOCWd156SqTVUWJcBnd6PSa9AQVmC1P65lRSS7gL6RqJHUFIsE6IQfz/M8qTYqpaUiMCBM9mveP3OG787XkijJblKKmhB+jEmlYgM0neZ+EMYBzPzPIi9GOA1KvL5k8ZiI1mbOVOKZkFPLyqkT+SjqMzsHEDhwq7KXIPxKsVTFe7+M1UTtv5Xd2ux7SaiQkoF0d7SQvfhLM1hrtJcV7RkpvSP5gFnA/gDQB1Z+/8N11iCMYTFWsg0ejz3G09SKE3L1kZagqcrUx7qsryFkzIg0RTO4hRscTMaS0Qr2WgtliqJ7NI0D7IxW1Sn5CL0xmqjivX9p+EWBMNv80U/3nbdhrm+O65qSU9sx6Q1LSa9Apo/aj/EZN9s4QRbCjUQyDmCKA6S9XDH+1UUw0EfCUFZoSte0ZM4hpTj0Yj1hf/XAggwpPft9wUb3CED2lQ4AtPhvXAs6io9Nhiu/tOXNAN5VkrsuE5+OG8bYtSNRhTZGZdjyPDPfraC7wPpQc96an4mtB4Rmyc/pJimmKntLWk/GetQyDiqDhTLapr2aJH7tK9vGQNDiVSs/PZVfGDU/7Onkk+OoOc3D17HMeC3Cb/UDkuMBSSIJMnQcQ8N28kcsZddjwMzus1wR1roWMFbnaBIdbUx0nRduCI4s2JxhQkVTs/wSiQI0DaJ5QndhxmyS8G9PF/1RjQhj4sDwRVT179KWTf2JucvGkUkYJJUu6zUH4AHrXgA5DXfhOPEWbBvXMM32Z491nCr6GNkbsphnBrx0cBvrMFZ7fRKl4iE1oHbW9ClRuWpMbVD/rHs/LsUq2fZveQRlbgSdWKUUpmZQAozCj/MTDvN8vjNEQj3D9P4J9XM+gd7xPTievBbyvzmqSLWR1Hsd3K+R+FGr5zLQmZc6AyLGQ7eHdgrGeSvKPRYsHggMwDjf47+z6+8HhH/aZV9qmCIBg3v+puU5o50v3/6zfL8N+xkvNkzPojkecCiJq4fBqG5/oivMRC7KbqWdTA73eusNl1exEL5ZJsmeSIACBCvUH4oTeekdqCyyh3Q5uwfuxhGWEGdZ2tcUYf8MrTuUl3vZAxjIqEgoXKnJonGDx7kMZRqKf3h4FOunSQGb/a+WRm7r+YwW5d11cXDwwAIxrVanM+a5JQEZ41B9S718zxZapgd+UVD/PSVWnagMYOsx4m+162STBUo++oJQDit3/+q5Hi6EF4u0D62hfLlcjuGXzwMOlbpJfzhyYMB81K43VceBIH9ndCHK+PIU4Da/v/Oa5ksY3iNsEoIlhRRMjId4siAeMcu4/vxS1cFrcUnc7QQkbCQePf+QpdIOEaNCoVWPY/M2AiF45AhPYWvQAAB8R2KhoKSo8443RR8jiHxkn/Bn1v+7lyrWaqbk3wASegGGV6OeHbe/Iiozrp+d+sHW2/+FCIuX5WU747FmjYS7F5wuV83yWZiLeNd2ZwGWMfdquym0SNPmbCa7kUAAA" alt="Jack Ye avatar" width="512" height="512" loading="eager" decoding="sync" fetchpriority="high" />
+        <img src="data:image/webp;base64,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" alt="Jack Ye avatar" width="240" height="240" loading="eager" decoding="sync" fetchpriority="high" />
       </div>
       <h1 class="hero-name reveal" id="home-name">Jack Ye</h1>
       <div class="hero-links reveal" aria-label="Platform links">
         <a class="chip-link" href="https://github.com/0xJackYe" target="_blank" rel="noopener noreferrer"><svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg><span>GitHub</span><svg class="icon icon-arrow-up-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
         <a class="chip-link" href="https://www.zhihu.com/people/buendia-39" target="_blank" rel="noopener noreferrer"><svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.721 0C2.251 0 0 2.25 0 5.719V18.28C0 21.751 2.252 24 5.721 24h12.56C21.751 24 24 21.75 24 18.281V5.72C24 2.249 21.75 0 18.281 0zm1.964 4.078c-.271.73-.5 1.434-.68 2.11h4.587c.545-.006.445 1.168.445 1.171H9.384a58.104 58.104 0 01-.112 3.797h2.712c.388.023.393 1.251.393 1.266H9.183a9.223 9.223 0 01-.408 2.102l.757-.604c.452.456 1.512 1.712 1.906 2.177.473.681.063 2.081.063 2.081l-2.794-3.382c-.653 2.518-1.845 3.607-1.845 3.607-.523.468-1.58.82-2.64.516 2.218-1.73 3.44-3.917 3.667-6.497H4.491c0-.015.197-1.243.806-1.266h2.71c.024-.32.086-3.254.086-3.797H6.598c-.136.406-.158.447-.268.753-.594 1.095-1.603 1.122-1.907 1.155.906-1.821 1.416-3.6 1.591-4.064.425-1.124 1.671-1.125 1.671-1.125zM13.078 6h6.377v11.33h-2.573l-2.184 1.373-.401-1.373h-1.219zm1.313 1.219v8.86h.623l.263.937 1.455-.938h1.456v-8.86z" /></svg><span>知乎</span><svg class="icon icon-arrow-up-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
-        <a class="chip-link" href="mailto:oxjackye@qq.com"><svg class="icon icon-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7.5 8 5.5 8-5.5"/></svg><span class="i18n-en" lang="en">Email</span><span class="i18n-zh" lang="zh-CN">邮件</span></a>
+        <a class="chip-link" href="mailto:oxjackye@qq.com" data-copy="oxjackye@qq.com"><svg class="icon icon-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7.5 8 5.5 8-5.5"/></svg><span class="i18n-en" lang="en">Email</span><span class="i18n-zh" lang="zh-CN">邮件</span></a>
       </div>
       <dl class="facts reveal">
         <div class="fact"><dt><span class="i18n-en" lang="en">Birthday</span><span class="i18n-zh" lang="zh-CN">出生日期</span></dt><dd><time datetime="2004-05-01">2004.05.01</time></dd></div>
         <div class="fact"><dt><span class="i18n-en" lang="en">Gender</span><span class="i18n-zh" lang="zh-CN">性别</span></dt><dd><span class="i18n-en" lang="en">Male</span><span class="i18n-zh" lang="zh-CN">男</span></dd></div>
         <div class="fact"><dt><span class="i18n-en" lang="en">Profession</span><span class="i18n-zh" lang="zh-CN">职业</span></dt><dd><span class="i18n-en" lang="en">IT Engineer</span><span class="i18n-zh" lang="zh-CN">IT 工程师</span></dd></div>
-        <div class="fact"><dt><span class="i18n-en" lang="en">Email</span><span class="i18n-zh" lang="zh-CN">邮箱</span></dt><dd><a href="mailto:oxjackye@qq.com">oxjackye@qq.com</a></dd></div>
+        <div class="fact"><dt><span class="i18n-en" lang="en">Email</span><span class="i18n-zh" lang="zh-CN">邮箱</span></dt><dd><a href="mailto:oxjackye@qq.com" data-copy="oxjackye@qq.com">oxjackye@qq.com</a></dd></div>
         <div class="fact"><dt><span class="i18n-en" lang="en">Languages</span><span class="i18n-zh" lang="zh-CN">语言</span></dt><dd><span class="i18n-en" lang="en">English, Chinese</span><span class="i18n-zh" lang="zh-CN">英文、中文</span></dd></div>
         <div class="fact"><dt><span class="i18n-en" lang="en">Education</span><span class="i18n-zh" lang="zh-CN">学历</span></dt><dd><span class="i18n-en" lang="en">B.Sc. in Computer Science</span><span class="i18n-zh" lang="zh-CN">计算机科学本科</span></dd></div>
       </dl>
@@ -1385,6 +1580,28 @@
     </header>
     <div class="project-list">
       <article class="project reveal">
+        <div class="project-cover" aria-hidden="true">
+          <svg viewBox="0 0 640 168" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <pattern id="cover-dots-route" width="16" height="16" patternUnits="userSpaceOnUse"><circle class="cv-dot" cx="2" cy="2" r="1" /></pattern>
+              <mask id="cover-route-reveal" maskUnits="userSpaceOnUse" x="0" y="0" width="640" height="168"><path class="cv-route-mask" pathLength="1" d="M76 112C130 112 170 64 236 64S340 104 400 104S500 52 560 52" /></mask>
+            </defs>
+            <rect x="-640" y="-240" width="1920" height="648" fill="url(#cover-dots-route)" />
+            <path class="cv-contour" d="M-660 120C-420 150-200 96-20 132C80 104 170 150 270 124S470 74 660 108S1100 150 1300 112" />
+            <path class="cv-contour" d="M-660 150C-420 176-200 128-20 154C110 132 210 168 310 148S510 110 660 136S1100 176 1300 140" />
+            <path class="cv-contour" d="M-660 48C-420 20-200 70-20 40C90 58 200 18 300 34S500 70 660 30S1100 64 1300 36" />
+            <path class="cv-route" pathLength="1" mask="url(#cover-route-reveal)" d="M76 112C130 112 170 64 236 64S340 104 400 104S500 52 560 52" />
+            <circle class="cv-pin cv-pop" style="--d: 200ms" cx="76" cy="112" r="6" />
+            <circle class="cv-pin cv-pop" style="--d: 620ms" cx="236" cy="64" r="6" />
+            <circle class="cv-pin cv-pop" style="--d: 1040ms" cx="400" cy="104" r="6" />
+            <circle class="cv-halo cv-pop" style="--d: 1460ms" cx="560" cy="52" r="15" />
+            <circle class="cv-pin-accent cv-pop" style="--d: 1460ms" cx="560" cy="52" r="6" />
+            <text class="cv-label cv-pop" style="--d: 260ms" x="76" y="140">DAY 1</text>
+            <text class="cv-label cv-pop" style="--d: 680ms" x="236" y="42">DAY 2</text>
+            <text class="cv-label cv-pop" style="--d: 1100ms" x="400" y="132">DAY 3</text>
+            <text class="cv-label cv-pop" style="--d: 1520ms" x="560" y="28">DAY 4</text>
+          </svg>
+        </div>
         <header class="project-head">
           <div>
             <p class="project-kicker"><span class="i18n-en" lang="en">AI travel planning · Full stack</span><span class="i18n-zh" lang="zh-CN">AI 旅行规划 · 全栈项目</span></p>
@@ -1402,6 +1619,61 @@
         <ul class="project-stack" aria-label="Tech stack"><li>React 18</li><li>Vite 5</li><li>Node.js</li><li>DeepSeek</li><li>Google Maps</li><li>IndexedDB</li></ul>
       </article>
       <article class="project reveal">
+        <div class="project-cover" aria-hidden="true">
+          <svg viewBox="0 0 640 168" preserveAspectRatio="xMidYMid meet">
+            <defs><pattern id="cover-dots-rooms" width="16" height="16" patternUnits="userSpaceOnUse"><circle class="cv-dot" cx="2" cy="2" r="1" /></pattern></defs>
+            <rect x="-640" y="-240" width="1920" height="648" fill="url(#cover-dots-rooms)" />
+            <path class="cv-corridor" d="M24 84H616" />
+            <rect class="cv-room" x="24" y="22" width="92" height="52" rx="7" />
+            <text class="cv-room-label" x="33" y="36">101</text>
+            <circle class="cv-pa cv-pop" style="--d: 180ms" cx="58" cy="54" r="7" />
+            <circle class="cv-pa cv-pop" style="--d: 215ms" cx="84" cy="54" r="7" />
+            <rect class="cv-room" x="124" y="22" width="92" height="52" rx="7" />
+            <text class="cv-room-label" x="133" y="36">102</text>
+            <circle class="cv-pa cv-pop" style="--d: 250ms" cx="158" cy="54" r="7" />
+            <circle class="cv-pb cv-pop" style="--d: 285ms" cx="184" cy="54" r="7" />
+            <rect class="cv-room" x="224" y="22" width="92" height="52" rx="7" />
+            <text class="cv-room-label" x="233" y="36">103</text>
+            <circle class="cv-pb cv-pop" style="--d: 320ms" cx="258" cy="54" r="7" />
+            <circle class="cv-pb cv-pop" style="--d: 355ms" cx="284" cy="54" r="7" />
+            <rect class="cv-room-accent" x="324" y="22" width="92" height="52" rx="7" />
+            <text class="cv-room-label" x="333" y="36">104</text>
+            <circle class="cv-pc cv-pop" style="--d: 390ms" cx="358" cy="54" r="7" />
+            <circle class="cv-pc cv-pop" style="--d: 425ms" cx="384" cy="54" r="7" />
+            <rect class="cv-room" x="424" y="22" width="92" height="52" rx="7" />
+            <text class="cv-room-label" x="433" y="36">105</text>
+            <circle class="cv-pb cv-pop" style="--d: 460ms" cx="458" cy="54" r="7" />
+            <circle class="cv-pa cv-pop" style="--d: 495ms" cx="484" cy="54" r="7" />
+            <rect class="cv-room" x="524" y="22" width="92" height="52" rx="7" />
+            <text class="cv-room-label" x="533" y="36">106</text>
+            <circle class="cv-pa cv-pop" style="--d: 530ms" cx="558" cy="54" r="7" />
+            <circle class="cv-pa cv-pop" style="--d: 565ms" cx="584" cy="54" r="7" />
+            <rect class="cv-room" x="24" y="94" width="92" height="52" rx="7" />
+            <text class="cv-room-label" x="33" y="108">201</text>
+            <circle class="cv-pb cv-pop" style="--d: 600ms" cx="58" cy="126" r="7" />
+            <circle class="cv-pb cv-pop" style="--d: 635ms" cx="84" cy="126" r="7" />
+            <rect class="cv-room" x="124" y="94" width="92" height="52" rx="7" />
+            <text class="cv-room-label" x="133" y="108">202</text>
+            <circle class="cv-pa cv-pop" style="--d: 670ms" cx="158" cy="126" r="7" />
+            <circle class="cv-pb cv-pop" style="--d: 705ms" cx="184" cy="126" r="7" />
+            <rect class="cv-room" x="224" y="94" width="92" height="52" rx="7" />
+            <text class="cv-room-label" x="233" y="108">203</text>
+            <circle class="cv-pa cv-pop" style="--d: 740ms" cx="258" cy="126" r="7" />
+            <circle class="cv-pa cv-pop" style="--d: 775ms" cx="284" cy="126" r="7" />
+            <rect class="cv-room" x="324" y="94" width="92" height="52" rx="7" />
+            <text class="cv-room-label" x="333" y="108">204</text>
+            <circle class="cv-pb cv-pop" style="--d: 810ms" cx="358" cy="126" r="7" />
+            <circle class="cv-pa cv-pop" style="--d: 845ms" cx="384" cy="126" r="7" />
+            <rect class="cv-room" x="424" y="94" width="92" height="52" rx="7" />
+            <text class="cv-room-label" x="433" y="108">205</text>
+            <circle class="cv-pb cv-pop" style="--d: 880ms" cx="458" cy="126" r="7" />
+            <circle class="cv-pb cv-pop" style="--d: 915ms" cx="484" cy="126" r="7" />
+            <rect class="cv-room" x="524" y="94" width="92" height="52" rx="7" />
+            <text class="cv-room-label" x="533" y="108">206</text>
+            <circle class="cv-pa cv-pop" style="--d: 950ms" cx="558" cy="126" r="7" />
+            <circle class="cv-pb cv-pop" style="--d: 985ms" cx="584" cy="126" r="7" />
+          </svg>
+        </div>
         <header class="project-head">
           <div>
             <p class="project-kicker"><span class="i18n-en" lang="en">AI matching · Full stack</span><span class="i18n-zh" lang="zh-CN">AI 智能匹配 · 全栈项目</span></p>
@@ -2501,46 +2773,52 @@
     <article class="trip reveal">
       <header class="trip-header"><span class="trip-index">01</span><h2><span class="i18n-en" lang="en">Singapore</span><span class="i18n-zh" lang="zh-CN">新加坡</span></h2><time datetime="2025-09-16">2025.09.16</time></header>
       <div class="photo-row">
-        <a class="photo" href="trip%20photos/sng1-1600.webp" style="--r: 1.3333" aria-label="Singapore trip photo 1"><img src="trip%20photos/sng1-800.webp" srcset="trip%20photos/sng1-640.webp 640w, trip%20photos/sng1-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="Singapore trip photo 1" width="800" height="600" loading="lazy" decoding="async" fetchpriority="low" /></a>
-        <a class="photo" href="trip%20photos/sng2-1600.webp" style="--r: 0.75" aria-label="Singapore trip photo 2"><img src="trip%20photos/sng2-800.webp" srcset="trip%20photos/sng2-640.webp 640w, trip%20photos/sng2-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="Singapore trip photo 2" width="600" height="800" loading="lazy" decoding="async" fetchpriority="low" /></a>
-        <a class="photo" href="trip%20photos/sng3-1600.webp" style="--r: 0.75" aria-label="Singapore trip photo 3"><img src="trip%20photos/sng3-800.webp" srcset="trip%20photos/sng3-640.webp 640w, trip%20photos/sng3-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="Singapore trip photo 3" width="600" height="800" loading="lazy" decoding="async" fetchpriority="low" /></a>
+        <a class="photo" href="trip%20photos/sng1-1600.webp" style="--r: 1.3333"><img src="trip%20photos/sng1-800.webp" srcset="trip%20photos/sng1-640.webp 640w, trip%20photos/sng1-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="The Merlion and Marina Bay Sands at night" data-alt-en="The Merlion and Marina Bay Sands at night" data-alt-zh="夜色中的鱼尾狮与滨海湾金沙" width="800" height="600" loading="lazy" decoding="async" fetchpriority="low" /></a>
+        <a class="photo" href="trip%20photos/sng2-1600.webp" style="--r: 0.75"><img src="trip%20photos/sng2-800.webp" srcset="trip%20photos/sng2-640.webp 640w, trip%20photos/sng2-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="Looking down over Singapore's red-roofed shophouses and towers" data-alt-en="Looking down over Singapore's red-roofed shophouses and towers" data-alt-zh="俯瞰新加坡的红瓦店屋与高楼" width="600" height="800" loading="lazy" decoding="async" fetchpriority="low" /></a>
+        <a class="photo" href="trip%20photos/sng3-1600.webp" style="--r: 0.75"><img src="trip%20photos/sng3-800.webp" srcset="trip%20photos/sng3-640.webp 640w, trip%20photos/sng3-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="A red 珍珠坊 sign against a blue sky" data-alt-en="A red 珍珠坊 sign against a blue sky" data-alt-zh="蓝天下红色的“珍珠坊”招牌" width="600" height="800" loading="lazy" decoding="async" fetchpriority="low" /></a>
       </div>
     </article>
     <article class="trip reveal">
       <header class="trip-header"><span class="trip-index">02</span><h2><span class="i18n-en" lang="en">Osaka</span><span class="i18n-zh" lang="zh-CN">大阪</span></h2><time datetime="2025-11-03">2025.11.03</time></header>
       <div class="photo-row">
-        <a class="photo" href="trip%20photos/osaka1-1600.webp" style="--r: 0.75" aria-label="Osaka trip photo 1"><img src="trip%20photos/osaka1-800.webp" srcset="trip%20photos/osaka1-640.webp 640w, trip%20photos/osaka1-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="Osaka trip photo 1" width="600" height="800" loading="lazy" decoding="async" fetchpriority="low" /></a>
-        <a class="photo" href="trip%20photos/osaka2-1600.webp" style="--r: 1.3333" aria-label="Osaka trip photo 2"><img src="trip%20photos/osaka2-800.webp" srcset="trip%20photos/osaka2-640.webp 640w, trip%20photos/osaka2-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="Osaka trip photo 2" width="800" height="600" loading="lazy" decoding="async" fetchpriority="low" /></a>
-        <a class="photo" href="trip%20photos/osaka3-1600.webp" style="--r: 1.3333" aria-label="Osaka trip photo 3"><img src="trip%20photos/osaka3-800.webp" srcset="trip%20photos/osaka3-640.webp 640w, trip%20photos/osaka3-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="Osaka trip photo 3" width="800" height="600" loading="lazy" decoding="async" fetchpriority="low" /></a>
+        <a class="photo" href="trip%20photos/osaka1-1600.webp" style="--r: 0.75"><img src="trip%20photos/osaka1-800.webp" srcset="trip%20photos/osaka1-640.webp 640w, trip%20photos/osaka1-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="Tsutenkaku Tower lit up at night in Shinsekai" data-alt-en="Tsutenkaku Tower lit up at night in Shinsekai" data-alt-zh="夜晚亮灯的新世界通天阁" width="600" height="800" loading="lazy" decoding="async" fetchpriority="low" /></a>
+        <a class="photo" href="trip%20photos/osaka2-1600.webp" style="--r: 1.3333"><img src="trip%20photos/osaka2-800.webp" srcset="trip%20photos/osaka2-640.webp 640w, trip%20photos/osaka2-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="A stone stairway lined with lanterns through the trees" data-alt-en="A stone stairway lined with lanterns through the trees" data-alt-zh="林间两侧立着石灯笼的石阶" width="800" height="600" loading="lazy" decoding="async" fetchpriority="low" /></a>
+        <a class="photo" href="trip%20photos/osaka3-1600.webp" style="--r: 1.3333"><img src="trip%20photos/osaka3-800.webp" srcset="trip%20photos/osaka3-640.webp 640w, trip%20photos/osaka3-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="The Glico running man and the neon of Dotonbori at night" data-alt-en="The Glico running man and the neon of Dotonbori at night" data-alt-zh="道顿堀夜晚的格力高跑步人与霓虹" width="800" height="600" loading="lazy" decoding="async" fetchpriority="low" /></a>
       </div>
     </article>
     <article class="trip reveal">
       <header class="trip-header"><span class="trip-index">03</span><h2><span class="i18n-en" lang="en">Kyoto</span><span class="i18n-zh" lang="zh-CN">京都</span></h2><time datetime="2025-11-07">2025.11.07</time></header>
       <div class="photo-row">
-        <a class="photo" href="trip%20photos/kyoto1-1600.webp" style="--r: 1" aria-label="Kyoto trip photo 1"><img src="trip%20photos/kyoto1-800.webp" srcset="trip%20photos/kyoto1-640.webp 640w, trip%20photos/kyoto1-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="Kyoto trip photo 1" width="800" height="800" loading="lazy" decoding="async" fetchpriority="low" /></a>
-        <a class="photo" href="trip%20photos/kyoto2-1600.webp" style="--r: 1.3333" aria-label="Kyoto trip photo 2"><img src="trip%20photos/kyoto2-800.webp" srcset="trip%20photos/kyoto2-640.webp 640w, trip%20photos/kyoto2-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="Kyoto trip photo 2" width="800" height="600" loading="lazy" decoding="async" fetchpriority="low" /></a>
-        <a class="photo" href="trip%20photos/kyoto3-1600.webp" style="--r: 1.3333" aria-label="Kyoto trip photo 3"><img src="trip%20photos/kyoto3-800.webp" srcset="trip%20photos/kyoto3-640.webp 640w, trip%20photos/kyoto3-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="Kyoto trip photo 3" width="800" height="600" loading="lazy" decoding="async" fetchpriority="low" /></a>
+        <a class="photo" href="trip%20photos/kyoto1-1600.webp" style="--r: 1"><img src="trip%20photos/kyoto1-800.webp" srcset="trip%20photos/kyoto1-640.webp 640w, trip%20photos/kyoto1-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="Kinkaku-ji, the Golden Pavilion, reflected in its pond" data-alt-en="Kinkaku-ji, the Golden Pavilion, reflected in its pond" data-alt-zh="倒映在池水中的金阁寺" width="800" height="800" loading="lazy" decoding="async" fetchpriority="low" /></a>
+        <a class="photo" href="trip%20photos/kyoto2-1600.webp" style="--r: 1.3333"><img src="trip%20photos/kyoto2-800.webp" srcset="trip%20photos/kyoto2-640.webp 640w, trip%20photos/kyoto2-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="A crimson sunset over Gion-Shijo Station" data-alt-en="A crimson sunset over Gion-Shijo Station" data-alt-zh="祇园四条站上空的火红晚霞" width="800" height="600" loading="lazy" decoding="async" fetchpriority="low" /></a>
+        <a class="photo" href="trip%20photos/kyoto3-1600.webp" style="--r: 1.3333"><img src="trip%20photos/kyoto3-800.webp" srcset="trip%20photos/kyoto3-640.webp 640w, trip%20photos/kyoto3-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="A vermilion two-storey gate above a flight of stone steps" data-alt-en="A vermilion two-storey gate above a flight of stone steps" data-alt-zh="石阶之上朱红色的双层楼门" width="800" height="600" loading="lazy" decoding="async" fetchpriority="low" /></a>
       </div>
     </article>
     <article class="trip reveal">
       <header class="trip-header"><span class="trip-index">04</span><h2><span class="i18n-en" lang="en">Mount Fuji</span><span class="i18n-zh" lang="zh-CN">富士山</span></h2><time datetime="2025-11-10">2025.11.10</time></header>
       <div class="photo-row">
-        <a class="photo" href="trip%20photos/fuji1-1600.webp" style="--r: 1" aria-label="Mount Fuji trip photo 1"><img src="trip%20photos/fuji1-800.webp" srcset="trip%20photos/fuji1-640.webp 640w, trip%20photos/fuji1-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="Mount Fuji trip photo 1" width="800" height="800" loading="lazy" decoding="async" fetchpriority="low" /></a>
-        <a class="photo" href="trip%20photos/fuji2-1600.webp" style="--r: 0.75" aria-label="Mount Fuji trip photo 2"><img src="trip%20photos/fuji2-800.webp" srcset="trip%20photos/fuji2-640.webp 640w, trip%20photos/fuji2-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="Mount Fuji trip photo 2" width="600" height="800" loading="lazy" decoding="async" fetchpriority="low" /></a>
-        <a class="photo" href="trip%20photos/fuji3-1600.webp" style="--r: 0.75" aria-label="Mount Fuji trip photo 3"><img src="trip%20photos/fuji3-800.webp" srcset="trip%20photos/fuji3-640.webp 640w, trip%20photos/fuji3-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="Mount Fuji trip photo 3" width="600" height="800" loading="lazy" decoding="async" fetchpriority="low" /></a>
+        <a class="photo" href="trip%20photos/fuji1-1600.webp" style="--r: 1"><img src="trip%20photos/fuji1-800.webp" srcset="trip%20photos/fuji1-640.webp 640w, trip%20photos/fuji1-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="Snow-capped Mount Fuji reflected in a lake" data-alt-en="Snow-capped Mount Fuji reflected in a lake" data-alt-zh="倒映在湖中的雪顶富士山" width="800" height="800" loading="lazy" decoding="async" fetchpriority="low" /></a>
+        <a class="photo" href="trip%20photos/fuji2-1600.webp" style="--r: 0.75"><img src="trip%20photos/fuji2-800.webp" srcset="trip%20photos/fuji2-640.webp 640w, trip%20photos/fuji2-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="An autumn tree above a quiet square with a bench" data-alt-en="An autumn tree above a quiet square with a bench" data-alt-zh="秋日大树下安静的广场与长椅" width="600" height="800" loading="lazy" decoding="async" fetchpriority="low" /></a>
+        <a class="photo" href="trip%20photos/fuji3-1600.webp" style="--r: 0.75"><img src="trip%20photos/fuji3-800.webp" srcset="trip%20photos/fuji3-640.webp 640w, trip%20photos/fuji3-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="Red maple leaves over a carpet of yellow ginkgo" data-alt-en="Red maple leaves over a carpet of yellow ginkgo" data-alt-zh="红枫与铺满地面的金黄银杏叶" width="600" height="800" loading="lazy" decoding="async" fetchpriority="low" /></a>
       </div>
     </article>
     <article class="trip reveal">
       <header class="trip-header"><span class="trip-index">05</span><h2><span class="i18n-en" lang="en">Tokyo</span><span class="i18n-zh" lang="zh-CN">东京</span></h2><time datetime="2025-11-12">2025.11.12</time></header>
       <div class="photo-row">
-        <a class="photo" href="trip%20photos/tokyo1-1600.webp" style="--r: 0.75" aria-label="Tokyo trip photo 1"><img src="trip%20photos/tokyo1-800.webp" srcset="trip%20photos/tokyo1-640.webp 640w, trip%20photos/tokyo1-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="Tokyo trip photo 1" width="600" height="800" loading="lazy" decoding="async" fetchpriority="low" /></a>
-        <a class="photo" href="trip%20photos/tokyo2-1600.webp" style="--r: 1.3333" aria-label="Tokyo trip photo 2"><img src="trip%20photos/tokyo2-800.webp" srcset="trip%20photos/tokyo2-640.webp 640w, trip%20photos/tokyo2-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="Tokyo trip photo 2" width="800" height="600" loading="lazy" decoding="async" fetchpriority="low" /></a>
-        <a class="photo" href="trip%20photos/tokyo3-1600.webp" style="--r: 0.75" aria-label="Tokyo trip photo 3"><img src="trip%20photos/tokyo3-800.webp" srcset="trip%20photos/tokyo3-640.webp 640w, trip%20photos/tokyo3-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="Tokyo trip photo 3" width="600" height="800" loading="lazy" decoding="async" fetchpriority="low" /></a>
+        <a class="photo" href="trip%20photos/tokyo1-1600.webp" style="--r: 0.75"><img src="trip%20photos/tokyo1-800.webp" srcset="trip%20photos/tokyo1-640.webp 640w, trip%20photos/tokyo1-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="Tokyo Skytree at dusk across the river" data-alt-en="Tokyo Skytree at dusk across the river" data-alt-zh="黄昏时隔河望见的东京晴空塔" width="600" height="800" loading="lazy" decoding="async" fetchpriority="low" /></a>
+        <a class="photo" href="trip%20photos/tokyo2-1600.webp" style="--r: 1.3333"><img src="trip%20photos/tokyo2-800.webp" srcset="trip%20photos/tokyo2-640.webp 640w, trip%20photos/tokyo2-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="Shibuya's neon-lit crossing at night" data-alt-en="Shibuya's neon-lit crossing at night" data-alt-zh="夜晚霓虹闪烁的涩谷十字路口" width="800" height="600" loading="lazy" decoding="async" fetchpriority="low" /></a>
+        <a class="photo" href="trip%20photos/tokyo3-1600.webp" style="--r: 0.75"><img src="trip%20photos/tokyo3-800.webp" srcset="trip%20photos/tokyo3-640.webp 640w, trip%20photos/tokyo3-800.webp 800w" sizes="(max-width: 720px) calc(100vw - 40px), 340px" alt="Tokyo Tower under a cloudy sky" data-alt-en="Tokyo Tower under a cloudy sky" data-alt-zh="阴天下的东京塔" width="600" height="800" loading="lazy" decoding="async" fetchpriority="low" /></a>
       </div>
     </article>
     </div>
   </section>
 </main>
+
+<nav class="article-toc" aria-labelledby="toc-title" hidden>
+  <p id="toc-title"><span class="i18n-en" lang="en">On this page</span><span class="i18n-zh" lang="zh-CN">本文目录</span></p>
+  <ol></ol>
+</nav>
+<div class="toast" role="status" aria-live="polite"></div>
 
 <footer class="site-footer">
   <p>&copy; <span id="year">2026</span> Jack Ye</p>
@@ -2554,7 +2832,7 @@
     <button class="lightbox-button lightbox-close" type="button" aria-label="Close"><svg class="icon icon-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
     <button class="lightbox-button lightbox-prev" type="button" aria-label="Previous photo"><svg class="icon icon-chevron-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
     <button class="lightbox-button lightbox-next" type="button" aria-label="Next photo"><svg class="icon icon-chevron-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
-    <p class="lightbox-caption" aria-live="polite"><strong class="lightbox-title"></strong><span class="lightbox-count tabular"></span></p>
+    <p class="lightbox-caption" aria-live="polite"><strong class="lightbox-title"></strong><span class="lightbox-text"></span><span class="lightbox-count tabular"></span></p>
   </div>
 </dialog>
 
@@ -2573,6 +2851,9 @@
   var navLinks = document.querySelectorAll('.nav-link[data-view]');
   var views = document.querySelectorAll('.view');
   var progressBar = document.querySelector('.read-progress span');
+  var toc = document.querySelector('.article-toc');
+  var tocList = toc ? toc.querySelector('ol') : null;
+  var toast = document.querySelector('.toast');
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   var systemDark = window.matchMedia('(prefers-color-scheme: dark)');
   var compactLayout = window.matchMedia('(max-width: 720px)');
@@ -2584,6 +2865,10 @@
   var revealObserver = null;
   var lastScrollY = 0;
   var scrollQueued = false;
+  var articlesEnhanced = false;
+  var tocHeadings = [];
+  var tocLinks = [];
+  var toastTimer = 0;
   var mediaWarmers = [];
   var warmedArticleSources = {};
   var mediaWarmupStarted = false;
@@ -2596,32 +2881,42 @@
     return '<span class="i18n-en" lang="en">' + en + '</span><span class="i18n-zh" lang="zh-CN">' + zh + '</span>';
   }
 
+  function whenIdle(task) {
+    if ('requestIdleCallback' in window) window.requestIdleCallback(task, { timeout: 2000 });
+    else window.setTimeout(task, 300);
+  }
+
   function getWarmupSources() {
     var sources = [];
+    var seen = {};
     var travelImages = document.querySelectorAll('#view-travel img');
     var chartImages = document.querySelectorAll('.article-figure:not(.article-figure--agent) img');
 
-    for (var travelIndex = 0; travelIndex < travelImages.length; travelIndex++) {
-      var srcset = travelImages[travelIndex].getAttribute('srcset') || '';
-      var preferredSource = srcset ? srcset.split(',')[0].trim().split(/\s+/)[0] : travelImages[travelIndex].getAttribute('src');
-      if (preferredSource && sources.indexOf(preferredSource) === -1) sources.push(preferredSource);
+    function add(image) {
+      var key = image.getAttribute('srcset') || image.getAttribute('src');
+      if (!key || seen[key]) return;
+      seen[key] = true;
+      sources.push(image);
     }
-    for (var chartIndex = 0; chartIndex < chartImages.length; chartIndex++) {
-      var chartSource = chartImages[chartIndex].getAttribute('src');
-      if (chartSource && sources.indexOf(chartSource) === -1) sources.push(chartSource);
-    }
+    for (var travelIndex = 0; travelIndex < travelImages.length; travelIndex++) add(travelImages[travelIndex]);
+    for (var chartIndex = 0; chartIndex < chartImages.length; chartIndex++) add(chartImages[chartIndex]);
     return sources;
   }
 
+  // Fetched only once a visitor heads for Travel, so other visits stay light.
   function warmHeavyMedia() {
     if (mediaWarmupStarted) return;
     mediaWarmupStarted = true;
     var sources = getWarmupSources();
     for (var sourceIndex = 0; sourceIndex < sources.length; sourceIndex++) {
+      var source = sources[sourceIndex];
       var warmer = new Image();
       warmer.decoding = 'async';
       warmer.fetchPriority = sourceIndex < 6 ? 'high' : 'low';
-      warmer.src = sources[sourceIndex];
+      // Matching sizes and srcset lets the browser pick the candidate the page itself will use.
+      if (source.getAttribute('sizes')) warmer.sizes = source.getAttribute('sizes');
+      if (source.getAttribute('srcset')) warmer.srcset = source.getAttribute('srcset');
+      warmer.src = source.getAttribute('src');
       mediaWarmers.push(warmer);
     }
   }
@@ -2679,11 +2974,24 @@
     }
   }
 
+  // Visitors whose browser prefers Chinese start in Chinese until they choose.
+  function browserLanguage() {
+    var languages = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ''];
+    for (var languageIndex = 0; languageIndex < languages.length; languageIndex++) {
+      var code = String(languages[languageIndex]).toLowerCase();
+      if (code.indexOf('zh') === 0) return 'zh';
+      if (code.indexOf('en') === 0) return 'en';
+    }
+    return 'en';
+  }
+
   function readPreferences() {
+    var storedLanguage = null;
     try {
-      lang = localStorage.getItem('jye-lang') === 'zh' ? 'zh' : 'en';
+      storedLanguage = localStorage.getItem('jye-lang');
       storedTheme = localStorage.getItem('jye-theme');
     } catch (e) {}
+    lang = storedLanguage === 'zh' || storedLanguage === 'en' ? storedLanguage : browserLanguage();
     if (storedTheme !== 'dark' && storedTheme !== 'light') storedTheme = null;
     theme = storedTheme || (systemDark.matches ? 'dark' : 'light');
   }
@@ -2699,12 +3007,21 @@
     document.title = label ? label + ' — Jack Ye' : 'Jack Ye';
   }
 
+  function applyPhotoText() {
+    var images = document.querySelectorAll('#view-travel img[data-alt-en]');
+    for (var imageIndex = 0; imageIndex < images.length; imageIndex++) {
+      images[imageIndex].alt = images[imageIndex].getAttribute(lang === 'zh' ? 'data-alt-zh' : 'data-alt-en');
+    }
+  }
+
   function applyLanguage() {
     html.lang = lang === 'zh' ? 'zh-CN' : 'en';
     html.setAttribute('data-lang', lang);
     langButton.setAttribute('aria-label', lang === 'zh' ? '切换到英文' : 'Switch to Chinese');
     updateThemeButton();
     updateDocumentTitle();
+    applyPhotoText();
+    buildToc();
     moveIndicator(indicatorPlaced);
   }
 
@@ -2746,8 +3063,10 @@
     navIndicator.style.transform = 'translateX(' + active.offsetLeft + 'px)';
     navIndicator.style.opacity = '1';
     if (!animate) {
-      void navIndicator.offsetWidth;
-      navIndicator.classList.remove('is-instant');
+      // Re-enable the glide after the jump has been painted, without forcing a layout.
+      window.requestAnimationFrame(function () {
+        window.requestAnimationFrame(function () { navIndicator.classList.remove('is-instant'); });
+      });
     }
     indicatorPlaced = true;
     if (nav.scrollWidth > nav.clientWidth) {
@@ -2777,21 +3096,49 @@
     }, { rootMargin: '0px 0px -6% 0px' });
   }
 
+  // On first load the visible screen is painted straight away; only content below the fold waits for its reveal.
+  function deferOffscreenReveals(view) {
+    if (!revealObserver) return;
+    var items = view.querySelectorAll('.reveal');
+    for (var itemIndex = 0; itemIndex < items.length; itemIndex++) {
+      if (items[itemIndex].getBoundingClientRect().top < window.innerHeight) continue;
+      items[itemIndex].classList.add('is-pending');
+      revealObserver.observe(items[itemIndex]);
+    }
+  }
+
   function replayReveals(view) {
     if (!revealObserver) return;
     var items = view.querySelectorAll('.reveal');
     for (var itemIndex = 0; itemIndex < items.length; itemIndex++) {
       items[itemIndex].classList.remove('is-revealed');
+      items[itemIndex].classList.add('is-pending');
       revealObserver.observe(items[itemIndex]);
     }
   }
 
+  function headingFor(route) {
+    if (route.article) return route.article.querySelector('.article-title');
+    var view = document.getElementById('view-' + route.id);
+    return view ? view.querySelector('h1') : null;
+  }
+
+  // Moving focus to the new page's heading lets keyboard and screen-reader users continue from there.
+  function focusHeading(route) {
+    var heading = headingFor(route);
+    if (!heading) return;
+    if (!heading.hasAttribute('tabindex')) heading.setAttribute('tabindex', '-1');
+    heading.focus({ preventScroll: true });
+  }
+
   function showView(restoreScrollY) {
     var route = resolveRoute();
+    var initial = currentRoute === null;
     var changed = route.key !== currentRoute;
     currentRoute = route.key;
     applyArticleRoute(route.article);
     body.setAttribute('data-view', route.id);
+    if (route.id === 'articles') enhanceArticles();
 
     prioritizeViewMedia(route.id);
     for (var i = 0; i < views.length; i++) views[i].hidden = views[i].id !== 'view-' + route.id;
@@ -2803,6 +3150,7 @@
     html.removeAttribute('data-initial-view');
     moveIndicator(indicatorPlaced);
     updateDocumentTitle();
+    buildToc();
 
     if (typeof restoreScrollY === 'number') {
       window.scrollTo(0, restoreScrollY);
@@ -2810,7 +3158,12 @@
       window.scrollTo(0, 0);
       window.requestAnimationFrame(function () { window.scrollTo(0, 0); });
     }
-    if (changed) replayReveals(document.getElementById('view-' + route.id));
+    var view = document.getElementById('view-' + route.id);
+    if (initial) deferOffscreenReveals(view);
+    else if (changed) {
+      replayReveals(view);
+      focusHeading(route);
+    }
     syncScrollState();
   }
 
@@ -2846,9 +3199,54 @@
       var progress = body.classList.contains('article-reader') && maxScroll > 0 ? Math.min(1, y / maxScroll) : 0;
       progressBar.style.transform = 'scaleX(' + progress + ')';
     }
+    syncToc();
+  }
+
+  function buildToc() {
+    tocHeadings = [];
+    tocLinks = [];
+    if (!toc) return;
+    var article = body.classList.contains('article-reader') ? document.querySelector('.article-entry.is-active-article') : null;
+    var content = article ? article.querySelector('.article-content[data-article-lang="' + lang + '"]') : null;
+    var headings = content ? content.querySelectorAll('h3') : [];
+    tocList.textContent = '';
+    if (headings.length < 3) {
+      toc.hidden = true;
+      return;
+    }
+    for (var headingIndex = 0; headingIndex < headings.length; headingIndex++) {
+      var heading = headings[headingIndex];
+      if (!heading.id) heading.id = article.getAttribute('data-article') + '-' + lang + '-' + (headingIndex + 1);
+      var item = document.createElement('li');
+      var link = document.createElement('a');
+      link.href = '#' + heading.id;
+      link.textContent = heading.textContent;
+      link.setAttribute('data-toc', '');
+      item.appendChild(link);
+      tocList.appendChild(item);
+      tocHeadings.push(heading);
+      tocLinks.push(link);
+    }
+    toc.hidden = false;
+    syncToc();
+  }
+
+  function syncToc() {
+    if (!tocHeadings.length) return;
+    var readingLine = window.innerHeight * 0.3;
+    var active = 0;
+    for (var headingIndex = 0; headingIndex < tocHeadings.length; headingIndex++) {
+      if (tocHeadings[headingIndex].getBoundingClientRect().top <= readingLine) active = headingIndex;
+    }
+    for (var linkIndex = 0; linkIndex < tocLinks.length; linkIndex++) {
+      if (linkIndex === active) tocLinks[linkIndex].setAttribute('aria-current', 'true');
+      else tocLinks[linkIndex].removeAttribute('aria-current');
+    }
   }
 
   function enhanceArticles() {
+    if (articlesEnhanced) return;
+    articlesEnhanced = true;
     for (var entryIndex = 0; entryIndex < articleEntries.length; entryIndex++) {
       var entry = articleEntries[entryIndex];
       var readingTime = entry.querySelector('.article-reading-time');
@@ -2877,15 +3275,22 @@
 
   function setupPhotoFades() {
     var images = document.querySelectorAll('.photo img');
-    function markLoaded() { this.classList.add('is-loaded'); }
+    function markLoaded() { this.classList.remove('is-pending'); }
     for (var imageIndex = 0; imageIndex < images.length; imageIndex++) {
       var image = images[imageIndex];
-      if (image.complete && image.naturalWidth) image.classList.add('is-loaded');
-      else {
-        image.addEventListener('load', markLoaded, { once: true });
-        image.addEventListener('error', markLoaded, { once: true });
-      }
+      if (image.complete && image.naturalWidth) continue;
+      image.classList.add('is-pending');
+      image.addEventListener('load', markLoaded, { once: true });
+      image.addEventListener('error', markLoaded, { once: true });
     }
+  }
+
+  function showToast(message) {
+    if (!toast) return;
+    toast.innerHTML = message;
+    toast.classList.add('is-visible');
+    window.clearTimeout(toastTimer);
+    toastTimer = window.setTimeout(function () { toast.classList.remove('is-visible'); }, 2400);
   }
 
   function setupLightbox() {
@@ -2896,6 +3301,7 @@
     var stage = dialog.querySelector('.lightbox-stage');
     var scrim = dialog.querySelector('.lightbox-scrim');
     var captionTitle = dialog.querySelector('.lightbox-title');
+    var captionText = dialog.querySelector('.lightbox-text');
     var captionCount = dialog.querySelector('.lightbox-count');
     var easing = 'cubic-bezier(0.22, 1, 0.36, 1)';
     var index = -1;
@@ -2913,7 +3319,7 @@
       var compact = compactLayout.matches;
       var sidePadding = compact ? 12 : 96;
       var topPadding = compact ? 68 : 72;
-      var bottomPadding = compact ? 84 : 72;
+      var bottomPadding = compact ? 104 : 88;
       var maxWidth = window.innerWidth - sidePadding * 2;
       var maxHeight = window.innerHeight - topPadding - bottomPadding;
       var width = Math.min(maxWidth, maxHeight * ratio, ratio >= 1 ? 1600 : 1600 * ratio);
@@ -2957,7 +3363,9 @@
       var trip = photo.closest('.trip');
       var tripPhotos = trip.querySelectorAll('.photo');
       captionTitle.innerHTML = trip.querySelector('h2').innerHTML;
+      captionText.textContent = photo.querySelector('img').alt;
       captionCount.textContent = (Array.prototype.indexOf.call(tripPhotos, photo) + 1) + ' / ' + tripPhotos.length;
+      if (image) image.alt = photo.querySelector('img').alt;
     }
 
     function lockFor(duration) {
@@ -3144,6 +3552,7 @@
     try { localStorage.setItem('jye-lang', lang); } catch (e) {}
     withViewTransition('lang', applyLanguage);
     if (document.body.classList.contains('article-reader')) prioritizeViewMedia('articles');
+    if (lightbox) lightbox.refreshCaption();
   });
 
   themeButton.addEventListener('click', function () {
@@ -3175,12 +3584,39 @@
   for (var navIndex = 0; navIndex < navLinks.length; navIndex++) {
     if (navLinks[navIndex].getAttribute('data-view') === 'travel') {
       navLinks[navIndex].addEventListener('pointerenter', warmHeavyMedia, { once: true });
+      navLinks[navIndex].addEventListener('pointerdown', warmHeavyMedia, { once: true });
       navLinks[navIndex].addEventListener('focus', warmHeavyMedia, { once: true });
     }
   }
 
   document.addEventListener('click', function (event) {
-    var link = event.target.closest ? event.target.closest('a[data-route]') : null;
+    if (!event.target.closest) return;
+    var copy = event.target.closest('[data-copy]');
+    if (copy && navigator.clipboard && window.isSecureContext) {
+      // The mail app still opens; the copied address helps when no mail app is set up.
+      navigator.clipboard.writeText(copy.getAttribute('data-copy')).then(function () {
+        showToast(bilingual('Email address copied', '邮箱地址已复制'));
+      }, function () {});
+    }
+
+    var tocLink = event.target.closest('a[data-toc]');
+    if (tocLink) {
+      event.preventDefault();
+      var heading = document.getElementById(tocLink.getAttribute('href').slice(1));
+      if (!heading) return;
+      heading.scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth', block: 'start' });
+      if (!heading.hasAttribute('tabindex')) heading.setAttribute('tabindex', '-1');
+      heading.focus({ preventScroll: true });
+      return;
+    }
+
+    if (event.target.closest('.skip-link')) {
+      event.preventDefault();
+      focusHeading(resolveRoute());
+      return;
+    }
+
+    var link = event.target.closest('a[data-route]');
     if (!link || event.defaultPrevented) return;
     if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     event.preventDefault();
@@ -3216,21 +3652,18 @@
     readPreferences();
     applyTheme();
     applyLanguage();
-    enhanceArticles();
     setupPhotoFades();
     setupReveals();
     lightbox = setupLightbox();
     showView();
     document.getElementById('year').textContent = String(new Date().getFullYear());
-    langButton.addEventListener('click', function () { if (lightbox) lightbox.refreshCaption(); });
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { moveIndicator(false); });
   } catch (error) {
     html.classList.remove('motion');
     throw error;
   }
 
-  if ('requestIdleCallback' in window) window.requestIdleCallback(warmHeavyMedia, { timeout: 300 });
-  else window.setTimeout(warmHeavyMedia, 0);
+  whenIdle(enhanceArticles);
 })();
 </script>
 </body>
