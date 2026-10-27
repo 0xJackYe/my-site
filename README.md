@@ -4,8 +4,8 @@ A single-file, zero-dependency personal website with a quiet warm-neutral interf
 
 ## Sections
 
-- Home: avatar, short introduction, platform links, and public profile information
-- Experience: work history on a timeline
+- Home: avatar, platform links, and public profile information on a single screen
+- Experience: work history on a timeline, also sized to fit one screen
 - Projects: bilingual showcases for AItour and RoommateDistributor
 - Blog: Markdown essays with reading time, a reading-progress bar, and next-post links
 - Solo Trip: Singapore, Osaka, Kyoto, Mount Fuji, and Tokyo photo journals with a full-screen photo viewer
