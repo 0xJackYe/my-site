@@ -212,12 +212,11 @@
   }
 
   .topbar-inner > * { pointer-events: auto; }
-  .topbar-start { justify-self: start; }
-  .toolbar { justify-self: end; display: flex; gap: 8px; }
+  .nav { grid-column: 2; }
+  .toolbar { grid-column: 3; justify-self: end; display: flex; gap: 8px; }
 
   .nav,
-  .icon-button,
-  .private-entry {
+  .icon-button {
     border: 1px solid var(--line);
     background: var(--glass);
     box-shadow: var(--shadow-sm);
@@ -301,28 +300,11 @@
 
   .icon-button .icon { width: 18px; height: 18px; }
 
-  .private-entry {
-    height: 40px;
-    padding: 0 calc(16px - 0.3em) 0 16px;
-    border-radius: 999px;
-    color: var(--muted);
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.3em;
-    white-space: nowrap;
-    transition: color 250ms ease, background-color 250ms ease, border-color 250ms ease, transform 300ms var(--ease-out);
-  }
-
-  .private-entry[data-unlocked] { padding: 0 16px; color: var(--fg); font-size: 13px; letter-spacing: 0; }
-  .private-entry[aria-expanded="true"] { border-color: var(--accent); color: var(--fg); }
-
   @media (hover: hover) {
-    .icon-button:hover,
-    .private-entry:hover { background: var(--bg-elevated); border-color: var(--line-strong); color: var(--fg); }
+    .icon-button:hover { background: var(--bg-elevated); border-color: var(--line-strong); color: var(--fg); }
   }
 
-  .icon-button:active,
-  .private-entry:active { transform: scale(0.93); }
+  .icon-button:active { transform: scale(0.93); }
 
   .theme-icon .sun-core,
   .theme-icon .sun-rays,
@@ -355,82 +337,6 @@
   }
 
   body.article-reader .read-progress { opacity: 1; }
-
-  /* Private access */
-  .private-dialog {
-    width: min(400px, calc(100vw - 32px));
-    margin: auto;
-    padding: 32px 28px 24px;
-    border: 1px solid var(--line);
-    border-radius: 24px;
-    background: var(--bg-elevated);
-    color: var(--fg);
-    box-shadow: var(--shadow-lg);
-  }
-
-  .private-dialog[open] { animation: dialog-in 420ms var(--ease-out); }
-  .private-dialog::backdrop { background: rgba(10, 10, 9, 0.32); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
-  .private-dialog[open]::backdrop { animation: fade-in 300ms ease; }
-  .private-dialog h2 { margin-bottom: 8px; font-size: 22px; font-weight: 600; }
-  .private-dialog p { color: var(--muted); font-size: 14px; line-height: 1.6; }
-  .private-dialog label { display: block; margin: 24px 0 8px; color: var(--muted); font-size: 13px; }
-
-  .private-dialog input {
-    width: 100%;
-    height: 56px;
-    padding: 0 16px;
-    border: 1px solid var(--line-strong);
-    border-radius: 14px;
-    background: var(--surface);
-    color: var(--fg);
-    font: 500 22px/1 var(--font-mono);
-    letter-spacing: 0.5em;
-    text-align: center;
-    transition: border-color 200ms ease, box-shadow 200ms ease;
-  }
-
-  .private-dialog input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
-  .private-dialog .private-error { min-height: 22px; margin: 10px 0 14px; color: var(--accent); font-size: 13px; }
-  .private-dialog-actions { display: flex; justify-content: flex-end; gap: 8px; }
-
-  .private-action {
-    height: 38px;
-    padding: 0 18px;
-    border: 1px solid var(--line-strong);
-    border-radius: 999px;
-    background: transparent;
-    color: var(--fg);
-    font-size: 14px;
-    font-weight: 500;
-    transition: background-color 200ms ease, transform 250ms var(--ease-out), opacity 200ms ease;
-  }
-
-  .private-action:hover { background: var(--surface); }
-  .private-action:active { transform: scale(0.96); }
-  .private-action.primary { border-color: var(--fg); background: var(--fg); color: var(--bg); }
-  .private-action.primary:hover { opacity: 0.88; }
-  .private-action:disabled { opacity: 0.5; cursor: wait; }
-
-  .private-panel {
-    position: fixed;
-    z-index: 29;
-    inset: 84px 16px 16px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    border: 1px solid var(--line);
-    border-radius: 22px;
-    background: var(--bg-elevated);
-    box-shadow: var(--shadow-lg);
-    animation: panel-in 520ms var(--ease-out);
-  }
-
-  .private-panel[hidden] { display: none; }
-  .private-panel-head { display: flex; align-items: center; gap: 8px; padding: 10px 12px 10px 20px; border-bottom: 1px solid var(--line); }
-  .private-panel-head strong { flex: 1; font-size: 15px; font-weight: 600; }
-  .private-panel-head .private-action { height: 34px; padding: 0 14px; font-size: 13px; }
-  .private-panel iframe { flex: 1; width: 100%; min-height: 0; border: 0; background: #f4f1e9; }
-  .private-open { overflow: hidden; }
 
   /* Layout */
   main {
@@ -518,9 +424,6 @@
     transition: none !important;
   }
 
-  @keyframes fade-in { from { opacity: 0; } }
-  @keyframes dialog-in { from { opacity: 0; transform: translateY(14px) scale(0.97); } }
-  @keyframes panel-in { from { opacity: 0; transform: translateY(16px) scale(0.985); } }
 
   /* Home */
   .home {
@@ -1298,7 +1201,7 @@
     }
 
     body { padding-top: calc(var(--header-h) + 28px); }
-    .topbar-inner { grid-template-columns: 1fr auto; padding: 0 16px; }
+    .topbar-inner { padding: 0 16px; }
 
     .nav {
       position: fixed;
@@ -1316,9 +1219,6 @@
     .topbar.nav-hidden .nav { transform: translate(-50%, calc(100% + 40px)); }
     .nav-link { height: 38px; padding: 0 11px; font-size: 13px; }
     .nav-indicator { height: 38px; }
-
-    .private-panel { inset: 72px 8px calc(78px + env(safe-area-inset-bottom, 0px)); border-radius: 18px; }
-    .private-panel-head { padding: 8px 8px 8px 14px; }
 
     .page-head { margin-bottom: 40px; }
     .page-lede { font-size: 17px; }
@@ -1379,9 +1279,6 @@
 <div class="read-progress" aria-hidden="true"><span></span></div>
 <header class="topbar">
   <div class="topbar-inner">
-    <div class="topbar-start">
-      <button class="private-entry" id="private-entry" type="button" aria-label="解锁访问" aria-expanded="false" aria-controls="private-panel">••••••</button>
-    </div>
     <nav class="nav" aria-label="Site sections">
       <span class="nav-indicator" aria-hidden="true"></span>
       <a class="nav-link" href="#home" data-view="home" data-route><span class="i18n-en" lang="en">Home</span><span class="i18n-zh" lang="zh-CN">主页</span></a>
@@ -1396,20 +1293,6 @@
     </div>
   </div>
 </header>
-
-<dialog class="private-dialog" id="private-dialog" aria-labelledby="private-dialog-title">
-  <form id="private-form">
-    <h2 id="private-dialog-title">解锁访问</h2>
-    <p>输入密码后，显示入口名称与页面内容。</p>
-    <label for="private-password">访问密码</label>
-    <input id="private-password" name="password" type="password" inputmode="numeric" pattern="[0-9]{6}" minlength="6" maxlength="6" autocomplete="current-password" required autofocus aria-describedby="private-error">
-    <p class="private-error" id="private-error" role="status" aria-live="polite"></p>
-    <div class="private-dialog-actions"><button class="private-action" id="private-cancel" type="button">取消</button><button class="private-action primary" id="private-submit" type="submit">解锁</button></div>
-  </form>
-</dialog>
-<section class="private-panel" id="private-panel" aria-label="已解锁页面" hidden>
-  <header class="private-panel-head"><strong id="private-title"></strong><button class="private-action" id="private-lock" type="button">重新锁定</button><button class="private-action" id="private-close" type="button">返回网站</button></header>
-</section>
 
 <main>
   <section class="view" id="view-home" aria-labelledby="home-name">
@@ -2937,7 +2820,7 @@
     var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
     topbar.classList.toggle('is-scrolled', y > 4);
 
-    if (!compactLayout.matches || y < 120 || y >= maxScroll - 48 || body.classList.contains('private-open')) {
+    if (!compactLayout.matches || y < 120 || y >= maxScroll - 48) {
       topbar.classList.remove('nav-hidden');
       lastScrollY = y;
     } else if (Math.abs(y - lastScrollY) > 10) {
@@ -3336,6 +3219,5 @@
   else window.setTimeout(warmHeavyMedia, 0);
 })();
 </script>
-<script src="/assets/private-entry.js?v=20261008-pages" defer></script>
 </body>
 </html>
