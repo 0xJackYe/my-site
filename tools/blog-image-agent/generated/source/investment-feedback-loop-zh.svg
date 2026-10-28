@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
   <title id="title">价格变化、情绪、选择性证据和投资行动相互强化的循环图</title>
-  <desc id="desc">图：价格先改变情绪，情绪再筛选证据，行动最终把判断推回市场。</desc>
+  <desc id="desc">图：价格一动，情绪跟着动；情绪挑选证据，下一笔交易又把价格推了出去。</desc>
   <rect width="1200" height="675" fill="#f3f0e8"/>
   <style>
     text { font-family: Arial, "Microsoft YaHei", "PingFang SC", sans-serif; fill: #181714; letter-spacing: 0; }
@@ -23,5 +23,5 @@
   <path class="strong" d="M920 265 V390" marker-end="url(#arrow)"/>
   <path class="strong" d="M760 478 H455" marker-end="url(#arrow)"/>
   <path class="accent" d="M280 405 V280" marker-end="url(#arrow-accent)"/>
-  <circle cx="600" cy="337" r="63" fill="#181714"/><text class="inverse" x="600" y="329" text-anchor="middle" style="font-size:18px;font-weight:700">自我强化</text><text class="inverse" x="600" y="355" text-anchor="middle" style="font-size:18px;font-weight:700">反馈</text>
+  <circle cx="600" cy="337" r="80" fill="#181714"/><text class="inverse" x="600" y="331" text-anchor="middle" style="font-size:19px;font-weight:700">自我强化</text><text class="inverse" x="600" y="355" text-anchor="middle" style="font-size:19px;font-weight:700">的循环</text>
 </svg>

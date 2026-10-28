@@ -19,8 +19,8 @@ export const opportunityTemplates = [
     width: 1200,
     height: 675,
     cues: {
-      zh: ["很多时候，事实根本没有发生变化，变化的只是价格"],
-      en: ["Often, the facts have not changed at all. Only the price has changed"],
+      zh: ["很多时候，事实一点都没变，变的只是价格"],
+      en: ["Often the facts haven’t changed at all. Only the price has"],
     },
     keywords: {
       zh: ["价格", "情绪", "信息", "证明", "循环"],
@@ -38,8 +38,8 @@ export const opportunityTemplates = [
       en: "A loop showing price movement, emotion, selective evidence, and investor action reinforcing one another",
     },
     caption: {
-      zh: "图：价格先改变情绪，情绪再筛选证据，行动最终把判断推回市场。",
-      en: "Figure: Price changes emotion, emotion filters evidence, and action feeds the judgment back into the market.",
+      zh: "图：价格一动，情绪跟着动；情绪挑选证据，下一笔交易又把价格推了出去。",
+      en: "Figure: The price moves, the mood follows, the mood picks the evidence, and the next trade pushes the price again.",
     },
     explanatoryValue: 0.97,
   },
@@ -52,8 +52,8 @@ export const opportunityTemplates = [
     width: 1536,
     height: 1024,
     cues: {
-      zh: ["如果一个人站在一厘米高的木板上"],
-      en: ["A person can balance comfortably on a board one centimeter above the ground"],
+      zh: ["站在离地一厘米的木板上"],
+      en: ["Picture a board one centimeter off the ground"],
     },
     keywords: {
       zh: ["木板", "一百米", "平衡", "犯错", "仓位"],
@@ -71,8 +71,8 @@ export const opportunityTemplates = [
       en: "The same board close to the ground and spanning between high buildings, showing how position size changes the cost of a mistake",
     },
     caption: {
-      zh: "图：平衡能力没有变，变化的是犯错的代价。仓位也会这样改变判断。",
-      en: "Figure: The ability to balance has not changed; the cost of a mistake has. Position size can alter judgment in the same way.",
+      zh: "图：同一块木板，同样的平衡感，变的只是失足的代价。仓位也是这样改变判断的。",
+      en: "Figure: Same board, same sense of balance; only the cost of a slip has changed. Position size does the same thing to judgment.",
     },
     explanatoryValue: 0.91,
   },
@@ -85,8 +85,8 @@ export const opportunityTemplates = [
     width: 1200,
     height: 675,
     cues: {
-      zh: ["有一万人急着解决一个问题，只有一百个人会解决"],
-      en: ["If ten thousand people urgently need a problem solved and only one hundred know how to solve it"],
+      zh: ["有一万个人急着解决一个问题"],
+      en: ["Ten thousand people urgently need a problem solved"],
     },
     keywords: {
       zh: ["需要", "提供", "影响", "稀缺", "价值"],
@@ -104,8 +104,8 @@ export const opportunityTemplates = [
       en: "Three factors for judging a scarce skill: demand, constrained supply, and impact on outcomes",
     },
     caption: {
-      zh: "图：困难本身不产生价值；真实需求、有限供给与结果影响缺一不可。",
-      en: "Figure: Difficulty alone does not create value; real demand, limited supply, and meaningful impact must meet.",
+      zh: "图：难学不等于值钱。很多人需要、很少人能做、做了能改变重要的结果，三者缺一不可。",
+      en: "Figure: Being hard to learn isn’t enough. A skill pays when many people need it, few can supply it, and it changes an outcome that matters.",
     },
     explanatoryValue: 0.98,
   },
@@ -119,7 +119,7 @@ export const opportunityTemplates = [
     height: 675,
     cues: {
       zh: ["单项能力根本不需要做到世界第一"],
-      en: ["No single ability has to be the best in the world"],
+      en: ["No single ability has to be world-class"],
     },
     keywords: {
       zh: ["编程", "沟通", "英语", "行业知识", "项目经验"],
@@ -137,8 +137,8 @@ export const opportunityTemplates = [
       en: "Programming, communication, English, and industry experience progressively reduce the number of people who meet every condition",
     },
     caption: {
-      zh: "图：不必在单一维度击败所有人，互补能力的交集本身就能形成稀缺。",
-      en: "Figure: You do not need to beat everyone on one axis; the intersection of complementary abilities can itself be scarce.",
+      zh: "图：不必在一条轴上打败所有人，每多一项互补的能力，真正的竞争者就少一圈。",
+      en: "Figure: You don’t have to beat everyone on one axis. Every complementary skill you add shrinks the field.",
     },
     explanatoryValue: 0.94,
   },
@@ -151,12 +151,12 @@ export const opportunityTemplates = [
     width: 1200,
     height: 675,
     cues: {
-      zh: ["简单来说比特币是一个分布式账本"],
-      en: ["Put simply, Bitcoin is a distributed ledger"],
+      zh: ["比特币换了一种做法"],
+      en: ["Bitcoin does it differently"],
     },
     keywords: {
-      zh: ["传统", "机构", "矿工", "账本", "恶意节点"],
-      en: ["traditional", "institution", "miner", "ledger", "malicious node"],
+      zh: ["传统", "机构", "节点", "账本", "拒绝"],
+      en: ["traditional", "institution", "nodes", "ledger", "rejected"],
     },
     visualRole: "Contrast a single trusted ledger with a network of mutually checking copies",
     subject: {
@@ -170,8 +170,8 @@ export const opportunityTemplates = [
       en: "A comparison between one institution keeping the ledger and many nodes maintaining matching copies",
     },
     caption: {
-      zh: "图：传统系统把信任集中在一个记账者，比特币把核验分散给网络节点。",
-      en: "Figure: Traditional systems concentrate trust in one bookkeeper; Bitcoin distributes verification across network nodes.",
+      zh: "图：银行只有一本账，大家只能信它；比特币让每个节点各存一份，各自核对。",
+      en: "Figure: A bank keeps one ledger that everyone has to trust. Bitcoin gives every node its own copy and lets each one check the new blocks.",
     },
     explanatoryValue: 0.99,
   },
@@ -184,8 +184,8 @@ export const opportunityTemplates = [
     width: 1200,
     height: 675,
     cues: {
-      zh: ["比特币的网络是由区块组成的"],
-      en: ["The Bitcoin network consists of blocks linked together in a chain"],
+      zh: ["一笔转账通常要等 20 到 30 分钟才算到账"],
+      en: ["A transfer usually takes 20 to 30 minutes to arrive"],
     },
     keywords: {
       zh: ["交易", "矿工", "区块", "确认", "手续费"],
@@ -203,8 +203,8 @@ export const opportunityTemplates = [
       en: "A Bitcoin transaction moving through broadcast, the mempool, miner selection, and block confirmations",
     },
     caption: {
-      zh: "图：交易先进入待处理池，矿工按规则打包进区块，后续区块继续增加确认。",
-      en: "Figure: A transaction waits in the mempool, is selected into a block, and gains confidence as later blocks add confirmations.",
+      zh: "图：交易广播出去，在内存池里排队，被矿工打包进区块，之后每多一个区块就多一次确认。",
+      en: "Figure: A transaction is broadcast, waits in the mempool, gets picked into a block, and gains a confirmation with every block after that.",
     },
     explanatoryValue: 0.98,
   },
@@ -217,8 +217,8 @@ export const opportunityTemplates = [
     width: 1200,
     height: 675,
     cues: {
-      zh: ["用户则是比特币生态的终端角色"],
-      en: ["Users are the final participants in the Bitcoin ecosystem"],
+      zh: ["矿工、开发者、用户，三方的权力来源各不相同"],
+      en: ["Miners, developers and users draw their power from different places"],
     },
     keywords: {
       zh: ["矿工", "开发者", "用户", "拒绝", "三权分立"],
@@ -236,8 +236,8 @@ export const opportunityTemplates = [
       en: "A triangular map of miners, developers, and users checking one another around Bitcoin's rules",
     },
     caption: {
-      zh: "图：三个群体权力来源不同，任何一方都难以单独把自己的规则强加给整个网络。",
-      en: "Figure: The three groups draw power from different sources, so no one group can easily impose its rules on the whole network.",
+      zh: "图：矿工、开发者和用户手里的权力各不相同，谁也没法单独把规则强加给其他人。",
+      en: "Figure: Miners, developers and users each hold a different kind of power, so none of them can force rules on the rest.",
     },
     explanatoryValue: 0.95,
   },
@@ -269,8 +269,8 @@ export const opportunityTemplates = [
       en: "A four-stage IELTS route: build foundations, learn the format, practise each section, and prepare for the final stretch",
     },
     caption: {
-      zh: "图：先建立语言基础，再熟悉形式、分项训练，最后进入严格限时的冲刺阶段。",
-      en: "Figure: Build language foundations first, then learn the format, practise each section, and finish with strict timed work.",
+      zh: "图：先打基础，再熟悉考试形式，然后分项练习，最后严格限时冲刺。",
+      en: "Figure: Foundations first, then the test format, then each section, and strict timing at the end.",
     },
     explanatoryValue: 0.98,
   },
@@ -283,11 +283,11 @@ export const opportunityTemplates = [
     width: 1200,
     height: 675,
     cues: {
-      zh: ["题目理解错误：漏看词"],
-      en: ["Misreading the question: overlooking a word"],
+      zh: ["题目没读懂：漏看了词"],
+      en: ["Misreading the question: you skipped a word"],
     },
     keywords: {
-      zh: ["题目理解", "文章理解", "词汇不足", "错题"],
+      zh: ["题目", "文章", "词汇", "错题"],
       en: ["question", "passage", "vocabulary", "wrong answers"],
     },
     visualRole: "Turn a list of causes into a repeatable post-test diagnostic decision",
@@ -302,8 +302,8 @@ export const opportunityTemplates = [
       en: "An IELTS reading error tree checking question comprehension, passage comprehension, and vocabulary",
     },
     caption: {
-      zh: "图：复盘时先定位错因，再决定补语法、重读上下文还是整理同义替换。",
-      en: "Figure: Diagnose the cause first, then decide whether to repair grammar, reread context, or collect paraphrases.",
+      zh: "图：重做之前，先弄清楚错在哪：题目、文章，还是词汇。",
+      en: "Figure: Before redoing a question, work out why you got it wrong: the question, the passage or the vocabulary.",
     },
     explanatoryValue: 0.96,
   },
@@ -316,12 +316,12 @@ export const opportunityTemplates = [
     width: 1200,
     height: 675,
     cues: {
-      zh: ["完成基础语法和词汇学习后，可以在线上平台找外国人聊天"],
-      en: ["Once you have built a foundation in grammar and vocabulary, find people from other countries"],
+      zh: ["词汇和语法的基础打好以后，可以去线上平台找外国人聊天"],
+      en: ["Once your grammar and vocabulary are in place, find people from other countries"],
     },
     keywords: {
       zh: ["话题", "录屏", "表达", "真实经历", "语料"],
-      en: ["topic", "record", "speaking", "real experiences", "material"],
+      en: ["topic", "record", "speaking", "own experience", "material"],
     },
     visualRole: "Convert the speaking advice into a repeatable practice-and-feedback loop",
     subject: {
@@ -335,8 +335,8 @@ export const opportunityTemplates = [
       en: "An IELTS speaking loop: prepare a real story, speak under time, review the recording, revise and repeat",
     },
     caption: {
-      zh: "图：把真实经历变成可反复训练的素材，每轮只修正最具体的问题。",
-      en: "Figure: Turn real experience into reusable material and correct the most specific problem in each round.",
+      zh: "图：选一个真实的故事，讲两分钟，回听，改掉一个问题，再来一遍。",
+      en: "Figure: Pick a real story, speak for two minutes, listen back, fix one thing, and go again.",
     },
     explanatoryValue: 0.93,
   },

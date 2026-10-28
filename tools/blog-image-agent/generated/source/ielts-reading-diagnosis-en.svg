@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
   <title id="title">An IELTS reading error tree checking question comprehension, passage comprehension, and vocabulary</title>
-  <desc id="desc">Figure: Diagnose the cause first, then decide whether to repair grammar, reread context, or collect paraphrases.</desc>
+  <desc id="desc">Figure: Before redoing a question, work out why you got it wrong: the question, the passage or the vocabulary.</desc>
   <rect width="1200" height="675" fill="#f3f0e8"/>
   <style>
     text { font-family: Arial, "Microsoft YaHei", "PingFang SC", sans-serif; fill: #181714; letter-spacing: 0; }

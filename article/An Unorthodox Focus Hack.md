@@ -1,27 +1,27 @@
 # An Unorthodox Focus Hack: Personal Observations on L-Theanine and Caffeine for IELTS
 
-> **Abstract:** I recorded seven IELTS listening and reading sessions. I took a combination of L-theanine and caffeine for four of them and took neither for the other three. The final entry came from the real exam. Average listening and reading scores in the combination group were 0.54 and 0.75 bands higher, respectively, while the average across both sections was 0.65 bands higher. The combination was used on the days when I scored better, but this does not prove that it directly improved my IELTS score. The experiment involved only one person and had no randomization, blinding, or placebo control.
+> **TL;DR:** I logged seven IELTS listening and reading sessions. For four of them I took L-theanine with caffeine; for the other three I took nothing. The last session was the real exam. On combination days my listening averaged 0.54 bands higher and my reading 0.75 bands higher, or 0.65 higher across both. But the only subject was me, and there was no randomization, no blinding and no placebo. All this shows is that I scored better on the days I took it. It can’t show that taking it is why.
 
-## 1. The Short Version
+## What It Might Do
 
-L-theanine and caffeine may improve alertness and attentional control for a short period, helping me stay focused through sustained mental work such as IELTS listening and reading. Randomized controlled studies have also found small improvements in response speed or accuracy on some attention tasks. The effect varies with the task and the time of testing, however, and does not appear consistently across every measure.
+L-theanine and caffeine together may make you more alert and steadier in your attention for a while, which is what I wanted for long stretches of concentration like IELTS listening and reading. Some randomized controlled trials have found small gains in speed or accuracy on certain attention tasks. The effect depends on the task and on when you’re tested, though, and it doesn’t show up reliably on every measure.
 
-A more accurate conclusion is this: **the combination may reduce fatigue and fluctuations in attention, indirectly helping someone make better use of the ability they already have. It is not a score-boosting drug, and it cannot replace language skills, sleep, or practice.**
+So the fairest way to put it is this: **the combination may smooth out fatigue and dips in attention, which can help you use the ability you already have. It is not a score-boosting pill, and it can’t stand in for language skills, sleep or practice.**
 
-## 2. The Combination and My Method
+## What I Took and How I Kept Score
 
-### 2.1 What I Took
+### The Doses
 
-- L-theanine: about 200 mg each time, from a common, reputable brand.
-- Caffeine: a target dose of about 100 mg, giving an approximate 2:1 ratio of L-theanine to caffeine.
-- Caffeine source: Swanson guarana capsules, a plant extract that naturally contains caffeine.
-- Test tasks: IELTS listening and reading mock tests.
+- L-theanine: about 200 mg per session, from a common, reputable brand.
+- Caffeine: a target of about 100 mg, keeping L-theanine to caffeine at roughly 2:1.
+- Caffeine source: Swanson guarana capsules. Guarana is a plant that contains caffeine naturally, and the capsules hold an extract of it.
+- Tasks: IELTS listening and reading mock tests.
 
-The caffeine content of guarana can vary between batches, so **the number of capsules cannot be converted directly into an exact caffeine dose**. A more reproducible experiment should use the milligrams of caffeine stated on the product label, rather than recording only the number of capsules.
+One thing I should say up front: the caffeine content of guarana can vary from batch to batch, **so the number of capsules can’t be converted into an exact caffeine dose**. If you want an experiment someone else could repeat, record the milligrams of caffeine printed on the label, not just how many capsules you took.
 
-### 2.2 How I Recorded the Results
+### The Log
 
-The experiment covered routine practice and preparation for the real exam. I used the combination in four of the seven sessions and took neither substance in the other three, which served as the control. Each time, I completed the same types of IELTS listening and reading tasks and recorded my scores.
+The records cover two stretches: routine mock tests, then preparation for the real exam. I took the combination in four of the seven sessions and nothing in the other three, which served as the control. Each time I did the same kinds of IELTS listening and reading tasks and wrote down my scores.
 
 | Date | Condition | L-theanine | Guarana | Reading | Listening |
 | --- | --- | ---: | ---: | ---: | ---: |
@@ -33,9 +33,9 @@ The experiment covered routine practice and preparation for the real exam. I use
 | 07.01 | No combination | 0 | 0 | 7.0 | 7.0 |
 | 07.03 (real exam) | Combination | 2 capsules | 2 capsules | 7.5 | 7.5 |
 
-![IELTS reading and listening scores with and without L-theanine and guarana](../assets/focus-experiment-chart-en.png)
+![Seven IELTS reading and listening scores, split by whether I took L-theanine and guarana](../assets/focus-experiment-chart-en.svg)
 
-## 3. Results
+## Results
 
 | Measure | Combination (4 sessions) | No combination (3 sessions) | Difference in means |
 | --- | ---: | ---: | ---: |
@@ -43,15 +43,17 @@ The experiment covered routine practice and preparation for the real exam. I use
 | Listening | 7.38 | 6.83 | +0.54 |
 | Both sections combined | 7.31 | 6.67 | +0.65 |
 
-Across the seven records, the combination group had a higher average in both sections. The difference was more noticeable in reading, while listening scores varied less. The chart keeps the score from every session visible so that the averages do not hide the differences between individual tests.
+Across all seven sessions, I averaged higher in both sections when I’d taken the combination. The gap was bigger in reading; listening scores moved around less. The chart shows the score from every session, so the averages can’t hide how much individual tests differed.
 
-Several other explanations remain possible. The test sets may not have been equally difficult. Practice alone may have led to improvement. Sleep, mood, and testing time were not controlled. I knew whether I had taken the combination, which may have created an expectation effect. With such a small sample, one high score can also shift the mean substantially. The chart therefore shows **a correlation and a personal experience**, not a causal finding.
+And they differed a lot. The 8.5 in reading on 06.14 was my best score of the seven. Take it out and the combination group’s reading average falls to 6.83, just 0.33 above the control. One good day moving the mean that much is a reminder of how small this sample is.
 
-## 4. Why It Might Work
+Plenty of other explanations are still on the table, too. The test sets weren’t necessarily equally hard. Practice alone may have pushed my scores up. I didn’t control for sleep, mood or the time of day. And I always knew whether I’d taken it, which leaves room for an expectation effect. What the chart shows is **a correlation and a personal experience**, not cause and effect.
 
-Caffeine raises alertness by blocking adenosine receptors. It often reduces drowsiness, but it can also cause nervousness, a faster heart rate, and excessively narrow focus. L-theanine is an amino acid found in tea. Some research suggests that it may soften the subjective tension caused by caffeine and improve certain measures of attentional control. The aim of taking them together is not to feel more stimulated, but to make wakefulness feel steadier.
+## Why It Might Work
 
-The available evidence broadly fits that explanation:
+Caffeine keeps you alert by blocking adenosine receptors. It usually chases away drowsiness, but it can also bring jitters, a racing heart, or focus that narrows too far. L-theanine is an amino acid found in tea, and some research suggests it can take the edge off caffeine’s tension and improve certain measures of attentional control. What you’re after with the pair is a steadier kind of alertness, not a bigger buzz.
+
+The published evidence broadly fits that picture:
 
 | Study | Design and dose | Main finding |
 | --- | --- | --- |
@@ -60,21 +62,21 @@ The available evidence broadly fits that explanation:
 | Einöther et al., 2010 | Randomized, double-blind crossover; 97 mg L-theanine + 40 mg caffeine | Better task-switching performance, though not every measure of attention improved |
 | Williams et al., 2025 | Systematic review and meta-analysis | Small to moderate acute benefits on some attention tasks, depending on the task and timing |
 
-These studies measured cognitive performance in laboratory tasks, not IELTS scores. They show only that the combination may help with attention; they do not support a fixed increase in test scores.
+These studies measured performance on lab tasks, not IELTS scores. They suggest the combination can help with attention; they don’t support any fixed gain in test scores.
 
-## 5. Safety Limits
+## Safety Limits
 
-1. Do not try the combination for the first time on the day of the real exam. Test your physical response first with a mock exam at the same time of day and a similar level of intensity.
-2. Caffeine can cause insomnia, anxiety, heart palpitations, stomach discomfort, and trembling. Anyone who is sensitive to caffeine should use a lower dose or avoid it.
-3. The U.S. FDA notes that, for most healthy adults, 400 mg of caffeine per day is not generally associated with negative effects. Individual responses vary widely. This is a reference limit for safety, not a recommended dose.
-4. Avoid pure caffeine powder and highly concentrated caffeine liquids. They are difficult to measure accurately, and an overdose can cause serious harm.
-5. People who are pregnant, have cardiovascular disease, anxiety, or a sleep disorder, or take medication should consult a doctor first. Supplements should not be treated as entirely risk-free.
+1. Don’t try it for the first time on the day of the real exam. Test how your body reacts first, in a mock exam at the same time of day and at a similar intensity.
+2. Caffeine can cause insomnia, anxiety, palpitations, an upset stomach and shaky hands. If you’re sensitive to it, take less or skip it.
+3. The U.S. FDA says that for most healthy adults, 400 mg of caffeine a day is not generally associated with negative effects, but people vary a lot. That’s a safety ceiling, not a recommended dose.
+4. Stay away from pure caffeine powder and highly concentrated caffeine liquids. They’re very hard to measure accurately, and an overdose can do serious harm.
+5. If you’re pregnant, have heart disease, anxiety or a sleep disorder, or take any medication, talk to a doctor first. Supplements aren’t risk-free just because they’re supplements.
 
-## 6. How I Could Test It More Reliably
+## If I Did It Again
 
-For another round of testing, I would try to keep the source of the questions, testing time, sleep duration, and diet consistent. I would randomly assign combination days and control days in advance, then record the actual dose in milligrams, perceived focus, adverse effects, and scores over many more sessions. If possible, identical-looking placebos and third-party coding could reduce expectation effects.
+Next time I’d keep the question source, time of day, sleep and diet as constant as I could, and decide in advance, at random, which days are combination days and which are control days. I’d record the actual dose in milligrams, how focused I felt, any side effects and my scores, and collect many more sessions. Ideally I’d also use identical-looking placebo capsules, labeled by someone else, to cut down the expectation effect.
 
-For me, these seven records justify cautious further observation, but they are nowhere near enough to claim that the combination definitely raises scores. Reliable gains still come from language ability, timed practice, and sleep. At most, L-theanine and caffeine may help performance stay closer to its normal upper limit.
+For me, these seven sessions are reason enough to keep watching carefully, and nowhere near enough to claim the combination definitely raises scores. Reliable gains still come from language ability, timed practice and sleep. At most, L-theanine and caffeine might help you get a little closer to your normal best.
 
 ## References
 

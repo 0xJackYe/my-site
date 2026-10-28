@@ -1,127 +1,149 @@
 # What Makes a Skill Scarce?
 
-While looking for work recently, one fact has become harder and harder to ignore: people who know how to do useful work are no longer scarce. Open a job app and pick any half-decent position, and hundreds of applications are no longer unusual. A new graduate can use Office, edit videos, make PowerPoint slides, write a little Python and Java, pass China’s CET-4 or CET-6 English exam, and use ChatGPT to help write code. Ten or fifteen years ago, that person might have counted as a capable university graduate. Today, they are simply an entirely ordinary one.
+Job hunting lately has made one thing harder and harder to ignore: there are already far too many people who can do things.
 
-People have not become less capable. Quite the opposite: everyone can do too many of the same things.
+Open a job app, click on any half-decent position, and hundreds of applicants is nothing unusual. A fresh graduate can use Office, edit video, put together slides, write a bit of Python and Java, has passed China’s CET-4 and CET-6 English exams, and can get ChatGPT to help with code. Fifteen years ago, that would have been a pretty capable graduate. Today it describes an entirely ordinary one.
 
-That sounds counterintuitive. Schools teach us that a person should keep learning skills and that the more skills they master, the more competitive they become. The market clearly does not work that way. It does not pay a higher price because something was difficult to learn, or because you stayed up for many nights learning it. What the market really wants to know is very simple: why does it have to choose you?
+People haven’t gotten worse. If anything, the problem is that everyone can do so much, and mostly the same things.
 
-Suppose a job receives 1,000 applications and 700 applicants know Java. “Knowing Java” is certainly a skill, but it is no longer much of a competitive advantage. If another 300 know both Java and Python, Python will not magically make them valuable either. Their real competitors are the other 299 people who look much the same. When people cannot find a job, their first response is often to keep stacking more skills onto themselves. If Java is not enough, they learn Python. If Python is not enough, they learn Go, then Docker, Kubernetes, Redis, and microservices. Their resumes keep getting longer, but the market does not pay noticeably more for them.
+That sounds backwards. School teaches us to keep picking up skills, on the theory that the more you can do, the more competitive you are. The market plainly doesn’t work that way. It won’t pay you more because something was hard to learn, or because you lost a lot of sleep learning it. The question it cares about is almost brutally simple: why should it be you?
 
-This is a lot like investing. The price of something is never determined by how much effort went into producing it. It depends on how many people want it and how many people can supply it. Diamonds are not expensive simply because miners work hard to extract them. A roadside stone does not attract buyers just because it is heavy to carry. Skills are goods in essentially the same sense. Once you understand that, many seemingly strange outcomes stop looking so strange.
+Say a job gets 1,000 applications and 700 of the applicants know Java. Knowing Java is certainly a skill, but it’s hardly an advantage anymore. Now suppose the other 300 know Python as well as Java. Python doesn’t magically make them valuable either, because the people they’re really up against are the other 299 who look just like them.
 
-Photography used to be a professional skill. A photographer had to understand exposure, shutter speed, ISO, lenses, and composition, then buy a pile of expensive equipment. Today, someone with no knowledge of photography can take a phone photo that an ordinary enthusiast twenty years ago would have struggled to produce. Video editing has followed the same path. Making a decent video once meant learning Premiere or Final Cut and studying timelines, transitions, and color grading. Then Jianying, known internationally as CapCut, arrived. Now AI can generate captions automatically, remove pauses, match music, and even create a video directly from text.
+When people can’t find work, the first instinct is usually to stack on more skills. Java isn’t enough, so they learn Python. Python isn’t enough, so it’s Go, then Docker, Kubernetes, Redis, microservices. The résumé keeps getting longer. The person doesn’t get noticeably more expensive.
+
+It’s a lot like investing. What something is worth never depends on how much effort went into making it. It depends on how many people want it and how many can supply it. Diamonds aren’t expensive just because mining them is hard work, and nobody pays for a roadside rock because it’s heavy to carry. Skills are goods too. Once that clicks, a lot of strange-looking things stop looking strange.
+
+Photography used to be a craft. You had to understand exposure, shutter speed, ISO, lenses and composition, then buy a pile of expensive gear. Today someone who knows nothing about photography can take a phone picture that a keen amateur twenty years ago would have struggled to match. Video editing went the same way. Making a decent video once meant learning Premiere or Final Cut and studying timelines, transitions and color grading. Then came Jianying, the Chinese app known abroad as CapCut. Now AI can generate captions, cut the pauses, pick the music, and even produce a video straight from text.
 
 Programming is going through the same thing.
 
-I studied computer science as an undergraduate, so the change feels especially obvious to me. A few years ago, being able to build a complete website, from the database and backend to the frontend, still counted as a clear technical ability. Today, having AI build a website is hardly something worth showing off. You do not even need to understand React or Vue properly. If you have a rough idea of what you want and spend a few hours talking it through with AI, something that runs will probably emerge.
+I studied computer science, so I feel this one more than most. A few years ago, being able to build a whole website, database to backend to frontend, still counted as a clear technical skill. Getting AI to build a website now is nothing to brag about. You don’t even need to really understand React or Vue. Have a rough idea of what you want, talk it through with an AI for a few hours, and you’ll probably end up with something that runs.
 
-That does not mean programmers will disappear, nor does it mean programming has no value. What is happening is that the words “can write code” are themselves losing value, and that is a very different claim. The Industrial Revolution did not eliminate manufacturing; it reduced the premium on a great deal of purely manual labor. Excel did not eliminate finance, but it stripped many forms of manual calculation of the premium they once commanded. AI will not eliminate every kind of knowledge work either. The first thing it is likely to compress is the premium on mental work that has already been highly standardized and can be clearly described and repeatedly executed.
+None of this means programmers are going to disappear, or that programming has no value. What’s happening is that “can write code,” on its own, is losing value, and that’s a very different claim. The Industrial Revolution didn’t end manufacturing; it lowered the value of a lot of purely manual labor. Excel didn’t kill finance; it stripped the premium off a lot of calculation done by hand. AI won’t wipe out knowledge work either. What it squeezes first, most likely, is the premium on mental work that is already highly standardized, easy to describe and easy to repeat.
 
-Once a skill can be clearly described, systematically taught, and assessed with measurable criteria, it becomes easy to produce at scale. Universities happen to be especially good at this: write a textbook, define a syllabus, design an exam, then produce hundreds of thousands of people with similar knowledge every year. When I now see headlines such as “This major is extremely popular” or “This skill will face a shortage of millions of workers,” my first reaction is no longer to rush out and learn it. I ask a different question: if everyone knows there is a shortage, will there still be one five years from now?
+Once a skill can be clearly described, systematically taught and objectively graded, it’s easy to mass-produce. And mass production is exactly what universities are good at. Write a textbook, set a syllabus, design an exam, then turn out hundreds of thousands of people with similar knowledge every year. So when I see a headline like “This major is red-hot” or “This field will be short millions of workers,” my first reaction is no longer to rush out and learn it. I ask a different question: if everyone knows there’s a shortage, will there still be one in five years?
 
-A publicly known opportunity rarely lasts very long. When internet companies paid high salaries, huge numbers of people began studying computer science. When independent content creation became profitable, huge numbers began making short videos. Now that artificial intelligence is booming, almost everyone wants to learn AI. This is completely normal. High prices attract supply. The more profitable something becomes, the more people enter the field, and the more quickly its original scarcity can disappear.
+A publicly known opportunity rarely lives long. When internet companies paid big salaries, crowds of people went off to study computer science. When content creation started making money, crowds started making short videos. Now that AI is hot, almost everyone wants to learn AI. That’s perfectly normal. High prices attract supply. The more money something makes, the more people pour in, and the faster its scarcity disappears.
 
-That is why I think the things truly worth learning are not “difficult skills,” but “scarce skills.” The two ideas are often confused. Advanced mathematics is difficult, but mastering it does not guarantee that someone will pay you a high salary. There is also a great deal of obscure, highly complex knowledge that only a few hundred people may understand. If nobody needs it, it still has little economic value.
+## Hard Is Not the Same as Scarce
 
-Scarcity has to exist alongside demand.
+That’s why I think the skills worth learning aren’t the hard ones but the scarce ones, and people mix the two up all the time. Advanced mathematics is hard, but mastering it doesn’t guarantee anyone will pay you well. There’s plenty of obscure, intricate knowledge that maybe a few hundred people understand. If nobody needs it, it’s still worth very little.
 
-If ten thousand people urgently need a problem solved and only one hundred know how to solve it, that is valuable scarcity. When I judge whether a skill is worth learning, I now prefer to look at three things: how many people need it, how many people can provide it, and how large an outcome it can affect once mastered. Following that logic, the scarcest things in the future may not be any particular software package or programming language at all.
+Scarcity only counts when there’s demand alongside it.
+
+Ten thousand people urgently need a problem solved and only a hundred can solve it: that’s scarcity with value. So when I decide whether a skill is worth learning now, I look at three things. How many people need it? How many people can provide it? And once you have it, how large an outcome can it affect?
 
 <!-- blog-image-agent:start id="scarcity-demand-supply-impact" -->
 <figure class="article-figure article-figure--agent" data-image-id="scarcity-demand-supply-impact">
   <img src="../public/assets/blog/scarcity-demand-supply-impact-en.svg" alt="Three factors for judging a scarce skill: demand, constrained supply, and impact on outcomes" width="1200" height="675" loading="lazy" decoding="async" />
-  <figcaption>Figure: Difficulty alone does not create value; real demand, limited supply, and meaningful impact must meet.</figcaption>
+  <figcaption>Figure: Being hard to learn isn’t enough. A skill pays when many people need it, few can supply it, and it changes an outcome that matters.</figcaption>
 </figure>
 <!-- blog-image-agent:end id="scarcity-demand-supply-impact" -->
 
-The first thing becoming scarcer is the ability to find the problem.
+Follow that logic far enough and you start to suspect that the scarcest things in the future won’t be a particular piece of software or a particular programming language at all.
 
-AI is very good at answering questions, provided you know what to ask. Imagine a company announcing, “We need to use AI to cut costs and improve efficiency.” It sounds correct, but in practice it says almost nothing. An ordinary person may immediately begin researching large language models, agents, and RAG, then produce a fifty-page deck explaining how powerful artificial intelligence is. A genuinely valuable person may first examine the company’s workflow. How much does customer service actually cost? Which step wastes the most labor? Where is the error rate highest? Does the problem need AI, or could a fifty-line script solve it? Is it even possible that efficiency is not the real problem and that nobody wants the product in the first place?
+## Finding the Real Problem
 
-There are many people who can answer questions and far fewer who can discover the real question. As AI makes “answers” cheaper, “questions” naturally become more expensive.
+AI is very good at answering questions, as long as you know what to ask.
 
-The second thing is judgment.
+Picture a company announcing, “We’re going to use AI to cut costs and boost efficiency.” It sounds unimpeachable and says almost nothing. An ordinary employee might dive straight into large language models, agents and RAG, then produce a fifty-slide deck on how powerful AI is. A genuinely valuable one might go and look at how the business actually runs first. What does customer service really cost? Which step wastes the most people? Where is the error rate highest? Does this problem need AI, or would a fifty-line script do? Is it possible the company’s real problem isn’t efficiency at all, and nobody wants the product?
 
-The internet has no shortage of information. If you are considering a stock, AI can generate a report thousands of words long in a minute. If you are looking for work, it can analyze ten companies. If you want to start a business, it can list one hundred business models at once. Then what? Is the asset actually worth buying? Should you take that job? Will anyone really pay for that business? AI can give you twenty reasons in favor and immediately produce twenty reasons against, but someone still has to press the final button.
+Plenty of people can answer questions. Far fewer can find the question that matters. As AI makes answers cheaper, questions get more expensive.
 
-The cheaper information becomes, the more important judgment becomes. Information itself used to be a barrier, and some people made money simply because they knew something others did not. That advantage is disappearing quickly. What separates people in the future may no longer be whether they can find information, but whether they can reach a better conclusion when everyone has roughly the same information.
+## Judgment
 
-The irritating thing about judgment is that there is no “Judgment 101” course you can finish and receive a certificate for. It comes mostly from years of experience, failure, and feedback, and from whether someone is willing to keep admitting that an earlier judgment was wrong. Many abilities improve quickly through repetition. Judgment often develops only after the real world has thrown your mistakes back in your face again and again.
+The internet is not short of information. Thinking about a stock? AI will write you a report thousands of words long in a minute. Looking for a job? It can size up ten companies. Want to start a business? It’ll list a hundred business models in one go.
 
-The third thing barely counts as a skill in the traditional sense: taking responsibility.
+Then what? Is the asset actually worth buying? Should you take the job? Will anyone really pay for the business? AI can give you twenty reasons for and, a second later, twenty reasons against. Someone still has to press the button.
 
-I used to find it strange that society paid some managers so much. Certain managers appeared unable to do anything concrete. They did not write the code, make the slides, or compile the data, so why did they earn more than the people below them? Over time, I began to see that the valuable part is often not “doing,” but “deciding.”
+The cheaper information gets, the more judgment matters. Information used to be a barrier in itself; some people made money simply because they knew something others didn’t. That edge is vanishing fast. What will separate people may no longer be whether they can find the information, but whether, with everyone holding roughly the same information, they can reach a better conclusion.
 
-Programmers can propose three technical approaches, but the CTO has to choose one. An analyst can write dozens of pages, but the fund manager has to decide whether to buy. Ten people can sit in a meeting room discussing a project, but eventually one person has to stand up and say, “This is what we are doing. If it goes wrong, I am responsible.” Execution, analysis, judgment, decision, ownership of the result: the further you move along that chain, the fewer people you usually find. Most people like authority, but very few genuinely like responsibility.
+The annoying thing about judgment is that there’s no Judgment 101 you can pass and get a certificate for. It comes mostly from years of experience, failure and feedback, and from being willing to admit, again and again, that you got something wrong. Lots of abilities improve quickly with practice. Judgment tends to grow only after the real world has shoved your mistakes in your face, over and over.
 
-When a decision works, everyone is happy. When it fails, someone may be criticized, fired, or lose money. In serious cases, they may even face legal liability. Responsibility is therefore a scarce resource in its own right. AI can generate plans for you and list dozens of possibilities, but it will not go to prison in your place or absorb a ten-million-yuan loss for the company. In the end, a real person still has to put their name on the decision.
+## Owning the Outcome
 
-Another form of scarcity that I think is often underestimated lies in combinations of skills.
+The next one barely counts as a skill in the traditional sense: taking responsibility.
 
-Each skill may be common on its own. Many people speak English. Many can write code. Many understand sales, and people who know something about new-energy industries are not rare either. But someone who understands software, can communicate with overseas clients in English, knows something about new-energy equipment, and can solve the customer’s problem on site is much harder to find. The advantage created by that combination may matter far more than pushing Java from “proficient” to “expert.”
+I used to find it odd that some managers were paid so much. Some of them didn’t seem to do anything concrete. They didn’t write the code, make the slides or pull the data, so why did they earn more than the people under them? Slowly I realized that the valuable part is often the deciding rather than the doing.
 
-Many people compete with others along a single axis. Programmers compete over who has solved more algorithm problems. Designers compete over who has mastered their software more thoroughly. Video editors compete over who can create more complicated effects. As long as everyone competes on the same axis, the contest will eventually turn into a price war. The current IT job market makes that obvious. Unless a student comes from a particularly competitive university or has an exceptional background, even finding a decent internship can be difficult. Large numbers of applicants present highly repetitive projects and submit nearly identical resumes. Human resources staff may already be numb from seeing them every day.
+Engineers can propose three technical approaches; the CTO has to pick one. An analyst can write fifty pages; the fund manager has to decide whether to buy. Ten people can sit in a meeting room discussing a project, but eventually one of them has to stand up and say, “This is what we’re doing, and if it goes wrong, it’s on me.” Execution, analysis, judgment, decision, owning the result: the further along that chain you go, the fewer people you find. Most people like power. Very few actually like responsibility.
 
-Sometimes the simplest answer is not to keep fighting harder on the same axis, but to choose another one. An ordinary programmer with sales ability might become an excellent SaaS salesperson or solutions consultant. An ordinary engineer with English and overseas experience might move into international technical support. Someone who understands AI and also truly understands a specific process in healthcare, law, logistics, or manufacturing may be worth far more than another person who only studies prompts.
+When a call works out, everyone is happy. When it doesn’t, someone may get blamed, fired or lose money, and in serious cases face legal consequences. That makes responsibility a scarce resource in its own right. AI can draft plans for you and list dozens of options, but it won’t go to prison in your place or absorb a ten-million-yuan loss for the company. In the end, a real person has to sign their name.
 
-No single ability has to be the best in the world. If several abilities complement one another, the combination may place you in a much smaller group. Suppose 50 percent of people can program and 40 percent communicate well. If the two abilities are roughly independent, only about 20 percent may possess both. Add English, industry knowledge, and project experience, and the number who satisfy every condition shrinks further. Reality is not as perfectly independent as a mathematical model, of course, but the way of thinking matters. You do not have to defeat everyone on one dimension. You can add new dimensions until fewer and fewer people are genuinely competing with you.
+## Combinations
+
+Another kind of scarcity, and one I think gets underrated, is the combination of skills.
+
+Taken one at a time, none of them may be rare. Lots of people speak English. Lots can code. Lots understand sales, and people who know the new-energy industry aren’t exactly an endangered species. But someone who understands software, can talk to overseas clients in English, knows their way around new-energy equipment, and can actually fix the customer’s problem on site is much harder to find. That combination may be worth far more than pushing your Java from “proficient” to “expert.”
+
+Most people compete on a single axis. Programmers compete on how many algorithm problems they’ve solved, designers on who knows the software best, video editors on whose effects are more elaborate. As long as everyone is crowded onto the same axis, it eventually turns into a price war. Look at the IT job market right now. Unless your school or résumé is unusually strong, even a decent internship is hard to land. Huge numbers of applicants show up with near-identical projects and near-identical résumés, and the HR people reading them every day are probably numb by now.
+
+Sometimes the simplest move is to stop grinding on the same axis and switch to another. An ordinary programmer who can also sell might become an excellent SaaS salesperson or pre-sales engineer. An ordinary engineer with English and overseas experience might move into international technical support. Someone who knows AI and also truly understands one specific process in healthcare, law, logistics or manufacturing may be worth far more than someone who only studies prompts.
+
+No single ability has to be world-class. If a few of them complement each other, the combination can put you in a much smaller group. Suppose 50 percent of people can program and 40 percent communicate well. If the two are roughly independent, only about 20 percent have both. Add English, industry knowledge and project experience, and the group that meets every condition shrinks again. Real life isn’t as neatly independent as a math model, of course, but the idea holds. You don’t have to beat everyone along one dimension. You can add dimensions until fewer and fewer people are really competing with you.
 
 <!-- blog-image-agent:start id="scarcity-skill-stack" -->
 <figure class="article-figure article-figure--agent" data-image-id="scarcity-skill-stack">
   <img src="../public/assets/blog/scarcity-skill-stack-en.svg" alt="Programming, communication, English, and industry experience progressively reduce the number of people who meet every condition" width="1200" height="675" loading="lazy" decoding="async" />
-  <figcaption>Figure: You do not need to beat everyone on one axis; the intersection of complementary abilities can itself be scarce.</figcaption>
+  <figcaption>Figure: You don’t have to beat everyone on one axis. Every complementary skill you add shrinks the field.</figcaption>
 </figure>
 <!-- blog-image-agent:end id="scarcity-skill-stack" -->
 
-There is also the ability to deal with people. It can sound vague, almost unlike a technical skill, but I increasingly think it is one of the abilities least likely to lose value in the age of AI. It includes negotiation, sales, building trust, aligning interests, persuading people, and managing conflict. At their core, these activities are not simple exchanges of information. If exchanging information were enough, an email would do the job.
+## Dealing With People
 
-Why would a client award you a one-million-yuan contract instead of choosing another company with similar technical specifications? Why would an exceptional person join your team? When two companies have conflicting interests, why would each agree to compromise?
+Then there’s the ability to deal with people. It sounds vague, not even like a technical skill, but I increasingly think it’s one of the hardest things for AI to devalue: negotiating, selling, building trust, aligning interests, persuading, handling conflict. None of these is really about exchanging information. If it were, an email would do.
 
-Even an ordinary job interview is an exercise in dealing with people. Someone may be technically strong but unable to explain an idea clearly, perhaps even stumbling over every sentence. If they cannot make the interviewer believe they can cooperate, communicate, and solve problems, much of their technical ability may never become employability. Conversely, someone who is not the strongest technically but can express themselves clearly, respond quickly, understand a need, and establish trust will often find it easier to persuade others to give them a chance.
+Why would a client give you a one-million-yuan contract instead of another company with nearly identical specs? Why would someone excellent join your team? When two companies’ interests collide, why would each give a little?
 
-Underneath all of this are trust and strategic interaction.
+Even an ordinary job interview is a test of dealing with people. Someone can be technically strong, but if they can’t explain their thinking, or stumble over every sentence, the interviewer will find it hard to believe they can collaborate, communicate and solve problems, and much of that technical strength never turns into an offer. Meanwhile someone less strong technically, who explains clearly, thinks on their feet, understands what’s needed and earns trust, often finds people much more willing to give them a chance.
 
-AI can teach you what to say and even generate a flawless negotiation script, but the other person ultimately has to trust a human being, not a piece of generated text.
+Underneath all of it are trust and the game of interests.
 
-The final ability I consider genuinely scarce sounds almost laughably simple: actually finishing things.
+AI can coach you on what to say and even write you a flawless negotiation script. But in the end, the other side has to trust a person, not a block of generated text.
 
-There are too many smart people online. Many discuss macroeconomics; few make money consistently over the long term. Many discuss startups; few actually launch a product. Many study AI; few build something people want to keep using. Almost everyone has saved dozens of “must-read tutorials,” “deep dives,” and “industry trends,” only to end up with a bookmarks folder richer than their actual body of work. I fall into this trap often myself.
+## Actually Finishing Things
 
-Research creates a comforting illusion that you are already taking action, when often you are only consuming information. The genuinely difficult work is usually boring: build the first version, send it to people, get criticized, fix the problems, and send it again; submit dozens of job applications, get rejected, and revise them; after studying English, actually open your mouth and speak to someone instead of saving another speaking tutorial.
+The last ability I consider truly scarce sounds almost silly: actually finishing things.
 
-The world has never lacked people who know what should be done. It lacks people who can move something forward piece by piece without a teacher watching, without a standard answer, and without even knowing whether there will be a reward at the end. I do not know the most precise Chinese name for this ability. There is an English word I like: agency. It can mean initiative, or a person’s ability to act on the world and change reality.
+The internet is full of smart people. Lots of them talk about the economy; few make money year after year. Lots discuss startups; few ship a product. Lots study AI; few build anything people keep using. Almost everyone has bookmarked dozens of must-read tutorials, deep dives and trend reports, and ended up with a bookmarks folder far richer than anything they’ve made. I fall into that trap all the time.
 
-I think this may be one of the hardest things for AI to replace. AI can lower the threshold for completing a task, but a lower threshold does not mean everyone will actually do it. Fitness advice has been free on the internet for years, yet most people still do not have their ideal physique. English-learning materials are immeasurably richer than they were decades ago, yet only a minority can use a second language fluently. Startup advice is available in almost unlimited quantities, yet most people will never sell their first product.
+Research gives you a comfortable illusion that you’re already taking action, when often you’re just consuming information. The work that’s actually hard is usually boring. Build the first version, send it out, get criticized, fix it, send it again. Send dozens of applications, get rejected, revise, send more. After studying English, open your mouth and talk to someone instead of bookmarking another speaking course.
 
-Information is not the biggest bottleneck.
+The world has never been short of people who know what should be done. It’s short of people who can keep pushing something forward, bit by bit, with no teacher watching, no answer key, and no idea whether it will pay off. I’m not sure what the best Chinese word for this is. In English there’s one I love: agency. You can read it as initiative, or as the ability to act on the world and actually change it.
 
-Much of the time, we are.
+I suspect this is one of the hardest things for AI to replace. AI can lower the threshold for getting something done, but a lower threshold doesn’t mean everyone will do it. Good fitness advice has been free online for years, and most people still don’t have the body they want. There’s vastly more English-learning material than a few decades ago, and fluent second-language speakers are still a minority. Startup advice is practically unlimited, and most people will never sell their first product.
 
-If I were to rethink what it means to “learn a skill” today, I would no longer ask only which skill is hottest. Popularity itself may be a warning sign. Once something becomes popular enough that every short-video creator is teaching it, every training company is selling a course on it, and every university is preparing a major around it, the new supply is usually already on its way.
+Information isn’t the biggest bottleneck.
 
-The questions worth watching are different. Which problems will become more serious over the next few years? What are many people willing to pay to solve? Why are so few people solving it now? What exactly is the barrier: knowledge, experience, capital, a license, language, geography, willingness to bear risk, or simply the fact that most people find the work troublesome, unglamorous, or beneath them?
+A lot of the time, we are.
 
-I especially like the last possibility.
+## Stop Asking What to Learn
 
-Human beings have a remarkably stable tendency to chase opportunities that look impressive. Everyone wants to be an investor, product manager, AI engineer, or founder. Nobody wants to handle customer complaints. Nobody wants to repair machinery in the middle of the night. Nobody wants to travel to a factory in an unfamiliar country to fix an equipment failure. Nobody wants to deal with a pile of dirty, trivial problems that offer nothing worth showing off on social media.
+So if I were rethinking what it means to learn a skill, I wouldn’t just ask which skill is hottest. Popularity itself may be a warning sign. Once something is hot enough that every short-video creator is teaching it, every training company is selling a course and every university is planning a major, the new supply is usually already on its way.
 
-The market does not care whether a job sounds cool.
+The questions worth watching are different. Which problems will get worse over the next few years? What will lots of people pay to have solved? Why are so few people solving it now? Where exactly is the barrier? Knowledge, experience, capital, a license, language, location, appetite for risk? Or is it simply that most people find the work tedious, unglamorous and not worth the trouble?
 
-If other people refuse to do it and customers genuinely need it, that can be the most direct form of scarcity there is.
+I’m especially fond of that last one.
 
-Scarcity does not last forever, of course, and that is precisely the difficult part. Once a skill becomes profitable enough, smart people enter the field. Training companies appear, tutorials appear, software appears, and eventually AI may arrive as well. Yesterday’s scarcity can easily become tomorrow’s basic requirement.
+People have a remarkably stable habit of chasing whatever looks impressive. Everyone wants to be an investor, a product manager, an AI engineer, a founder. Nobody wants to handle customer complaints, get up in the middle of the night to fix a machine, fly to a factory in an unfamiliar country to track down an equipment fault, or wade through a pile of dirty, fiddly problems with zero value for showing off on social media.
 
-Trying to find one skill and live comfortably from it for forty years feels increasingly unrealistic to me. The thing that works over the long term may not be mastering one skill that remains scarce forever. It may be developing an ability to keep discovering scarcity: seeing a growing need before other people notice it, working in the field for several years before the crowd arrives, building experience, clients, capital, relationships, and a reputation, then looking for the next curve once the field becomes crowded.
+The market doesn’t care whether a job sounds cool.
 
-In a sense, this is not very different from arbitrage. In financial markets, once everyone discovers an arbitrage opportunity, the available spread quickly disappears. The labor market works the same way. If everyone knows a skill pays well, sooner or later it will no longer be so scarce.
+If nobody else wants to do it and customers genuinely need it done, that can be the most direct form of scarcity there is.
 
-That is why I increasingly dislike asking other people, “What should I learn for the future?”
+Scarcity doesn’t last forever, of course, and that’s the hard part. Once a skill pays well enough, smart people flood in. Training companies appear, then tutorials, then software, and eventually maybe AI. Yesterday’s scarcity can easily become tomorrow’s baseline.
 
-The question itself may be wrong.
+So the idea of finding one skill and living comfortably off it for forty years seems less and less realistic to me. What works over the long run is probably less about mastering one skill that stays scarce forever and more about getting good at finding scarcity again and again: noticing a growing need before others do, putting in a few years before the crowd arrives, building up experience, clients, capital, relationships and a reputation, and then, when the field gets crowded, going looking for the next curve.
 
-Nobody can give you a list that says Python is worth 10 points, English 8, and AI 9, then promise that your life will be secure once you finish learning them. The better question is this: over the next five years, which problems will become increasingly important? Why are they difficult to solve? Who is solving them now, and why are those people so expensive? Most importantly, why has everyone else chosen not to do it?
+In a way, it’s not so different from arbitrage. In financial markets, once everyone spots an arbitrage opportunity, the gap closes fast. The job market works the same way. If everyone knows a skill pays well, sooner or later it stops being scarce.
 
-Find those problems, then become one of the few people who can solve them.
+That’s why I like asking people “What should I learn for the future?” less and less.
 
-That, roughly, is what a scarce skill means.
+The question itself may be the wrong one.
+
+Nobody can hand you a list that says Python is worth 10 points, English 8 and AI 9, and promise that once you’ve learned them your life will be secure. The better question is this: over the next five years, which problems will matter more and more? Why are they hard to solve? Who’s solving them now, and why are those people so expensive? Most important of all, why isn’t everyone else doing it?
+
+Find those problems. Then become one of the few people who can solve them.
+
+That, more or less, is what a scarce skill is.

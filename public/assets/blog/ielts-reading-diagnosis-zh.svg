@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
   <title id="title">雅思阅读错题诊断树：检查题目理解、文章理解和词汇不足</title>
-  <desc id="desc">图：复盘时先定位错因，再决定补语法、重读上下文还是整理同义替换。</desc>
+  <desc id="desc">图：重做之前，先弄清楚错在哪：题目、文章，还是词汇。</desc>
   <rect width="1200" height="675" fill="#f3f0e8"/>
   <style>
     text { font-family: Arial, "Microsoft YaHei", "PingFang SC", sans-serif; fill: #181714; letter-spacing: 0; }

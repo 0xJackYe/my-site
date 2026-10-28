@@ -26,8 +26,13 @@ npm run test:blog-images
 
 ## Checked-in site run
 
-`manifests/site-2026-09-09.json` is the audited manifest applied to the current
-site. It records the stable anchors, decisions, localized copy, asset dimensions,
-and content hashes for the four illustrated bilingual articles. Because those
-articles now contain images, a fresh scan correctly skips them; use this manifest
-for repeatable `check` or idempotent `apply` verification.
+`manifests/site-2026-10-28.json` is the audited manifest applied to the current
+site. It was planned against the rewritten articles and records the stable
+anchors, decisions, localized copy, asset dimensions, and content hashes for the
+four illustrated bilingual articles. Because those articles now contain images, a
+fresh scan correctly skips them; use this manifest for repeatable `check` or
+idempotent `apply` verification.
+
+The cover art shown above each post and in the blog list lives in
+`public/assets/blog/covers/` and is not managed by this agent. Covers sit outside
+`.article-content` and carry no `data-image-id`, so `scan` and `check` ignore them.

@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
   <title id="title">A loop showing price movement, emotion, selective evidence, and investor action reinforcing one another</title>
-  <desc id="desc">Figure: Price changes emotion, emotion filters evidence, and action feeds the judgment back into the market.</desc>
+  <desc id="desc">Figure: The price moves, the mood follows, the mood picks the evidence, and the next trade pushes the price again.</desc>
   <rect width="1200" height="675" fill="#f3f0e8"/>
   <style>
     text { font-family: Arial, "Microsoft YaHei", "PingFang SC", sans-serif; fill: #181714; letter-spacing: 0; }
@@ -23,5 +23,5 @@
   <path class="strong" d="M920 265 V390" marker-end="url(#arrow)"/>
   <path class="strong" d="M760 478 H455" marker-end="url(#arrow)"/>
   <path class="accent" d="M280 405 V280" marker-end="url(#arrow-accent)"/>
-  <circle cx="600" cy="337" r="63" fill="#181714"/><text class="inverse" x="600" y="329" text-anchor="middle" style="font-size:18px;font-weight:700">SELF-</text><text class="inverse" x="600" y="355" text-anchor="middle" style="font-size:18px;font-weight:700">REINFORCING</text>
+  <circle cx="600" cy="337" r="80" fill="#181714"/><text class="inverse" x="600" y="331" text-anchor="middle" style="font-size:16px;font-weight:700">SELF-</text><text class="inverse" x="600" y="355" text-anchor="middle" style="font-size:16px;font-weight:700">REINFORCING</text>
 </svg>
